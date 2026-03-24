@@ -11,23 +11,19 @@
         body { background: var(--cic-blue); height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; }
         .login-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); width: 100%; max-width: 420px; }
         
-        /* Bottoni Classici */
         .btn-teal { background: var(--cic-teal); color: white; border-radius: 50px; font-weight: bold; width: 100%; padding: 12px; border: none; transition: 0.3s; }
         .btn-teal:hover { background: #008f85; transform: translateY(-2px); }
         .btn-teal:disabled { background: #a5d6d2; cursor: not-allowed; }
 
-        /* Bottoni Social */
         .btn-social { border-radius: 50px; padding: 10px; font-weight: 600; font-size: 0.9rem; width: 100%; margin-bottom: 10px; transition: 0.3s; }
         .btn-google { border: 1px solid #dadce0; background: white; color: #3c4043; }
         .btn-facebook { background: #1877F2; color: white; border: none; }
         .btn-social:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        /* Divisore */
         .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #ccc; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
         .divider span { padding: 0 10px; font-size: 0.8rem; text-transform: uppercase; color: #aaa; font-weight: bold;}
         
-        /* Form e Link */
         .form-label { font-size: 0.75rem; font-weight: 700; color: var(--cic-blue); text-transform: uppercase; letter-spacing: 0.5px; }
         .form-control { border-radius: 8px; }
         .forgot-link { font-size: 0.75rem; text-decoration: none; color: #666; transition: 0.2s; cursor: pointer;}
@@ -91,16 +87,23 @@
     if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const auth = firebase.auth();
 
-    // --- PROTOCOLLO DI REINDIRIZZAMENTO ---
-    function handleNavigation() {
+    // --- PROTOCOLLO DI SALVATAGGIO DATI E NAVIGAZIONE ---
+    function saveAndRedirect(user) {
+        // Estraiamo il nome o usiamo l'email come fallback
+        const userData = {
+            isLoggedIn: true,
+            name: user.displayName || user.email.split('@')[0].toUpperCase(),
+            email: user.email,
+            uid: user.uid
+        };
+        
+        // Salvataggio nel localStorage affinché la Home possa leggerlo
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // Gestione redirect
         const params = new URLSearchParams(window.location.search);
         const destination = params.get('redirect');
-
-        if (destination) {
-            window.location.href = decodeURIComponent(destination);
-        } else {
-            window.location.href = "index.html"; 
-        }
+        window.location.href = destination ? decodeURIComponent(destination) : "index.html";
     }
 
     // --- LOGICA PASSWORD DIMENTICATA ---
@@ -111,12 +114,8 @@
             return;
         }
         auth.sendPasswordResetEmail(email)
-            .then(() => {
-                alert("Protocollo di ripristino inviato! Controlla la tua casella email.");
-            })
-            .catch((error) => {
-                alert("Errore: " + error.message);
-            });
+            .then(() => alert("Protocollo di ripristino inviato! Controlla la tua casella email."))
+            .catch((error) => alert("Errore: " + error.message));
     };
 
     // Login Email/Password
@@ -132,7 +131,9 @@
         errorDiv.style.display = 'none';
 
         auth.signInWithEmailAndPassword(email, pass)
-            .then(() => { handleNavigation(); })
+            .then((result) => { 
+                saveAndRedirect(result.user); 
+            })
             .catch(err => {
                 btn.disabled = false;
                 btn.innerText = "ENTRA NEL SISTEMA";
@@ -141,16 +142,31 @@
             });
     };
 
-    // Login Social
-    function socialLogin(providerName) {
+    // Login Social (Corretto nome funzione)
+    function loginSocial(providerName) {
         let provider = (providerName === 'google') ? 
             new firebase.auth.GoogleAuthProvider() : 
             new firebase.auth.FacebookAuthProvider();
 
         auth.signInWithPopup(provider)
-            .then(() => { handleNavigation(); })
+            .then((result) => { 
+                saveAndRedirect(result.user); 
+            })
             .catch(err => alert("Errore Social: " + err.message));
     }
+
+    // Check se l'utente è già loggato all'apertura della pagina
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // Se Firebase ha già una sessione attiva, sincronizza localStorage e vai alla home
+            const userData = {
+                isLoggedIn: true,
+                name: user.displayName || user.email.split('@')[0].toUpperCase(),
+                email: user.email
+            };
+            localStorage.setItem("user", JSON.stringify(userData));
+        }
+    });
 </script>
 </body>
 </html>
