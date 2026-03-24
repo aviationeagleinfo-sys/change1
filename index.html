@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change in Cardiology | Prof. Giuseppe Musumeci</title>
+    <title>Change in Cardiology | Dr. Giuseppe Musumeci</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -164,7 +164,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <script>
-    // CONFIGURAZIONE FIREBASE
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
         authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -174,42 +173,41 @@
         appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
     };
 
-    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    if (!firebase.apps.length) { 
+        firebase.initializeApp(firebaseConfig); 
+    }
     const auth = firebase.auth();
 
-    // MONITORAGGIO STATO AUTH
-    auth.onAuthStateChanged((user) => {
-        const btnLogin = document.getElementById('btn-login-nav');
-        const userInfo = document.getElementById('user-info');
-        const userName = document.getElementById('user-name');
-        const dbStatus = document.getElementById('db-status');
+    // FORZIAMO LA PERSISTENZA LOCAL (Standard per web)
+    auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(() => {
+        // Monitoraggio dello stato
+        return auth.onAuthStateChanged((user) => {
+            const btnLogin = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+            const dbStatus = document.getElementById('db-status');
 
-        if (user) {
-            // Utente Loggato
-            btnLogin.style.setProperty('display', 'none', 'important');
-            userInfo.style.setProperty('display', 'flex', 'important');
-            
-            // Imposta nome utente (Priority: DisplayName > Email)
-            userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
-            
-            if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● Collegato come Medico Autenticato</span>';
-        } else {
-            // Utente NON Loggato
-            btnLogin.style.setProperty('display', 'inline-block', 'important');
-            userInfo.style.setProperty('display', 'none', 'important');
-            
-            if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● Accesso Ospite</span>';
-        }
+            if (user) {
+                console.log("Sistema: Identità confermata.", user.email);
+                if(btnLogin) btnLogin.style.display = 'none';
+                if(userInfo) userInfo.style.setProperty('display', 'flex', 'important');
+                if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
+                if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● HUB ATTIVO</span>';
+            } else {
+                console.log("Sistema: Nessuna firma rilevata. Accesso pubblico.");
+                if(btnLogin) btnLogin.style.display = 'inline-block';
+                if(userInfo) userInfo.style.display = 'none';
+                if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● OFFLINE</span>';
+            }
+        });
+    })
+    .catch((error) => {
+        console.error("Errore di sincronizzazione sistemi:", error);
     });
-
-    // FUNZIONI OPERATIVE
-    function goToLogin() {
-        window.location.href = 'https://www.drgiuseppemusumeci.com/login.html?redirect=' + encodeURIComponent(window.location.href);
-    }
 
     function logout() {
         auth.signOut().then(() => {
-            console.log("Logout effettuato.");
             window.location.reload();
         });
     }
