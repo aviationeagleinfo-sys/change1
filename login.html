@@ -3,70 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso Hub | Musumeci Digital</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Accesso Hub | Dr. Giuseppe Musumeci</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --med-red: #d90429; --tech-black: #2b2d42; }
-        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; display: flex; align-items: center; min-height: 100vh; padding: 20px 0;}
-        .login-card {
-            background: white; border-top: 5px solid var(--med-red); padding: 40px;
-            width: 100%; max-width: 450px; margin: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-        .social-btn {
-            border: 1px solid #ddd; background: white; margin-bottom: 10px; width: 100%;
-            display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; transition: 0.2s;
-            font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
-        }
-        .social-btn:hover { background: #f0f0f0; border-color: #bbb; }
-        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #888; font-size: 0.8rem; }
+        :root { --cic-blue: #002D57; --cic-teal: #00A99D; }
+        body { background: var(--cic-blue); height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; }
+        .login-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); width: 100%; max-width: 420px; }
+        
+        /* Bottoni Classici */
+        .btn-teal { background: var(--cic-teal); color: white; border-radius: 50px; font-weight: bold; width: 100%; padding: 12px; border: none; transition: 0.3s; }
+        .btn-teal:hover { background: #008f85; transform: translateY(-2px); }
+        .btn-teal:disabled { background: #a5d6d2; cursor: not-allowed; }
+
+        /* Bottoni Social */
+        .btn-social { border-radius: 50px; padding: 10px; font-weight: 600; font-size: 0.9rem; width: 100%; margin-bottom: 10px; transition: 0.3s; }
+        .btn-google { border: 1px solid #dadce0; background: white; color: #3c4043; }
+        .btn-facebook { background: #1877F2; color: white; border: none; }
+        .btn-social:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Divisore */
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #ccc; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
-        .divider:not(:empty)::before { margin-right: .5em; }
-        .divider:not(:empty)::after { margin-left: .5em; }
-        .form-control { border-radius: 0; padding: 12px; border: 1px solid #ddd; }
-        .btn-dark-hub { background: var(--tech-black); color: white; border: none; transition: 0.3s; width: 100%; border-radius: 0; padding: 12px; font-weight: bold; text-transform: uppercase;}
-        .btn-dark-hub:hover { background: var(--med-red); color: white;}
-        .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--tech-black); transition: 0.2s; font-style: italic; cursor: pointer;}
-        .forgot-link:hover { color: var(--med-red); }
+        .divider span { padding: 0 10px; font-size: 0.8rem; text-transform: uppercase; color: #aaa; font-weight: bold;}
+        
+        /* Form e Link */
+        .form-label { font-size: 0.75rem; font-weight: 700; color: var(--cic-blue); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control { border-radius: 8px; }
+        .forgot-link { font-size: 0.75rem; text-decoration: none; color: #666; transition: 0.2s; cursor: pointer;}
+        .forgot-link:hover { color: var(--cic-teal); }
     </style>
 </head>
 <body>
-    <div class="container d-flex justify-content-center">
-        <div class="login-card">
-            <div class="text-center mb-4">
-                <h2 class="fw-bold text-uppercase">Data Hub Login</h2>
-                <p class="text-muted small text-uppercase">Credenziali operative protette</p>
+
+    <div class="login-box text-center">
+        <h3 class="fw-bold mb-2" style="color: var(--cic-blue);">ACCESSO HUB</h3>
+        <p class="text-muted small mb-4">Credenziali operative sottodominio CHANGE</p>
+        
+        <button onclick="loginSocial('google')" class="btn btn-social btn-google">
+            <i class="bi bi-google me-2"></i> Accedi con Google
+        </button>
+        <button onclick="loginSocial('facebook')" class="btn btn-social btn-facebook">
+            <i class="bi bi-facebook me-2"></i> Accedi con Facebook
+        </button>
+
+        <div class="divider"><span>oppure via email</span></div>
+
+        <form id="loginForm">
+            <div class="mb-3 text-start">
+                <label class="form-label">Email</label>
+                <input type="email" id="email-field" class="form-control" placeholder="medico@esempio.it" required>
             </div>
-
-            <form id="loginForm">
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">EMAIL</label>
-                    <input type="email" id="email-field" class="form-control" placeholder="med.user@hub.com" required>
-                </div>
-                <div class="mb-2">
-                    <label class="form-label small fw-bold">PASSWORD</label>
-                    <input type="password" id="pass-field" class="form-control" required>
-                </div>
-                <div class="text-end mb-3">
-                    <a id="forgot-password-trigger" class="forgot-link">Password dimenticata?</a>
-                </div>
-                <button type="submit" id="loginBtn" class="btn-dark-hub mb-3">Accedi al Terminale</button>
-            </form>
-
-            <div class="divider">ACCESSO SOCIAL</div>
-
-            <button id="btn-google" class="social-btn">
-                <i class="bi bi-google text-danger"></i> Google
-            </button>
-            <button id="btn-facebook" class="social-btn">
-                <i class="bi bi-facebook text-primary"></i> Facebook
-            </button>
+            <div class="mb-2 text-start">
+                <label class="form-label">Password</label>
+                <input type="password" id="pass-field" class="form-control" required>
+            </div>
+            <div class="text-end mb-3">
+                <a id="forgot-password-trigger" class="forgot-link italic">Password dimenticata?</a>
+            </div>
             
-            <div class="text-center mt-4 border-top pt-3">
-                <p class="small text-muted">Primo accesso? <a href="register.html" class="text-danger fw-bold text-decoration-none">REGISTRATI QUI</a></p>
-                <a href="index.html" class="small text-decoration-none text-dark"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
-            </div>
+            <button type="submit" id="loginBtn" class="btn btn-teal mb-3">ENTRA NEL SISTEMA</button>
+        </form>
+        
+        <div id="error-msg" class="text-danger mb-3 small" style="display:none;"></div>
+        
+        <div class="mt-2 border-top pt-3">
+            <p class="small text-muted">Non hai un account? 
+                <a href="register.html" class="text-decoration-none fw-bold" style="color: var(--cic-teal);">Registrati qui</a>
+            </p>
+            <a href="index.html" class="text-decoration-none small text-secondary"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
         </div>
     </div>
 
@@ -120,28 +125,32 @@
         const email = document.getElementById('email-field').value;
         const pass = document.getElementById('pass-field').value;
         const btn = document.getElementById('loginBtn');
+        const errorDiv = document.getElementById('error-msg');
 
         btn.disabled = true;
         btn.innerText = "VERIFICA IN CORSO...";
+        errorDiv.style.display = 'none';
 
         auth.signInWithEmailAndPassword(email, pass)
             .then(() => { handleNavigation(); })
             .catch(err => {
                 btn.disabled = false;
-                btn.innerText = "ACCEDI AL TERMINALE";
-                alert("Errore di accesso: " + err.message);
+                btn.innerText = "ENTRA NEL SISTEMA";
+                errorDiv.innerText = "Errore di accesso: credenziali non valide.";
+                errorDiv.style.display = 'block';
             });
     };
 
     // Login Social
-    function socialLogin(provider) {
+    function socialLogin(providerName) {
+        let provider = (providerName === 'google') ? 
+            new firebase.auth.GoogleAuthProvider() : 
+            new firebase.auth.FacebookAuthProvider();
+
         auth.signInWithPopup(provider)
             .then(() => { handleNavigation(); })
             .catch(err => alert("Errore Social: " + err.message));
     }
-
-    document.getElementById('btn-google').onclick = () => socialLogin(new firebase.auth.GoogleAuthProvider());
-    document.getElementById('btn-facebook').onclick = () => socialLogin(new firebase.auth.FacebookAuthProvider());
 </script>
 </body>
 </html>
