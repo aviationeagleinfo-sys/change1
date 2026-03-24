@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change | Dr. Giuseppe Musumeci</title>
+    <title>Change in Cardiology | Dr. Giuseppe Musumeci</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +29,7 @@
             overflow-x: hidden;
         }
 
+        /* --- COLONNE GRECHE --- */
         .greek-column {
             position: fixed; 
             top: 0; 
@@ -51,6 +52,7 @@
         .col-left { left: 15px; } 
         .col-right { right: 15px; }
 
+        /* --- NAVBAR --- */
         .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; position: relative; z-index: 1000; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue)!important; font-size: 1.4rem; }
         .brand-accent { color: var(--cic-teal); }
@@ -62,13 +64,15 @@
         .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
         .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
 
-        /* LOGICA DI VISIBILITÀ TASTO LOGIN */
+        /* --- LOGICA LOGIN/LOGOUT --- */
         #user-info { display: none; align-items: center; gap: 10px; }
-        #user-name { border-right: 1px solid rgba(0,0,0,0.1); padding-right: 15px; font-size: 0.8rem; }
+        #user-name { border-right: 1px solid rgba(0,0,0,0.1); padding-right: 15px; font-size: 0.8rem; color: var(--cic-blue); }
 
+        /* --- HEADER --- */
         .profile-header { padding: 80px 0 40px; background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.8) 100%); border-bottom: 1px solid #eee; }
         .teal-divider { width: 60px; height: 5px; background: var(--cic-teal); margin: 25px 0; border-radius: 10px; }
 
+        /* --- SCROLL SYSTEM --- */
         @media (min-width: 992px) {
             .main-wrapper { height: calc(100vh - 200px); overflow: hidden; }
             .scroll-column {
@@ -90,6 +94,7 @@
         .news-tag { color: var(--cic-teal); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
         .highlight-box { border-left: 6px solid var(--cic-teal); background: var(--soft-gray); padding: 30px; margin: 40px 0; font-style: italic; font-size: 1.15rem; border-radius: 0 20px 20px 0; }
         
+        /* --- SIDEBAR --- */
         .sidebar-widget { margin-bottom: 45px; }
         .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cic-teal); margin-bottom: 25px; }
         .search-group .form-control { border-radius: 15px 0 0 15px; border: 1px solid #ddd; padding: 12px 20px; font-size: 0.9rem; }
@@ -146,6 +151,7 @@
                     </li>
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
                     <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
+                    
                     <li class="nav-item">
                         <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
                         <div id="user-info">
@@ -175,7 +181,6 @@
                             <span class="news-tag">The Visionary Hub</span>
                             <h2>Il Manifesto: Change in Cardiology</h2>
                             <p class="lead">Sotto la guida del <strong>Prof. Giuseppe Musumeci</strong>, CiC si è evoluto in un <strong>Think Tank</strong> dell'innovazione cardiovascolare italiana.</p>
-                            <p>L'obiettivo è la rottura dei silos informativi tra clinica e ingegneria dei dati.</p>
                         </div>
 
                         <div class="highlight-box">
@@ -186,12 +191,6 @@
                             <span class="news-tag">Clinical Excellence</span>
                             <h2>Emodinamica e Hub Mauriziano</h2>
                             <p>In qualità di Direttore al Mauriziano, il Prof. Musumeci coordina procedure strutturali (TAVI, MitraClip) ottimizzate da protocolli <em>Lean</em>.</p>
-                        </div>
-
-                        <div class="searchable-unit">
-                            <span class="news-tag">Digital Transformation</span>
-                            <h2>L'Era della Cardiologia 5.0</h2>
-                            <p>Il progetto Change cavalca la frontiera della Sanità Digitale, implementando IA Generativa per refertazione assistita.</p>
                         </div>
                     </div>
                 </div>
@@ -210,19 +209,7 @@
                         <ul class="assoc-list">
                             <li><i class="bi bi-activity"></i> Hub Mauriziano: <strong>FULL OPS</strong></li>
                             <li><i class="bi bi-database-check"></i> Data Sinc: <strong>100% Secure</strong></li>
-                            <li><i class="bi bi-hospital"></i> Network: <strong>AGENAS/GISE</strong></li>
                         </ul>
-                    </div>
-
-                    <div class="sidebar-widget">
-                        <h5 class="widget-title">Roadmap Strategica</h5>
-                        <div class="p-3 bg-light rounded-4 border border-info border-opacity-25">
-                            <div class="mb-3">
-                                <span class="badge bg-teal-soft text-teal mb-1">2026</span>
-                                <p class="small mb-0 fw-bold">Congresso Nazionale Change - Tempo Rimanente</p>
-                                <div class="progress mt-1" style="height: 5px;"><div class="progress-bar bg-info" style="width: 15%"></div></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -231,34 +218,46 @@
 
     <footer class="main-footer">
         <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5">
-                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75 small"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
-                    <a class="opacity-75 small" style="color: #fff" href="https://www.drgiuseppemusumeci.com/privacy.html"> Privacy Policy</a>
-                </div>
-            </div>
+            <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+            <p class="opacity-75 small">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const user = JSON.parse(localStorage.getItem("user"));
+        function updateUI() {
+            // Estrazione dati dal data-link locale
+            const userData = localStorage.getItem("user");
             const loginBtn = document.getElementById("btn-login-nav");
             const userInfo = document.getElementById("user-info");
             const userNameDisplay = document.getElementById("user-name");
 
-            if (user && user.isLoggedIn) {
-                if(loginBtn) loginBtn.style.display = "none";
-                if(userInfo) userInfo.style.display = "flex";
-                if(userNameDisplay) userNameDisplay.textContent = user.name || "G. MUSUMECI";
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    if (user && user.isLoggedIn) {
+                        // Protocollo di occultamento Login e attivazione Logout
+                        if(loginBtn) loginBtn.style.setProperty("display", "none", "important");
+                        if(userInfo) userInfo.style.setProperty("display", "flex", "important");
+                        if(userNameDisplay) userNameDisplay.textContent = user.name || "COMANDANTE";
+                        return;
+                    }
+                } catch (e) {
+                    console.error("Errore nel parsing dei dati utente.");
+                }
             }
-        });
+            
+            // Stato di default (non loggato)
+            if(loginBtn) loginBtn.style.display = "block";
+            if(userInfo) userInfo.style.display = "none";
+        }
 
         function logout() {
             localStorage.removeItem("user");
             window.location.reload();
         }
+
+        // Attivazione sensori al caricamento
+        document.addEventListener("DOMContentLoaded", updateUI);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
