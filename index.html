@@ -161,40 +161,40 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-            authDomain: "giuseppe-4c318.firebaseapp.com",
-            projectId: "giuseppe-4c318",
-            storageBucket: "giuseppe-4c318.firebasestorage.app",
-            messagingSenderId: "658885311131",
-            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
-        };
+    <a href="https://www.drgiuseppemusumeci.com/login.html?redirect=change" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
 
-        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-        const auth = firebase.auth();
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+        authDomain: "giuseppe-4c318.firebaseapp.com",
+        projectId: "giuseppe-4c318",
+        storageBucket: "giuseppe-4c318.firebasestorage.app",
+        messagingSenderId: "658885311131",
+        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+    };
 
-        auth.onAuthStateChanged((user) => {
-            const btnLogin = document.getElementById('btn-login-nav');
-            const userInfo = document.getElementById('user-info');
-            const userName = document.getElementById('user-name');
-            const dbStatus = document.getElementById('db-status');
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const auth = firebase.auth();
 
-            if (user) {
-                if(btnLogin) btnLogin.style.setProperty('display', 'none', 'important');
-                if(userInfo) userInfo.style.setProperty('display', 'flex', 'important');
-                if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
-                if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● Hub Connesso: ' + user.email + '</span>';
-            } else {
-                if(btnLogin) btnLogin.style.setProperty('display', 'inline-block', 'important');
-                if(userInfo) userInfo.style.setProperty('display', 'none', 'important');
-                if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● Accesso Pubblico</span>';
-            }
-        });
+    auth.onAuthStateChanged((user) => {
+        const btnLogin = document.getElementById('btn-login-nav');
+        const userInfo = document.getElementById('user-info');
+        const userName = document.getElementById('user-name');
 
-        function logout() {
-            auth.signOut().then(() => window.location.reload());
+        if (user) {
+            if(btnLogin) btnLogin.style.display = 'none';
+            if(userInfo) userInfo.style.display = 'flex';
+            if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
+            console.log("Sincronizzazione completata. Benvenuto Comandante.");
+        } else {
+            if(btnLogin) btnLogin.style.display = 'inline-block';
+            if(userInfo) userInfo.style.display = 'none';
         }
-    </script>
+    });
+
+    function logout() {
+        auth.signOut().then(() => window.location.reload());
+    }
+</script>
 </body>
 </html>
