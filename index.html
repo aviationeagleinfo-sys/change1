@@ -7,14 +7,14 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
         :root {
             --cic-blue: #002D57;
             --cic-teal: #00A99D;
-            --soft-gray: #f4f7f9;
+            --soft-gray: #f8fafc;
             --footer-bg: #001a33;
             --column-color: rgba(0, 169, 157, 0.05);
         }
@@ -23,10 +23,11 @@
             background-color: #ffffff; 
             color: var(--cic-blue); 
             font-family: 'Inter', sans-serif; 
+            line-height: 1.8;
             overflow-x: hidden;
         }
 
-        /* --- UI ELEMENTS --- */
+        /* --- BACKGROUND ELEMENTS --- */
         .greek-column {
             position: fixed; top: 0; width: 60px; height: 100vh;
             background: repeating-linear-gradient(90deg, var(--column-color), var(--column-color) 2px, transparent 2px, transparent 10px);
@@ -35,30 +36,69 @@
         .col-left { left: 15px; border-right: 1px solid var(--column-color); }
         .col-right { right: 15px; border-left: 1px solid var(--column-color); }
 
-        /* NAVBAR */
+        /* --- NAVBAR (Originale) --- */
         .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; }
-        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--cic-blue)!important; }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue)!important; font-size: 1.4rem; }
         .brand-accent { color: var(--cic-teal); }
         .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; }
         
         .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
         .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
 
-        /* HERO & CONTENT */
-        .hero-section { padding: 80px 0; text-align: center; }
-        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; color: var(--cic-blue); }
-        .teal-line { width: 80px; height: 4px; background: var(--cic-teal); margin: 20px auto; }
-        .feature-card { padding: 40px; border-left: 4px solid var(--cic-blue); background: var(--soft-gray); border-radius: 0 15px 15px 0; height: 100%; transition: 0.3s; }
-        .feature-card.accent { border-color: var(--cic-teal); }
+        #user-info { display: none; align-items: center; gap: 10px; }
+        #user-name { border-right: 1px solid rgba(0,0,0,0.1); padding-right: 15px; font-size: 0.8rem; }
 
-        /* FOOTER */
-        .main-footer { background: var(--footer-bg); color: white; padding: 60px 0 30px 0; margin-top: 100px; border-top: 5px solid var(--cic-teal); }
-        .footer-link { color: #b0b8c1; text-decoration: none; transition: 0.2s; font-size: 0.95rem; }
-        .footer-link:hover { color: var(--cic-teal); padding-left: 5px; }
+        /* --- HEADER --- */
+        .profile-header { padding: 80px 0 40px; background: linear-gradient(180deg, #ffffff 0%, var(--soft-gray) 100%); border-bottom: 1px solid #eee; }
+        .teal-divider { width: 60px; height: 5px; background: var(--cic-teal); margin: 25px 0; border-radius: 10px; }
 
-        /* USER INTERFACE LOGIC */
-        #user-info { display: none; align-items: center; }
-        #user-name { border-right: 1px solid #ddd; padding-right: 15px; }
+        /* --- INDEPENDENT SCROLL SYSTEM (Desktop) --- */
+        @media (min-width: 992px) {
+            .main-wrapper {
+                height: calc(100vh - 200px); /* Vincola altezza su desktop */
+                overflow: hidden;
+            }
+            .scroll-column {
+                height: 100%;
+                overflow-y: auto;
+                padding-bottom: 50px;
+                scrollbar-width: thin;
+                scrollbar-color: var(--cic-teal) transparent;
+            }
+            .scroll-column::-webkit-scrollbar { width: 6px; }
+            .scroll-column::-webkit-scrollbar-thumb { background-color: var(--cic-teal); border-radius: 10px; }
+            
+            .content-section { padding-right: 30px; border-right: 1px solid #eee; }
+            .sidebar { padding-left: 20px; }
+        }
+
+        /* --- CONTENT SECTION --- */
+        .searchable-unit { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; }
+        .searchable-unit:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
+        
+        .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue); margin-bottom: 15px; }
+        .news-tag { color: var(--cic-teal); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
+        .highlight-box { border-left: 6px solid var(--cic-teal); background: var(--soft-gray); padding: 30px; margin: 40px 0; font-style: italic; font-size: 1.15rem; border-radius: 0 20px 20px 0; }
+        
+        /* --- SIDEBAR --- */
+        .sidebar-widget { margin-bottom: 45px; }
+        .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cic-teal); margin-bottom: 25px; }
+        
+        .search-group .form-control { border-radius: 15px 0 0 15px; border: 1px solid #ddd; padding: 12px 20px; font-size: 0.9rem; }
+        .search-group .btn { border-radius: 0 15px 15px 0; background: var(--cic-blue); color: white; border: none; padding: 0 20px; }
+
+        .assoc-list { list-style: none; padding: 0; }
+        .assoc-list li { padding: 15px; background: var(--soft-gray); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; }
+        .assoc-list li i { color: var(--cic-teal); margin-right: 12px; font-size: 1.1rem; }
+
+        .progress { background-color: #e9ecef; border-radius: 10px; }
+        .badge.bg-teal-soft { background-color: rgba(0, 169, 157, 0.1); color: var(--cic-teal); }
+
+        /* --- FOOTER (Originale) --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 50px; border-top: 6px solid var(--cic-teal); }
+        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; }
+
+        @media (max-width: 991px) { .sidebar { border-left: none; padding-left: 0; margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; } }
     </style>
 </head>
 <body>
@@ -72,33 +112,25 @@
                 <i class="bi bi-heart-pulse-fill me-2" style="color: var(--cic-teal); font-size: 2rem;"></i>
                 <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Marchio</a>
-                        <ul class="dropdown-menu">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Marchio</a>
+                        <ul class="dropdown-menu border-0 shadow-lg">
                             <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cv-scolastico.html">CV Scolastico</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item px-lg-2">
-                        <a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/attualita.html">Attualità</a>
-                    </li>
-                    <li class="nav-item px-lg-2 me-lg-3">
-                        <a class="nav-link fw-bold text-uppercase" href="index.html" style="color: var(--cic-teal)!important;">Change</a>
-                    </li>
-                    
+                    <li class="nav-item px-lg-2"><a class="nav-link" href="https://www.drgiuseppemusumeci.com/attualita.html">Attualità</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link" href="index.html" style="color: var(--cic-teal)!important;">Change</a></li>
                     <li class="nav-item">
                         <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        
-                        <div id="user-info" class="bg-light p-1 px-3 rounded-pill border shadow-sm">
-                            <span id="user-name" class="small fw-bold text-uppercase text-secondary"></span>
-                            <button onclick="logout()" class="btn btn-link btn-sm text-danger fw-bold text-decoration-none ms-2">LOGOUT</button>
+                        <div id="user-info" class="bg-light p-2 px-3 rounded-pill border">
+                            <span id="user-name" class="fw-bold text-secondary"></span>
+                            <button onclick="logout()" class="btn btn-link btn-sm text-danger p-0 fw-bold text-decoration-none">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -106,24 +138,80 @@
         </div>
     </nav>
 
-    <main class="container">
-        <section class="hero-section">
-            <h1 class="fw-bold">Change in <br><span style="color:var(--cic-teal)">Cardiology</span></h1>
-            <div class="teal-line"></div>
-            <p class="lead text-muted">L'innovazione clinica e tecnologica al servizio della cardiologia.</p>
-        </section>
+    <header class="profile-header">
+        <div class="container">
+            <h6 class="text-uppercase fw-bold opacity-50 small mb-2" style="letter-spacing: 2px;">Change in Cardiology</h6>
+            <h1 class="display-4 fw-bold" style="font-family: 'Outfit';">Innovazione & Strategia</h1>
+            <div class="teal-divider"></div>
+        </div>
+    </header>
 
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="feature-card accent">
-                    <h4 class="fw-bold">Clinical Change</h4>
-                    <p>Leadership e protocolli d'eccellenza presso l'Ospedale Mauriziano.</p>
+    <main class="main-wrapper">
+        <div class="container h-100">
+            <div class="row h-100 g-0 g-lg-5">
+                <div class="col-lg-8 scroll-column content-section pt-4">
+                    <div id="hub-content">
+                        <div class="searchable-unit">
+                            <span class="news-tag">The Visionary Hub</span>
+                            <h2>Il Manifesto: Change in Cardiology</h2>
+                            <p class="lead">Sotto la guida del <strong>Prof. Giuseppe Musumeci</strong>, CiC si è evoluto in un <strong>Think Tank</strong> dell'innovazione cardiovascolare italiana.</p>
+                            <p>L'obiettivo è la rottura dei silos informativi tra clinica e ingegneria dei dati. L'eccellenza nell'emodinamica oggi non può prescindere da una solida architettura digitale.</p>
+                        </div>
+
+                        <div class="highlight-box">
+                            "Il vero 'Change' non è sostituire un uomo con una macchina, ma potenziare l'intelligenza del clinico con la precisione del dato algoritmico."
+                        </div>
+
+                        <div class="searchable-unit">
+                            <span class="news-tag">Clinical Excellence</span>
+                            <h2>Emodinamica e Hub Mauriziano</h2>
+                            <p>In qualità di Direttore al Mauriziano, il Prof. Musumeci coordina procedure strutturali (TAVI, MitraClip) ottimizzate da protocolli <em>Lean</em>, riducendo complicanze e tempi di degenza.</p>
+                        </div>
+
+                        <div class="searchable-unit">
+                            <span class="news-tag">Digital Transformation</span>
+                            <h2>L'Era della Cardiologia 5.0</h2>
+                            <p>Il progetto Change cavalca la frontiera della Sanità Digitale, implementando IA Generativa per refertazione assistita e monitoraggio predittivo remoto.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="feature-card">
-                    <h4 class="fw-bold">Digital Innovation</h4>
-                    <p>Integrazione di sistemi avanzati per la gestione del dato clinico.</p>
+
+                <div class="col-lg-4 scroll-column sidebar pt-4">
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Cerca nell'Hub CiC</h5>
+                        <div class="input-group search-group">
+                            <input type="text" id="searchInput" class="form-control" placeholder="IA, TAVI, AGENAS..." onkeyup="if(event.key==='Enter') runSearch()">
+                            <button class="btn" type="button" onclick="runSearch()"><i class="bi bi-search"></i></button>
+                        </div>
+                        <div id="searchCounter" class="small mt-2 fw-bold text-muted" style="display:none;"></div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Parametri di Missione</h5>
+                        <ul class="assoc-list">
+                            <li><i class="bi bi-activity"></i> Hub Mauriziano: <strong>FULL OPS</strong></li>
+                            <li><i class="bi bi-database-check"></i> Data Sinc: <strong>100% Secure</strong></li>
+                            <li><i class="bi bi-hospital"></i> Network: <strong>AGENAS/GISE</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Roadmap Strategica</h5>
+                        <div class="p-3 bg-light rounded-4 border border-info border-opacity-25">
+                            <div class="mb-3">
+                                <span class="badge bg-teal-soft text-teal mb-1">Q2 2026</span>
+                                <p class="small mb-0 fw-bold">Congresso Nazionale Change</p>
+                                <div class="progress mt-1" style="height: 5px;"><div class="progress-bar bg-info" style="width: 85%"></div></div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="badge bg-teal-soft text-teal mb-1">Q3 2026</span>
+                                <p class="small mb-0 fw-bold">Protocolli IA 5.0</p>
+                                <div class="progress mt-1" style="height: 5px;"><div class="progress-bar bg-info" style="width: 50%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
             </div>
         </div>
@@ -133,28 +221,16 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-5">
-                    <div class="footer-logo mb-3" style="font-family: 'Outfit'; font-weight: 700; font-size: 1.5rem;">
-                        GIUSEPPE<span style="color: var(--cic-teal);">MUSUMECI</span>
-                    </div>
-                    <p class="opacity-75 small">Cardiologia Interventistica e Supporto Strategico.</p>
+                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75 small">Sistemi avanzati per la gestione del dato clinico e l'eccellenza cardiovascolare.</p>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
-                    <nav class="d-flex flex-column">
-                        <a href="https://www.drgiuseppemusumeci.com/" class="footer-link mb-2">Home Sito Madre</a>
-                        <a href="privacy.html" class="footer-link">Privacy</a>
-                    </nav>
-                </div>
-                <div class="col-6 col-lg-4 text-lg-end">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Status Sistema</h6>
-                    <div id="db-status" class="small text-info">● Sincronizzazione in corso...</div>
+                <div class="col-md-6 text-md-end">
+                    <div id="db-status" class="small text-info">● HUB STATUS</div>
                 </div>
             </div>
             <div class="mt-5 pt-4 border-top border-secondary d-flex justify-content-between align-items-center">
                 <p class="small mb-0 opacity-50">&copy; 2026 Prof. Giuseppe Musumeci.</p>
-                <p class="small mb-0 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">
-                    Strategic Support by <a href="https://aviationeagle.co.uk" target="_blank" style="color: var(--cic-teal); text-decoration: none;">Aviation Eagle</a>
-                </p>
+                <p class="small mb-0 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">Strategic Support</p>
             </div>
         </div>
     </footer>
@@ -163,54 +239,51 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-        authDomain: "giuseppe-4c318.firebaseapp.com",
-        projectId: "giuseppe-4c318",
-        storageBucket: "giuseppe-4c318.firebasestorage.app",
-        messagingSenderId: "658885311131",
-        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
-    };
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
 
-    if (!firebase.apps.length) { 
-        firebase.initializeApp(firebaseConfig); 
-    }
-    const auth = firebase.auth();
-
-    // FORZIAMO LA PERSISTENZA LOCAL (Standard per web)
-    auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    .then(() => {
-        // Monitoraggio dello stato
-        return auth.onAuthStateChanged((user) => {
+        auth.onAuthStateChanged((user) => {
             const btnLogin = document.getElementById('btn-login-nav');
             const userInfo = document.getElementById('user-info');
             const userName = document.getElementById('user-name');
             const dbStatus = document.getElementById('db-status');
 
             if (user) {
-                console.log("Sistema: Identità confermata.", user.email);
                 if(btnLogin) btnLogin.style.display = 'none';
                 if(userInfo) userInfo.style.setProperty('display', 'flex', 'important');
                 if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
                 if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● HUB ATTIVO</span>';
             } else {
-                console.log("Sistema: Nessuna firma rilevata. Accesso pubblico.");
                 if(btnLogin) btnLogin.style.display = 'inline-block';
                 if(userInfo) userInfo.style.display = 'none';
-                if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● OFFLINE</span>';
+                if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● DISCONNESSO</span>';
             }
         });
-    })
-    .catch((error) => {
-        console.error("Errore di sincronizzazione sistemi:", error);
-    });
 
-    function logout() {
-        auth.signOut().then(() => {
-            window.location.reload();
-        });
-    }
-</script>
+        function logout() { auth.signOut().then(() => window.location.reload()); }
+
+        function runSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const units = document.querySelectorAll('.searchable-unit');
+            const counterBox = document.getElementById('searchCounter');
+            let found = 0;
+            if (query === "") { units.forEach(u => u.style.display = "block"); counterBox.style.display = "none"; return; }
+            units.forEach(unit => {
+                if (unit.innerText.toLowerCase().includes(query)) { unit.style.display = "block"; found++; }
+                else { unit.style.display = "none"; }
+            });
+            counterBox.style.display = "block";
+            counterBox.innerHTML = found > 0 ? `Trovati ${found} risultati` : `<span class="text-danger">Nessun match</span>`;
+        }
+    </script>
 </body>
 </html>
