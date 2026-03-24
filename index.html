@@ -16,7 +16,10 @@
             --cic-teal: #00A99D;
             --soft-gray: #f8fafc;
             --footer-bg: #001a33;
-            --column-color: rgba(0, 169, 157, 0.05);
+            /* Nuovi parametri per colonne "stile greco" massiccio */
+            --column-base: rgba(210, 210, 215, 0.4); 
+            --column-highlight: rgba(255, 255, 255, 0.6);
+            --column-shadow: rgba(0, 0, 0, 0.15);
         }
 
         body { 
@@ -27,21 +30,39 @@
             overflow-x: hidden;
         }
 
-        /* --- BACKGROUND ELEMENTS --- */
+        /* --- COLONNE GRECHE (STILE AGGIORNATO) --- */
         .greek-column {
-            position: fixed; top: 0; width: 60px; height: 100vh;
-            background: repeating-linear-gradient(90deg, var(--column-color), var(--column-color) 2px, transparent 2px, transparent 10px);
+            position: fixed; 
+            top: 0; 
+            width: 60px; 
+            height: 100vh; 
             z-index: -1;
+            background: linear-gradient(90deg, 
+                var(--column-shadow) 0%, 
+                var(--column-base) 20%, 
+                var(--column-highlight) 35%, 
+                var(--column-base) 50%, 
+                var(--column-shadow) 65%, 
+                var(--column-base) 80%, 
+                var(--column-shadow) 100%);
+            background-size: 30px 100%; 
+            border-left: 1px solid rgba(0,0,0,0.05); 
+            border-right: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.03), -5px 0 15px rgba(0,0,0,0.03);
         }
-        .col-left { left: 15px; border-right: 1px solid var(--column-color); }
-        .col-right { right: 15px; border-left: 1px solid var(--column-color); }
+        .col-left { left: 15px; } 
+        .col-right { right: 15px; }
 
-        /* --- NAVBAR (Originale) --- */
-        .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; }
+        /* --- NAVBAR --- */
+        .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; position: relative; z-index: 1000; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue)!important; font-size: 1.4rem; }
         .brand-accent { color: var(--cic-teal); }
         .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; }
         
+        /* Correzione Hamburger: Colore scuro per visibilità su fondo bianco */
+        .navbar-toggler { border: none; color: var(--cic-blue); }
+        .navbar-toggler:focus { box-shadow: none; }
+
         .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
         .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
 
@@ -49,15 +70,12 @@
         #user-name { border-right: 1px solid rgba(0,0,0,0.1); padding-right: 15px; font-size: 0.8rem; }
 
         /* --- HEADER --- */
-        .profile-header { padding: 80px 0 40px; background: linear-gradient(180deg, #ffffff 0%, var(--soft-gray) 100%); border-bottom: 1px solid #eee; }
+        .profile-header { padding: 80px 0 40px; background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.8) 100%); border-bottom: 1px solid #eee; }
         .teal-divider { width: 60px; height: 5px; background: var(--cic-teal); margin: 25px 0; border-radius: 10px; }
 
         /* --- INDEPENDENT SCROLL SYSTEM (Desktop) --- */
         @media (min-width: 992px) {
-            .main-wrapper {
-                height: calc(100vh - 200px); /* Vincola altezza su desktop */
-                overflow: hidden;
-            }
+            .main-wrapper { height: calc(100vh - 200px); overflow: hidden; }
             .scroll-column {
                 height: 100%;
                 overflow-y: auto;
@@ -67,7 +85,6 @@
             }
             .scroll-column::-webkit-scrollbar { width: 6px; }
             .scroll-column::-webkit-scrollbar-thumb { background-color: var(--cic-teal); border-radius: 10px; }
-            
             .content-section { padding-right: 30px; border-right: 1px solid #eee; }
             .sidebar { padding-left: 20px; }
         }
@@ -75,7 +92,6 @@
         /* --- CONTENT SECTION --- */
         .searchable-unit { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; }
         .searchable-unit:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
-        
         .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue); margin-bottom: 15px; }
         .news-tag { color: var(--cic-teal); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
         .highlight-box { border-left: 6px solid var(--cic-teal); background: var(--soft-gray); padding: 30px; margin: 40px 0; font-style: italic; font-size: 1.15rem; border-radius: 0 20px 20px 0; }
@@ -83,22 +99,22 @@
         /* --- SIDEBAR --- */
         .sidebar-widget { margin-bottom: 45px; }
         .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cic-teal); margin-bottom: 25px; }
-        
         .search-group .form-control { border-radius: 15px 0 0 15px; border: 1px solid #ddd; padding: 12px 20px; font-size: 0.9rem; }
         .search-group .btn { border-radius: 0 15px 15px 0; background: var(--cic-blue); color: white; border: none; padding: 0 20px; }
-
         .assoc-list { list-style: none; padding: 0; }
         .assoc-list li { padding: 15px; background: var(--soft-gray); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; }
         .assoc-list li i { color: var(--cic-teal); margin-right: 12px; font-size: 1.1rem; }
-
         .progress { background-color: #e9ecef; border-radius: 10px; }
         .badge.bg-teal-soft { background-color: rgba(0, 169, 157, 0.1); color: var(--cic-teal); }
 
-        /* --- FOOTER (Originale) --- */
+        /* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 50px; border-top: 6px solid var(--cic-teal); }
         .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; }
 
-        @media (max-width: 991px) { .sidebar { border-left: none; padding-left: 0; margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; } }
+        @media (max-width: 991px) { 
+            .sidebar { border-left: none; padding-left: 0; margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; } 
+            .greek-column { width: 30px; } /* Più sottili su mobile */
+        }
     </style>
 </head>
 <body>
@@ -106,31 +122,42 @@
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
-    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com">
-                <i class="bi bi-heart-pulse-fill me-2" style="color: var(--cic-teal); font-size: 2rem;"></i>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
                 <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i> 
             </button>
+
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Marchio</a>
-                        <ul class="dropdown-menu border-0 shadow-lg">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cv-scolastico.html">CV Scolastico</a></li>
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/formazione.html">Formazione</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item px-lg-2"><a class="nav-link" href="https://www.drgiuseppemusumeci.com/attualita.html">Attualità</a></li>
-                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link" href="index.html" style="color: var(--cic-teal)!important;">Change</a></li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/interventistica.html">Intervantistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/patologie.html">Patologie Cardiovascolari</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
-                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info" class="bg-light p-2 px-3 rounded-pill border">
-                            <span id="user-name" class="fw-bold text-secondary"></span>
-                            <button onclick="logout()" class="btn btn-link btn-sm text-danger p-0 fw-bold text-decoration-none">LOGOUT</button>
+                        <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-dark btn-sm rounded-0 fw-bold">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -155,7 +182,7 @@
                             <span class="news-tag">The Visionary Hub</span>
                             <h2>Il Manifesto: Change in Cardiology</h2>
                             <p class="lead">Sotto la guida del <strong>Prof. Giuseppe Musumeci</strong>, CiC si è evoluto in un <strong>Think Tank</strong> dell'innovazione cardiovascolare italiana.</p>
-                            <p>L'obiettivo è la rottura dei silos informativi tra clinica e ingegneria dei dati. L'eccellenza nell'emodinamica oggi non può prescindere da una solida architettura digitale.</p>
+                            <p>L'obiettivo è la rottura dei silos informativi tra clinica e ingegneria dei dati.</p>
                         </div>
 
                         <div class="highlight-box">
@@ -165,13 +192,13 @@
                         <div class="searchable-unit">
                             <span class="news-tag">Clinical Excellence</span>
                             <h2>Emodinamica e Hub Mauriziano</h2>
-                            <p>In qualità di Direttore al Mauriziano, il Prof. Musumeci coordina procedure strutturali (TAVI, MitraClip) ottimizzate da protocolli <em>Lean</em>, riducendo complicanze e tempi di degenza.</p>
+                            <p>In qualità di Direttore al Mauriziano, il Prof. Musumeci coordina procedure strutturali (TAVI, MitraClip) ottimizzate da protocolli <em>Lean</em>.</p>
                         </div>
 
                         <div class="searchable-unit">
                             <span class="news-tag">Digital Transformation</span>
                             <h2>L'Era della Cardiologia 5.0</h2>
-                            <p>Il progetto Change cavalca la frontiera della Sanità Digitale, implementando IA Generativa per refertazione assistita e monitoraggio predittivo remoto.</p>
+                            <p>Il progetto Change cavalca la frontiera della Sanità Digitale, implementando IA Generativa per refertazione assistita.</p>
                         </div>
                     </div>
                 </div>
@@ -180,10 +207,9 @@
                     <div class="sidebar-widget">
                         <h5 class="widget-title">Cerca nell'Hub CiC</h5>
                         <div class="input-group search-group">
-                            <input type="text" id="searchInput" class="form-control" placeholder="IA, TAVI, AGENAS..." onkeyup="if(event.key==='Enter') runSearch()">
-                            <button class="btn" type="button" onclick="runSearch()"><i class="bi bi-search"></i></button>
+                            <input type="text" id="searchInput" class="form-control" placeholder="IA, TAVI, AGENAS...">
+                            <button class="btn" type="button"><i class="bi bi-search"></i></button>
                         </div>
-                        <div id="searchCounter" class="small mt-2 fw-bold text-muted" style="display:none;"></div>
                     </div>
 
                     <div class="sidebar-widget">
@@ -199,19 +225,12 @@
                         <h5 class="widget-title">Roadmap Strategica</h5>
                         <div class="p-3 bg-light rounded-4 border border-info border-opacity-25">
                             <div class="mb-3">
-                                <span class="badge bg-teal-soft text-teal mb-1">Q2 2026</span>
-                                <p class="small mb-0 fw-bold">Congresso Nazionale Change</p>
-                                <div class="progress mt-1" style="height: 5px;"><div class="progress-bar bg-info" style="width: 85%"></div></div>
-                            </div>
-                            <div class="mb-3">
-                                <span class="badge bg-teal-soft text-teal mb-1">Q3 2026</span>
-                                <p class="small mb-0 fw-bold">Protocolli IA 5.0</p>
-                                <div class="progress mt-1" style="height: 5px;"><div class="progress-bar bg-info" style="width: 50%"></div></div>
+                                <span class="badge bg-teal-soft text-teal mb-1">2026</span>
+                                <p class="small mb-0 fw-bold">Congresso Nazionale Change - Tempo Rimanente</p>
+                                <div class="progress mt-1" style="height: 5px;"><div class="progress-bar bg-info" style="width: 15%"></div></div>
                             </div>
                         </div>
                     </div>
-                    
-                    
                 </div>
             </div>
         </div>
@@ -222,68 +241,12 @@
             <div class="row g-5">
                 <div class="col-lg-5">
                     <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75 small">Sistemi avanzati per la gestione del dato clinico e l'eccellenza cardiovascolare.</p>
+                    <p class="opacity-75 small">&copy; 2026 Prof. Giuseppe Musumeci.</p>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <div id="db-status" class="small text-info">● HUB STATUS</div>
-                </div>
-            </div>
-            <div class="mt-5 pt-4 border-top border-secondary d-flex justify-content-between align-items-center">
-                <p class="small mb-0 opacity-50">&copy; 2026 Prof. Giuseppe Musumeci.</p>
-                <p class="small mb-0 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">Strategic Support</p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-            authDomain: "giuseppe-4c318.firebaseapp.com",
-            projectId: "giuseppe-4c318",
-            storageBucket: "giuseppe-4c318.firebasestorage.app",
-            messagingSenderId: "658885311131",
-            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
-        };
-        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-        const auth = firebase.auth();
-
-        auth.onAuthStateChanged((user) => {
-            const btnLogin = document.getElementById('btn-login-nav');
-            const userInfo = document.getElementById('user-info');
-            const userName = document.getElementById('user-name');
-            const dbStatus = document.getElementById('db-status');
-
-            if (user) {
-                if(btnLogin) btnLogin.style.display = 'none';
-                if(userInfo) userInfo.style.setProperty('display', 'flex', 'important');
-                if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
-                if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● HUB ATTIVO</span>';
-            } else {
-                if(btnLogin) btnLogin.style.display = 'inline-block';
-                if(userInfo) userInfo.style.display = 'none';
-                if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● DISCONNESSO</span>';
-            }
-        });
-
-        function logout() { auth.signOut().then(() => window.location.reload()); }
-
-        function runSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const units = document.querySelectorAll('.searchable-unit');
-            const counterBox = document.getElementById('searchCounter');
-            let found = 0;
-            if (query === "") { units.forEach(u => u.style.display = "block"); counterBox.style.display = "none"; return; }
-            units.forEach(unit => {
-                if (unit.innerText.toLowerCase().includes(query)) { unit.style.display = "block"; found++; }
-                else { unit.style.display = "none"; }
-            });
-            counterBox.style.display = "block";
-            counterBox.innerHTML = found > 0 ? `Trovati ${found} risultati` : `<span class="text-danger">Nessun match</span>`;
-        }
-    </script>
-</body>
+    </body>
 </html>
