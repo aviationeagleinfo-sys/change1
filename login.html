@@ -3,108 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso Hub | Dr. Giuseppe Musumeci</title>
+    <title>Accesso Hub | Musumeci Digital</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --cic-blue: #002D57; --cic-teal: #00A99D; }
-        body { background: var(--cic-blue); height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; }
-        .login-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); width: 100%; max-width: 420px; }
-        .btn-teal { background: var(--cic-teal); color: white; border-radius: 50px; font-weight: bold; width: 100%; padding: 12px; border: none; transition: 0.3s; }
-        .btn-teal:hover { background: #008f85; transform: translateY(-2px); }
-        .btn-social { border-radius: 50px; padding: 10px; font-weight: 600; font-size: 0.9rem; width: 100%; margin-bottom: 10px; transition: 0.3s; }
-        .btn-google { border: 1px solid #dadce0; background: white; color: #3c4043; }
-        .btn-facebook { background: #1877F2; color: white; border: none; }
-        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #ccc; }
+        :root { --med-red: #d90429; --tech-black: #2b2d42; }
+        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; display: flex; align-items: center; min-height: 100vh; padding: 20px 0;}
+        .login-card {
+            background: white; border-top: 5px solid var(--med-red); padding: 40px;
+            width: 100%; max-width: 450px; margin: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .social-btn {
+            border: 1px solid #ddd; background: white; margin-bottom: 10px; width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; transition: 0.2s;
+            font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+        }
+        .social-btn:hover { background: #f0f0f0; border-color: #bbb; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #888; font-size: 0.8rem; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
-        .divider span { padding: 0 10px; font-size: 0.8rem; text-transform: uppercase; }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+        .form-control { border-radius: 0; padding: 12px; border: 1px solid #ddd; }
+        .btn-dark-hub { background: var(--tech-black); color: white; border: none; transition: 0.3s; width: 100%; border-radius: 0; padding: 12px; font-weight: bold; text-transform: uppercase;}
+        .btn-dark-hub:hover { background: var(--med-red); color: white;}
+        .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--tech-black); transition: 0.2s; font-style: italic; cursor: pointer;}
+        .forgot-link:hover { color: var(--med-red); }
     </style>
 </head>
 <body>
+    <div class="container d-flex justify-content-center">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-uppercase">Data Hub Login</h2>
+                <p class="text-muted small text-uppercase">Credenziali operative protette</p>
+            </div>
 
-    <div class="login-box text-center">
-        <h3 class="fw-bold mb-2" style="color: var(--cic-blue);">ACCEDI</h3>
-        <p class="text-muted small mb-4">Credenziali sito dedicato al CHANGE</p>
-        
-        <button onclick="loginSocial('google')" class="btn btn-social btn-google">
-            <i class="bi bi-google me-2"></i> Accedi con Google
-        </button>
-        <button onclick="loginSocial('facebook')" class="btn btn-social btn-facebook">
-            <i class="bi bi-facebook me-2"></i> Accedi con Facebook
-        </button>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">EMAIL</label>
+                    <input type="email" id="email-field" class="form-control" placeholder="med.user@hub.com" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">PASSWORD</label>
+                    <input type="password" id="pass-field" class="form-control" required>
+                </div>
+                <div class="text-end mb-3">
+                    <a id="forgot-password-trigger" class="forgot-link">Password dimenticata?</a>
+                </div>
+                <button type="submit" id="loginBtn" class="btn-dark-hub mb-3">Accedi al Terminale</button>
+            </form>
 
-        <div class="divider"><span>oppure</span></div>
+            <div class="divider">ACCESSO SOCIAL</div>
 
-        <div class="mb-3 text-start">
-            <label class="form-label small fw-bold">Email</label>
-            <input type="email" id="email" class="form-control" placeholder="medico@esempio.it">
-        </div>
-        <div class="mb-4 text-start">
-            <label class="form-label small fw-bold">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="••••••••">
-        </div>
-        
-        <button onclick="handleLogin()" id="loginBtn" class="btn btn-teal mb-3">ENTRA NEL SISTEMA</button>
-        <div id="error-msg" class="text-danger mb-3 small" style="display:none;"></div>
-        
-        <div class="mt-2">
-            <p class="small text-muted">Non hai un account? 
-                <a href="register.html" class="text-decoration-none fw-bold" style="color: var(--cic-teal);">Registrati qui</a>
-            </p>
-            <a href="index.html" class="text-decoration-none small text-secondary"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
+            <button id="btn-google" class="social-btn">
+                <i class="bi bi-google text-danger"></i> Google
+            </button>
+            <button id="btn-facebook" class="social-btn">
+                <i class="bi bi-facebook text-primary"></i> Facebook
+            </button>
+            
+            <div class="text-center mt-4 border-top pt-3">
+                <p class="small text-muted">Primo accesso? <a href="register.html" class="text-danger fw-bold text-decoration-none">REGISTRATI QUI</a></p>
+                <a href="index.html" class="small text-decoration-none text-dark"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
+            </div>
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-            authDomain: "giuseppe-4c318.firebaseapp.com",
-            projectId: "giuseppe-4c318",
-            storageBucket: "giuseppe-4c318.firebasestorage.app",
-            messagingSenderId: "658885311131",
-            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
-        };
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+        authDomain: "giuseppe-4c318.firebaseapp.com",
+        projectId: "giuseppe-4c318",
+        storageBucket: "giuseppe-4c318.firebasestorage.app",
+        messagingSenderId: "658885311131",
+        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+    };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const auth = firebase.auth();
 
-        // Login Email/Password
-        function handleLogin() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const btn = document.getElementById('loginBtn');
-            const errorDiv = document.getElementById('error-msg');
+    // --- PROTOCOLLO DI REINDIRIZZAMENTO ---
+    function handleNavigation() {
+        const params = new URLSearchParams(window.location.search);
+        const destination = params.get('redirect');
 
-            if(!email || !password) return;
-
-            btn.disabled = true;
-            auth.signInWithEmailAndPassword(email, password)
-                .then(() => window.location.href = 'index.html')
-                .catch((error) => {
-                    btn.disabled = false;
-                    errorDiv.innerText = "Errore: credenziali errate.";
-                    errorDiv.style.display = 'block';
-                });
+        if (destination) {
+            window.location.href = decodeURIComponent(destination);
+        } else {
+            window.location.href = "index.html"; 
         }
+    }
 
-        // Login Social
-        function loginSocial(providerName) {
-            let provider;
-            if (providerName === 'google') {
-                provider = new firebase.auth.GoogleAuthProvider();
-            } else {
-                provider = new firebase.auth.FacebookAuthProvider();
-            }
-
-            auth.signInWithPopup(provider)
-                .then(() => window.location.href = 'index.html')
-                .catch((error) => {
-                    alert("Errore durante l'autenticazione social: " + error.message);
-                });
+    // --- LOGICA PASSWORD DIMENTICATA ---
+    document.getElementById('forgot-password-trigger').onclick = () => {
+        const email = document.getElementById('email-field').value;
+        if (!email) {
+            alert("Inserisci la tua email nel campo sopra per ricevere il link di ripristino.");
+            return;
         }
-    </script>
+        auth.sendPasswordResetEmail(email)
+            .then(() => {
+                alert("Protocollo di ripristino inviato! Controlla la tua casella email.");
+            })
+            .catch((error) => {
+                alert("Errore: " + error.message);
+            });
+    };
+
+    // Login Email/Password
+    document.getElementById('loginForm').onsubmit = (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email-field').value;
+        const pass = document.getElementById('pass-field').value;
+        const btn = document.getElementById('loginBtn');
+
+        btn.disabled = true;
+        btn.innerText = "VERIFICA IN CORSO...";
+
+        auth.signInWithEmailAndPassword(email, pass)
+            .then(() => { handleNavigation(); })
+            .catch(err => {
+                btn.disabled = false;
+                btn.innerText = "ACCEDI AL TERMINALE";
+                alert("Errore di accesso: " + err.message);
+            });
+    };
+
+    // Login Social
+    function socialLogin(provider) {
+        auth.signInWithPopup(provider)
+            .then(() => { handleNavigation(); })
+            .catch(err => alert("Errore Social: " + err.message));
+    }
+
+    document.getElementById('btn-google').onclick = () => socialLogin(new firebase.auth.GoogleAuthProvider());
+    document.getElementById('btn-facebook').onclick = () => socialLogin(new firebase.auth.FacebookAuthProvider());
+</script>
 </body>
 </html>
