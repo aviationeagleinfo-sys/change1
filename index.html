@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* --- COLONNE GRECHE --- */
         .greek-column {
             position: fixed; 
             top: 0; 
@@ -52,7 +51,6 @@
         .col-left { left: 15px; } 
         .col-right { right: 15px; }
 
-        /* --- NAVBAR --- */
         .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; position: relative; z-index: 1000; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue)!important; font-size: 1.4rem; }
         .brand-accent { color: var(--cic-teal); }
@@ -64,24 +62,18 @@
         .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
         .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
 
-        /* --- LOGICA LOGIN/LOGOUT --- */
-        #user-info { display: none; align-items: center; gap: 10px; }
-        #user-name { border-right: 1px solid rgba(0,0,0,0.1); padding-right: 15px; font-size: 0.8rem; color: var(--cic-blue); }
+        /* --- LOGICA DI VISIBILITÀ TASTO LOGIN --- */
+        #user-info { display: none; align-items: center; gap: 15px; background: var(--soft-gray); padding: 5px 15px; border-radius: 50px; border: 1px solid rgba(0,0,0,0.05); }
+        #user-name { font-size: 0.75rem; font-weight: 700; color: var(--cic-blue); text-transform: uppercase; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .btn-logout { background: none; border: none; color: #dc3545; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding: 0; transition: 0.2s; }
+        .btn-logout:hover { color: #a71d2a; text-decoration: underline; }
 
-        /* --- HEADER --- */
         .profile-header { padding: 80px 0 40px; background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.8) 100%); border-bottom: 1px solid #eee; }
         .teal-divider { width: 60px; height: 5px; background: var(--cic-teal); margin: 25px 0; border-radius: 10px; }
 
-        /* --- SCROLL SYSTEM --- */
         @media (min-width: 992px) {
             .main-wrapper { height: calc(100vh - 200px); overflow: hidden; }
-            .scroll-column {
-                height: 100%;
-                overflow-y: auto;
-                padding-bottom: 50px;
-                scrollbar-width: thin;
-                scrollbar-color: var(--cic-teal) transparent;
-            }
+            .scroll-column { height: 100%; overflow-y: auto; padding-bottom: 50px; scrollbar-width: thin; scrollbar-color: var(--cic-teal) transparent; }
             .scroll-column::-webkit-scrollbar { width: 6px; }
             .scroll-column::-webkit-scrollbar-thumb { background-color: var(--cic-teal); border-radius: 10px; }
             .content-section { padding-right: 30px; border-right: 1px solid #eee; }
@@ -94,23 +86,13 @@
         .news-tag { color: var(--cic-teal); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
         .highlight-box { border-left: 6px solid var(--cic-teal); background: var(--soft-gray); padding: 30px; margin: 40px 0; font-style: italic; font-size: 1.15rem; border-radius: 0 20px 20px 0; }
         
-        /* --- SIDEBAR --- */
-        .sidebar-widget { margin-bottom: 45px; }
-        .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cic-teal); margin-bottom: 25px; }
-        .search-group .form-control { border-radius: 15px 0 0 15px; border: 1px solid #ddd; padding: 12px 20px; font-size: 0.9rem; }
-        .search-group .btn { border-radius: 0 15px 15px 0; background: var(--cic-blue); color: white; border: none; padding: 0 20px; }
-        .assoc-list { list-style: none; padding: 0; }
-        .assoc-list li { padding: 15px; background: var(--soft-gray); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; }
-        .assoc-list li i { color: var(--cic-teal); margin-right: 12px; font-size: 1.1rem; }
-        .progress { background-color: #e9ecef; border-radius: 10px; }
-        .badge.bg-teal-soft { background-color: rgba(0, 169, 157, 0.1); color: var(--cic-teal); }
-
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 50px; border-top: 6px solid var(--cic-teal); }
         .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; }
 
         @media (max-width: 991px) { 
-            .sidebar { border-left: none; padding-left: 0; margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; } 
+            .sidebar { margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; } 
             .greek-column { width: 30px; } 
+            #user-info { margin-top: 15px; width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -176,39 +158,24 @@
         <div class="container h-100">
             <div class="row h-100 g-0 g-lg-5">
                 <div class="col-lg-8 scroll-column content-section pt-4">
-                    <div id="hub-content">
-                        <div class="searchable-unit">
-                            <span class="news-tag">The Visionary Hub</span>
-                            <h2>Il Manifesto: Change in Cardiology</h2>
-                            <p class="lead">Sotto la guida del <strong>Prof. Giuseppe Musumeci</strong>, CiC si è evoluto in un <strong>Think Tank</strong> dell'innovazione cardiovascolare italiana.</p>
-                        </div>
+                    <div class="searchable-unit">
+                        <span class="news-tag">The Visionary Hub</span>
+                        <h2>Il Manifesto: Change in Cardiology</h2>
+                        <p class="lead">Sotto la guida del <strong>Prof. Giuseppe Musumeci</strong>, CiC si è evoluto in un Think Tank dell'innovazione cardiovascolare.</p>
+                    </div>
 
-                        <div class="highlight-box">
-                            "Il vero 'Change' non è sostituire un uomo con una macchina, ma potenziare l'intelligenza del clinico con la precisione del dato algoritmico."
-                        </div>
-
-                        <div class="searchable-unit">
-                            <span class="news-tag">Clinical Excellence</span>
-                            <h2>Emodinamica e Hub Mauriziano</h2>
-                            <p>In qualità di Direttore al Mauriziano, il Prof. Musumeci coordina procedure strutturali (TAVI, MitraClip) ottimizzate da protocolli <em>Lean</em>.</p>
-                        </div>
+                    <div class="highlight-box">
+                        "Il vero 'Change' non è sostituire un uomo con una macchina, ma potenziare l'intelligenza del clinico."
                     </div>
                 </div>
 
                 <div class="col-lg-4 scroll-column sidebar pt-4">
                     <div class="sidebar-widget">
-                        <h5 class="widget-title">Cerca nell'Hub CiC</h5>
-                        <div class="input-group search-group">
-                            <input type="text" id="searchInput" class="form-control" placeholder="IA, TAVI, AGENAS...">
-                            <button class="btn" type="button"><i class="bi bi-search"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-widget">
                         <h5 class="widget-title">Parametri di Missione</h5>
-                        <ul class="assoc-list">
-                            <li><i class="bi bi-activity"></i> Hub Mauriziano: <strong>FULL OPS</strong></li>
-                            <li><i class="bi bi-database-check"></i> Data Sinc: <strong>100% Secure</strong></li>
+                        <ul class="assoc-list" style="list-style: none; padding: 0;">
+                            <li style="padding: 15px; background: var(--soft-gray); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600;">
+                                <i class="bi bi-activity text-info me-2"></i> Hub Mauriziano: <strong>FULL OPS</strong>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -217,15 +184,15 @@
     </main>
 
     <footer class="main-footer">
-        <div class="container">
+        <div class="container text-center text-lg-start">
             <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
             <p class="opacity-75 small">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
     <script>
-        function updateUI() {
-            // Estrazione dati dal data-link locale
+        document.addEventListener("DOMContentLoaded", function() {
+            // Estrazione dati dal data-link
             const userData = localStorage.getItem("user");
             const loginBtn = document.getElementById("btn-login-nav");
             const userInfo = document.getElementById("user-info");
@@ -234,30 +201,31 @@
             if (userData) {
                 try {
                     const user = JSON.parse(userData);
-                    if (user && user.isLoggedIn) {
-                        // Protocollo di occultamento Login e attivazione Logout
+                    
+                    // Verifica se l'utente è autenticato
+                    if (user && (user.isLoggedIn || user.authenticated)) {
+                        // Protocollo di occultamento con priorità
                         if(loginBtn) loginBtn.style.setProperty("display", "none", "important");
+                        
+                        // Attivazione interfaccia utente
                         if(userInfo) userInfo.style.setProperty("display", "flex", "important");
-                        if(userNameDisplay) userNameDisplay.textContent = user.name || "COMANDANTE";
-                        return;
+                        
+                        // Visualizzazione Nome o Email (fallback)
+                        if(userNameDisplay) {
+                            userNameDisplay.textContent = user.name || user.email || "Utente Hub";
+                        }
                     }
                 } catch (e) {
-                    console.error("Errore nel parsing dei dati utente.");
+                    console.error("Errore decrittazione dati sessione.");
                 }
             }
-            
-            // Stato di default (non loggato)
-            if(loginBtn) loginBtn.style.display = "block";
-            if(userInfo) userInfo.style.display = "none";
-        }
+        });
 
         function logout() {
             localStorage.removeItem("user");
+            // Ritorno alla rotta base
             window.location.reload();
         }
-
-        // Attivazione sensori al caricamento
-        document.addEventListener("DOMContentLoaded", updateUI);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
