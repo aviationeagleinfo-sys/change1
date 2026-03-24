@@ -12,7 +12,6 @@
 
     <style>
         :root {
-            /* Palette derivata da Change in Cardiology */
             --cic-blue: #002D57;
             --cic-teal: #00A99D;
             --cic-light-blue: #004a8f;
@@ -20,17 +19,19 @@
             --clean-white: #ffffff;
             --soft-gray: #f4f7f9;
             --footer-bg: #001a33;
-            --column-color: rgba(0, 169, 157, 0.05); /* Colonne in tonalità Teal */
+            --column-color: rgba(0, 169, 157, 0.05);
         }
 
+        /* Protezione visiva pre-auth */
         body { 
             background-color: var(--clean-white); 
             color: var(--cic-blue); 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden; 
+            opacity: 0; /* Nasconde la pagina fino al check di Firebase */
+            transition: opacity 0.5s ease-in-out;
         }
 
-        /* --- UI ELEMENTS (STILE GRECO-MODERNO) --- */
         .greek-column {
             position: fixed; top: 0; width: 60px; height: 100vh;
             background: repeating-linear-gradient(90deg, var(--column-color), var(--column-color) 2px, transparent 2px, transparent 10px);
@@ -38,61 +39,28 @@
         }
         .col-left { left: 15px; } .col-right { right: 15px; }
 
-        /* NAVBAR - Layout Musumeci, Colori CIC */
-        .navbar { 
-            background: white; 
-            border-bottom: 4px solid var(--cic-teal); 
-            padding: 1rem 0; 
-            transition: all 0.3s ease; 
-        }
+        .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--cic-blue)!important; }
         .brand-accent { color: var(--cic-teal); }
         .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
         .nav-link:hover { color: var(--cic-teal)!important; }
         
         .dropdown-menu { border-radius: 0; border: none; border-top: 3px solid var(--cic-teal); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .dropdown-item:hover { background-color: var(--soft-gray); color: var(--cic-teal); }
+        
+        .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; border: none; }
+        .btn-medical:hover { background-color: var(--cic-teal); transform: scale(1.05); color: white; }
 
-        .btn-medical { 
-            background-color: var(--cic-blue); 
-            color: white; 
-            border-radius: 50px; /* Più arrotondato stile Change */
-            padding: 10px 25px; 
-            font-weight: 600; 
-            transition: 0.3s; 
-            text-decoration: none; 
-            border: none; 
-        }
-        .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: scale(1.05); }
-
-        /* --- CONTENUTI --- */
         .hero-section { padding: 80px 0; text-align: center; }
         h1 { font-family: 'Outfit', sans-serif; font-size: 3.2rem; margin-bottom: 20px; color: var(--cic-blue); }
         .teal-line { width: 80px; height: 4px; background: var(--cic-teal); margin: 20px auto; }
         
-        .feature-card { 
-            padding: 40px; 
-            border-left: 4px solid var(--cic-blue); 
-            background: var(--soft-gray); 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            height: 100%; 
-            border-radius: 0 15px 15px 0;
-        }
+        .feature-card { padding: 40px; border-left: 4px solid var(--cic-blue); background: var(--soft-gray); transition: 0.4s; height: 100%; border-radius: 0 15px 15px 0; }
         .feature-card.accent { border-color: var(--cic-teal); }
         .feature-card:hover { transform: translateX(10px); box-shadow: 10px 10px 20px rgba(0, 169, 157, 0.1); }
 
-        /* --- FOOTER --- */
-        .main-footer { 
-            background-color: var(--footer-bg); 
-            color: #ffffff; 
-            padding: 80px 0 40px 0; 
-            margin-top: 100px; 
-            border-top: 6px solid var(--cic-teal); 
-        }
-        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; }
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--cic-teal); }
         .footer-link { color: #b0b8c1; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--cic-teal); padding-left: 5px; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; padding-top: 30px; font-size: 0.85rem; }
         
         #user-info { display: none; align-items: center; }
     </style>
@@ -104,19 +72,17 @@
 
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <a class="navbar-brand d-flex align-items-center" href="https://drgiuseppemusumeci.com">
                 <i class="bi bi-heart-pulse-fill me-2" style="color: var(--cic-teal); font-size: 2rem;"></i>
                 <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/marchio.html" role="button" data-bs-toggle="dropdown">Marchio</a>
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Marchio</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cv-scolastico.html">CV Scolastico</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
@@ -144,64 +110,19 @@
         <section class="hero-section">
             <h1 class="display-3 fw-bold">Change in <br><span style="color:var(--cic-teal)">Cardiology</span></h1>
             <div class="teal-line"></div>
-            <p class="lead text-muted">L'integrazione tra eccellenza clinica e innovazione tecnologica del Prof. Musumeci.</p>
+            <p class="lead text-muted">Accesso riservato all'integrazione clinica e tecnologica del Prof. Musumeci.</p>
         </section>
 
         <div class="row g-4 text-start">
-            <div class="col-md-4">
-                <div class="feature-card accent">
-                    <h4 class="fw-bold">Clinical Change</h4>
-                    <p class="small text-muted mb-0">Leadership presso l'Ospedale Mauriziano di Torino nel trattamento delle patologie tempo-dipendenti.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4 class="fw-bold">Tech Innovation</h4>
-                    <p class="small text-muted mb-0">Pioniere in procedure TAVI e Mitraclip, guidando l'evoluzione dell'emodinamica mininvasiva.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card accent">
-                    <h4 class="fw-bold">Digital Hub</h4>
-                    <p class="small text-muted mb-0">Sistemi avanzati per la gestione del dato clinico e networking scientifico internazionale.</p>
-                </div>
-            </div>
+            <div class="col-md-4"><div class="feature-card accent"><h4 class="fw-bold">Clinical Change</h4><p class="small text-muted mb-0">Leadership Mauriziano Torino.</p></div></div>
+            <div class="col-md-4"><div class="feature-card"><h4 class="fw-bold">Tech Innovation</h4><p class="small text-muted mb-0">Pioniere TAVI e Mitraclip.</p></div></div>
+            <div class="col-md-4"><div class="feature-card accent"><h4 class="fw-bold">Digital Hub</h4><p class="small text-muted mb-0">Networking scientifico.</p></div></div>
         </div>
     </main>
 
     <footer class="main-footer">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5">
-                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75">Cardiologia Interventistica di Nuova Generazione.</p>
-                    <div class="mt-4">
-                        <a href="#" class="btn btn-outline-info btn-sm rounded-pill me-2"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="btn btn-outline-info btn-sm rounded-pill"><i class="bi bi-envelope"></i></a>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
-                    <nav>
-                        <a href="https://www.drgiuseppemusumeci.com/" class="footer-link">Home</a>
-                        <a href="https://www.drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
-                        <a href="https://changeincardiology.it/" target="_blank" class="footer-link">Change in Cardiology</a>
-                    </nav>
-                </div>
-                <div class="col-6 col-lg-4">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Status & Supporto</h6>
-                    <nav>
-                        <a href="https://www.drgiuseppemusumeci.com/privacy.html" class="footer-link">Privacy (GDPR)</a>
-                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-info">● Connesso al Database</span></span>
-                    </nav>
-                </div>
-            </div>
-            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-2 mb-md-0">&copy; 2026 Prof. Giuseppe Musumeci. All Rights Reserved.</p>
-                <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">
-                    Strategic Support by <a href="https://aviationeagle.co.uk" style="color:var(--cic-teal); text-decoration:none;">Aviation Eagle</a>
-                </p>
-            </div>
+        <div class="container text-center">
+            <p>&copy; 2026 Prof. Giuseppe Musumeci | Strategic Support by <a href="https://aviationeagle.co.uk" style="color:var(--cic-teal); text-decoration:none;">Aviation Eagle</a></p>
         </div>
     </footer>
 
@@ -212,7 +133,7 @@
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-            authDomain: "giuseppe-4c318.firebaseapp.com/",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
             projectId: "giuseppe-4c318",
             storageBucket: "giuseppe-4c318.firebasestorage.app",
             messagingSenderId: "658885311131",
@@ -222,22 +143,23 @@
         const auth = firebase.auth();
 
         auth.onAuthStateChanged((user) => {
-            const btnLogin = document.getElementById('btn-login-nav');
-            const userInfo = document.getElementById('user-info');
-            const userName = document.getElementById('user-name');
-
             if (user) {
-                btnLogin.style.display = 'none';
-                userInfo.style.display = 'flex';
-                userName.innerText = user.displayName || user.email;
+                // UTENTE AUTENTICATO
+                document.getElementById('btn-login-nav').style.display = 'none';
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('user-name').innerText = user.displayName || user.email;
+                
+                // Abbassiamo gli scudi: rendiamo visibile la pagina
+                document.body.style.opacity = "1";
             } else {
-                btnLogin.style.display = 'inline-block';
-                userInfo.style.display = 'none';
+                // UTENTE NON AUTENTICATO
+                console.warn("Accesso negato. Reindirizzamento al terminale di login...");
+                window.location.href = "https://www.drgiuseppemusumeci.com/login.html?origin=change";
             }
         });
 
         function logout() {
-            auth.signOut().then(() => window.location.reload());
+            auth.signOut().then(() => window.location.href = "https://www.drgiuseppemusumeci.com/");
         }
     </script>
 </body>
