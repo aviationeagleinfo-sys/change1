@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change in Cardiology | Prof. Giuseppe Musumeci</title>
+    <title>Prof. Giuseppe Musumeci | Change in Cardiology</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,49 +14,49 @@
         :root {
             --cic-blue: #002D57;
             --cic-teal: #00A99D;
-            --tech-black: #1a1b29;
-            --clean-white: #ffffff;
             --soft-gray: #f4f7f9;
             --footer-bg: #001a33;
             --column-color: rgba(0, 169, 157, 0.05);
         }
 
-        /* Occultamento iniziale per evitare flickering */
         body { 
-            background-color: var(--clean-white); 
+            background-color: #ffffff; 
             color: var(--cic-blue); 
             font-family: 'Inter', sans-serif; 
-            overflow-x: hidden; 
-            opacity: 0; 
-            transition: opacity 0.6s ease-in-out;
+            overflow-x: hidden;
         }
 
+        /* --- UI ELEMENTS --- */
         .greek-column {
             position: fixed; top: 0; width: 60px; height: 100vh;
             background: repeating-linear-gradient(90deg, var(--column-color), var(--column-color) 2px, transparent 2px, transparent 10px);
-            border-left: 1px solid var(--column-color); border-right: 1px solid var(--column-color); z-index: -1;
+            z-index: -1;
         }
-        .col-left { left: 15px; } .col-right { right: 15px; }
+        .col-left { left: 15px; border-right: 1px solid var(--column-color); }
+        .col-right { right: 15px; border-left: 1px solid var(--column-color); }
 
+        /* NAVBAR */
         .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--cic-blue)!important; }
         .brand-accent { color: var(--cic-teal); }
-        .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
-        .nav-link:hover { color: var(--cic-teal)!important; }
+        .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; }
+        .dropdown-menu { border-top: 3px solid var(--cic-teal); border-radius: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
-        .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; border: none; }
-        .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: scale(1.05); }
+        .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
+        .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
 
+        /* HERO & CONTENT */
         .hero-section { padding: 80px 0; text-align: center; }
-        h1 { font-family: 'Outfit', sans-serif; font-size: 3.2rem; margin-bottom: 20px; color: var(--cic-blue); }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; color: var(--cic-blue); }
         .teal-line { width: 80px; height: 4px; background: var(--cic-teal); margin: 20px auto; }
-        
-        .feature-card { padding: 40px; border-left: 4px solid var(--cic-blue); background: var(--soft-gray); transition: 0.4s; height: 100%; border-radius: 0 15px 15px 0; }
+        .feature-card { padding: 40px; border-left: 4px solid var(--cic-blue); background: var(--soft-gray); border-radius: 0 15px 15px 0; height: 100%; transition: 0.3s; }
         .feature-card.accent { border-color: var(--cic-teal); }
-        .feature-card:hover { transform: translateX(10px); box-shadow: 10px 10px 20px rgba(0, 169, 157, 0.1); }
 
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 60px 0 30px 0; margin-top: 100px; border-top: 6px solid var(--cic-teal); }
-        
+        /* FOOTER */
+        .main-footer { background: var(--footer-bg); color: white; padding: 60px 0 30px 0; margin-top: 100px; border-top: 5px solid var(--cic-teal); }
+        .footer-link { color: #b0b8c1; text-decoration: none; transition: 0.2s; font-size: 0.95rem; }
+        .footer-link:hover { color: var(--cic-teal); padding-left: 5px; }
+
         #user-info { display: none; align-items: center; }
     </style>
 </head>
@@ -71,18 +71,32 @@
                 <i class="bi bi-heart-pulse-fill me-2" style="color: var(--cic-teal); font-size: 2rem;"></i>
                 <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
+            
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/attualita.html">Attualità</a></li>
-                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="index.html" style="color: var(--cic-teal)!important;">Change</a></li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Marchio</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cv-scolastico.html">CV Scolastico</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2">
+                        <a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/attualita.html">Attualità</a>
+                    </li>
+                    <li class="nav-item px-lg-2 me-lg-3">
+                        <a class="nav-link fw-bold text-uppercase" href="index.html" style="color: var(--cic-teal)!important;">Change</a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a href="https://www.drgiuseppemusumeci.com/login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
                         <div id="user-info">
-                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
-                            <button onclick="logout()" class="btn btn-outline-info btn-sm rounded-pill fw-bold">LOGOUT</button>
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase text-dark opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-pill fw-bold">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -92,20 +106,55 @@
 
     <main class="container">
         <section class="hero-section">
-            <h1 class="display-3 fw-bold">Change in <br><span style="color:var(--cic-teal)">Cardiology</span></h1>
+            <h1 class="fw-bold">Change in <br><span style="color:var(--cic-teal)">Cardiology</span></h1>
             <div class="teal-line"></div>
-            <p class="lead text-muted">Benvenuto nel settore operativo riservato.</p>
+            <p class="lead text-muted">L'innovazione clinica e tecnologica al servizio della cardiologia.</p>
         </section>
 
-        <div class="row g-4 text-start">
-            <div class="col-md-4"><div class="feature-card accent"><h4 class="fw-bold">Clinical</h4><p class="small text-muted">Leadership Mauriziano Torino.</p></div></div>
-            <div class="col-md-4"><div class="feature-card"><h4 class="fw-bold">Innovation</h4><p class="small text-muted">TAVI e Mitraclip Evolution.</p></div></div>
-            <div class="col-md-4"><div class="feature-card accent"><h4 class="fw-bold">Hub</h4><p class="small text-muted">Networking Scientifico.</p></div></div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="feature-card accent">
+                    <h4 class="fw-bold">Clinical Change</h4>
+                    <p>Leadership e protocolli d'eccellenza presso l'Ospedale Mauriziano.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <h4 class="fw-bold">Digital Innovation</h4>
+                    <p>Integrazione di sistemi avanzati per la gestione del dato clinico.</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer class="main-footer text-center">
-        <p class="small opacity-50">&copy; 2026 Prof. Giuseppe Musumeci | Support by Aviation Eagle</p>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3" style="font-family: 'Outfit'; font-weight: 700; font-size: 1.5rem;">
+                        GIUSEPPE<span style="color: var(--cic-teal);">MUSUMECI</span>
+                    </div>
+                    <p class="opacity-75 small">Cardiologia Interventistica e Supporto Strategico.</p>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav class="d-flex flex-column">
+                        <a href="https://www.drgiuseppemusumeci.com/" class="footer-link mb-2">Home Hub</a>
+                        <a href="https://www.drgiuseppemusumeci.com/privacy.html" class="footer-link">Privacy</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4 text-lg-end">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Status Sistema</h6>
+                    <div id="db-status" class="small text-info">● Sincronizzazione in corso...</div>
+                </div>
+            </div>
+            <div class="mt-5 pt-4 border-top border-secondary d-flex justify-content-between align-items-center">
+                <p class="small mb-0 opacity-50">&copy; 2026 Prof. Giuseppe Musumeci.</p>
+                <p class="small mb-0 text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">
+                    Strategic Support by <a href="https://aviationeagle.co.uk" target="_blank" style="color: var(--cic-teal); text-decoration: none;">Aviation Eagle</a>
+                </p>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -113,7 +162,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
-        // CONFIGURAZIONE UNIFICATA
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -126,39 +174,26 @@
         if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
         const auth = firebase.auth();
 
-        // EXECUTION PROTOCOL
-        document.addEventListener('DOMContentLoaded', () => {
-            auth.onAuthStateChanged((user) => {
-                const btnLogin = document.getElementById('btn-login-nav');
-                const userInfo = document.getElementById('user-info');
-                const userName = document.getElementById('user-name');
+        auth.onAuthStateChanged((user) => {
+            const btnLogin = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+            const dbStatus = document.getElementById('db-status');
 
-                if (user) {
-                    console.log("Riconoscimento Biometrico: OK");
-                    // Nascondi Accedi e Mostra Profilo con priorità massima
-                    if(btnLogin) btnLogin.style.setProperty('display', 'none', 'important');
-                    if(userInfo) userInfo.style.setProperty('display', 'flex', 'important');
-                    if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
-                    
-                    // Disattiva occultamento corpo pagina
-                    document.body.style.opacity = "1";
-                } else {
-                    console.warn("Riconoscimento fallito. Reindirizzamento...");
-                    // Se siamo nel sottodominio change e non siamo loggati, via!
-                    if (window.location.hostname.includes('change')) {
-                        window.location.href = "https://www.drgiuseppemusumeci.com/login.html?origin=change";
-                    } else {
-                        // Se fossimo sulla home principale, mostriamo solo il tasto login
-                        document.body.style.opacity = "1";
-                    }
-                }
-            });
+            if (user) {
+                if(btnLogin) btnLogin.style.setProperty('display', 'none', 'important');
+                if(userInfo) userInfo.style.setProperty('display', 'flex', 'important');
+                if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
+                if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● Hub Connesso: ' + user.email + '</span>';
+            } else {
+                if(btnLogin) btnLogin.style.setProperty('display', 'inline-block', 'important');
+                if(userInfo) userInfo.style.setProperty('display', 'none', 'important');
+                if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● Accesso Pubblico</span>';
+            }
         });
 
         function logout() {
-            auth.signOut().then(() => {
-                window.location.href = "https://www.drgiuseppemusumeci.com/";
-            });
+            auth.signOut().then(() => window.location.reload());
         }
     </script>
 </body>
