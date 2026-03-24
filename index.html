@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Giuseppe Musumeci | Change in Cardiology</title>
+    <title>Change in Cardiology | Prof. Giuseppe Musumeci</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,6 @@
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--cic-blue)!important; }
         .brand-accent { color: var(--cic-teal); }
         .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; }
-        .dropdown-menu { border-top: 3px solid var(--cic-teal); border-radius: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
         .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
         .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
@@ -57,7 +56,9 @@
         .footer-link { color: #b0b8c1; text-decoration: none; transition: 0.2s; font-size: 0.95rem; }
         .footer-link:hover { color: var(--cic-teal); padding-left: 5px; }
 
+        /* USER INTERFACE LOGIC */
         #user-info { display: none; align-items: center; }
+        #user-name { border-right: 1px solid #ddd; padding-right: 15px; }
     </style>
 </head>
 <body>
@@ -93,10 +94,11 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a href="#" onclick="window.location.href='https://www.drgiuseppemusumeci.com/login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info">
-                            <span id="user-name" class="me-3 small fw-bold text-uppercase text-dark opacity-75"></span>
-                            <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-pill fw-bold">LOGOUT</button>
+                        <a href="#" onclick="goToLogin(); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        
+                        <div id="user-info" class="bg-light p-1 px-3 rounded-pill border shadow-sm">
+                            <span id="user-name" class="small fw-bold text-uppercase text-secondary"></span>
+                            <button onclick="logout()" class="btn btn-link btn-sm text-danger fw-bold text-decoration-none ms-2">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -162,6 +164,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <script>
+    // CONFIGURAZIONE FIREBASE
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
         authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -174,24 +177,41 @@
     if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const auth = firebase.auth();
 
+    // MONITORAGGIO STATO AUTH
     auth.onAuthStateChanged((user) => {
         const btnLogin = document.getElementById('btn-login-nav');
         const userInfo = document.getElementById('user-info');
         const userName = document.getElementById('user-name');
+        const dbStatus = document.getElementById('db-status');
 
         if (user) {
-            if(btnLogin) btnLogin.style.display = 'none';
-            if(userInfo) userInfo.style.display = 'flex';
-            if(userName) userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
-            console.log("Sincronizzazione completata. Benvenuto Comandante.");
+            // Utente Loggato
+            btnLogin.style.setProperty('display', 'none', 'important');
+            userInfo.style.setProperty('display', 'flex', 'important');
+            
+            // Imposta nome utente (Priority: DisplayName > Email)
+            userName.innerText = user.displayName || user.email.split('@')[0].toUpperCase();
+            
+            if(dbStatus) dbStatus.innerHTML = '<span class="text-success">● Collegato come Medico Autenticato</span>';
         } else {
-            if(btnLogin) btnLogin.style.display = 'inline-block';
-            if(userInfo) userInfo.style.display = 'none';
+            // Utente NON Loggato
+            btnLogin.style.setProperty('display', 'inline-block', 'important');
+            userInfo.style.setProperty('display', 'none', 'important');
+            
+            if(dbStatus) dbStatus.innerHTML = '<span class="text-warning">● Accesso Ospite</span>';
         }
     });
 
+    // FUNZIONI OPERATIVE
+    function goToLogin() {
+        window.location.href = 'https://www.drgiuseppemusumeci.com/login.html?redirect=' + encodeURIComponent(window.location.href);
+    }
+
     function logout() {
-        auth.signOut().then(() => window.location.reload());
+        auth.signOut().then(() => {
+            console.log("Logout effettuato.");
+            window.location.reload();
+        });
     }
 </script>
 </body>
