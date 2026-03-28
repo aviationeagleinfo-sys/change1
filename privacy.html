@@ -6,6 +6,169 @@
     <title>Privacy Policy | Musumeci Digital Hub</title>
      <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+  // Definisce la funzione gtag se non esiste
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Imposta lo stato iniziale su "DENIED" (Nega tutto)
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-HYME8VH6Y5');
+</script>
+<script>
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": { "background": "#1a1a1a", "text": "#ffffff" },
+    "button": { "background": "#e63946", "text": "#ffffff" }
+  },
+  "content": {
+    "message": "Il sistema di bordo richiede l'uso dei cookie per ottimizzare la rotta.",
+    "dismiss": "Accetta Consenso",
+    "link": "Manuale di Volo (Privacy)",
+    "href": "https://aviationeagle.co.uk/privacy"
+  },
+  // Questa funzione scatta quando l'utente preme il tasto
+  onStatusChange: function(status) {
+    if (this.hasConsented()) {
+        activateTracking();
+    }
+  },
+  onInitialise: function(status) {
+    if (this.hasConsented()) {
+        activateTracking();
+    }
+  }
+});
+
+function activateTracking() {
+    console.log("Autorizzazione ricevuta. Avvio motori tracciamento...");
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+}
+</script>
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
+    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
+</button>
+
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card">
+        <h3>Consenso ai Cookie</h3>
+        <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito. Scegli la tua configurazione:</p>
+        <div class="cookie-actions">
+            <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
+            <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
+        </div>
+        <p class="privacy.html"><a href="/privacy">Leggi la Privacy Policy</a></p>
+    </div>
+</div>
+<script>
+    // 1. Inizializzazione GA4 (Default Denied)
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+// Controllo se esiste già una scelta salvata
+const currentConsent = localStorage.getItem('ae_cookie_consent');
+
+if (!currentConsent) {
+    // Prima volta: blocca tutto e mostra banner
+    gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+    });
+    document.getElementById('cookie-overlay').style.display = 'flex';
+} else {
+    // Ritorno: applica la scelta salvata
+    gtag('consent', 'default', {
+        'analytics_storage': currentConsent,
+        'ad_storage': currentConsent
+    });
+}
+
+// 2. Funzione per aggiornare il consenso
+function updateConsent(status) {
+    // Salva nel "Black Box" del browser
+    localStorage.setItem('ae_cookie_consent', status);
+    
+    // Comunica a Google l'aggiornamento
+    gtag('consent', 'update', {
+        'analytics_storage': status,
+        'ad_storage': status
+    });
+    
+    // Chiudi il banner
+    document.getElementById('cookie-overlay').style.display = 'none';
+    console.log("Stato sistemi: Consenso impostato su " + status);
+}
+
+// 3. Funzione per riaprire il banner (dal tasto impostazioni)
+function toggleCookieBanner() {
+    const overlay = document.getElementById('cookie-overlay');
+    overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+}
+</script>
+<style>
+    /* Tasto fluttuante */
+#cookie-settings-trigger {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    color: #e63946; /* Rosso Eagle */
+    border: 2px solid #e63946;
+    cursor: pointer;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+#cookie-settings-trigger:hover { transform: rotate(45deg); }
+
+/* Overlay e Card */
+.cookie-overlay {
+    position: fixed;
+    bottom: 0; left: 0; right: 0; top: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    display: none; /* Nascosto di default */
+    align-items: flex-end;
+    padding: 20px;
+}
+.cookie-card {
+    background: #1a1a1a;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+    border-top: 4px solid #e63946;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+}
+.cookie-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-accept, .btn-reject {
+    flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
+}
+.btn-accept { background: #e63946; color: white; }
+.btn-reject { background: #333; color: #ccc; }
+.cookie-link { font-size: 12px; margin-top: 15px; text-align: center; }
+.cookie-link a { color: #e63946; text-decoration: none; }
+</style>
     <style>
         :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
         body { background-color: white; font-family: 'Inter', sans-serif; color: var(--tech-black); }
