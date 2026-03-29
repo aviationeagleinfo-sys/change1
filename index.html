@@ -9,256 +9,152 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<script>
-  // Definisce la funzione gtag se non esiste
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
 
-  // Imposta lo stato iniziale su "DENIED" (Nega tutto)
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied'
-  });
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYME8VH6Y5');
-</script>
-<script>
-window.cookieconsent.initialise({
-  "palette": {
-    "popup": { "background": "#1a1a1a", "text": "#ffffff" },
-    "button": { "background": "#e63946", "text": "#ffffff" }
-  },
-  "content": {
-    "message": "Il sistema di bordo richiede l'uso dei cookie per ottimizzare la rotta.",
-    "dismiss": "Accetta Consenso",
-    "link": "Manuale di Volo (Privacy)",
-    "href": "https://aviationeagle.co.uk/privacy"
-  },
-  // Questa funzione scatta quando l'utente preme il tasto
-  onStatusChange: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  },
-  onInitialise: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  }
-});
-
-function activateTracking() {
-    console.log("Autorizzazione ricevuta. Avvio motori tracciamento...");
-    gtag('consent', 'update', {
-      'ad_storage': 'granted',
-      'analytics_storage': 'granted',
-      'ad_user_data': 'granted',
-      'ad_personalization': 'granted'
-    });
-}
-</script>
-<button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
-    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
-</button>
-
-<div id="cookie-overlay" class="cookie-overlay">
-    <div class="cookie-card">
-        <h3>Consenso ai Cookie</h3>
-        <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito. Scegli la tua configurazione:</p>
-        <div class="cookie-actions">
-            <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
-            <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
-        </div>
-        <p class="privacy.html"><a href="/privacy">Leggi la Privacy Policy</a></p>
-    </div>
-</div>
-<script>
-    // 1. Inizializzazione GA4 (Default Denied)
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
-// Controllo se esiste già una scelta salvata
-const currentConsent = localStorage.getItem('ae_cookie_consent');
-
-if (!currentConsent) {
-    // Prima volta: blocca tutto e mostra banner
-    gtag('consent', 'default', {
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
         'analytics_storage': 'denied',
-        'ad_storage': 'denied'
-    });
-    document.getElementById('cookie-overlay').style.display = 'flex';
-} else {
-    // Ritorno: applica la scelta salvata
-    gtag('consent', 'default', {
-        'analytics_storage': currentConsent,
-        'ad_storage': currentConsent
-    });
-}
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYME8VH6Y5');
+    </script>
 
-// 2. Funzione per aggiornare il consenso
-function updateConsent(status) {
-    // Salva nel "Black Box" del browser
-    localStorage.setItem('ae_cookie_consent', status);
-    
-    // Comunica a Google l'aggiornamento
-    gtag('consent', 'update', {
-        'analytics_storage': status,
-        'ad_storage': status
-    });
-    
-    // Chiudi il banner
-    document.getElementById('cookie-overlay').style.display = 'none';
-    console.log("Stato sistemi: Consenso impostato su " + status);
-}
-
-// 3. Funzione per riaprire il banner (dal tasto impostazioni)
-function toggleCookieBanner() {
-    const overlay = document.getElementById('cookie-overlay');
-    overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-}
-</script>
-<style>
-    /* Tasto fluttuante */
-#cookie-settings-trigger {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #1a1a1a;
-    color: #e63946; /* Rosso Eagle */
-    border: 2px solid #e63946;
-    cursor: pointer;
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s;
-}
-#cookie-settings-trigger:hover { transform: rotate(45deg); }
-
-/* Overlay e Card */
-.cookie-overlay {
-    position: fixed;
-    bottom: 0; left: 0; right: 0; top: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    display: none; /* Nascosto di default */
-    align-items: flex-end;
-    padding: 20px;
-}
-.cookie-card {
-    background: #1a1a1a;
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    max-width: 500px;
-    margin: 0 auto;
-    border-top: 4px solid #e63946;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-}
-.cookie-actions { display: flex; gap: 10px; margin-top: 20px; }
-.btn-accept, .btn-reject {
-    flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
-}
-.btn-accept { background: #e63946; color: white; }
-.btn-reject { background: #333; color: #ccc; }
-.cookie-link { font-size: 12px; margin-top: 15px; text-align: center; }
-.cookie-link a { color: #e63946; text-decoration: none; }
-</style>
     <style>
+        /* === DEFINIZIONE PALETTE CROMATICA RICHIESTA === */
         :root {
-            --cic-blue: #002D57;
-            --cic-teal: #00A99D;
-            --soft-gray: #f8fafc;
-            --footer-bg: #001a33;
-            --column-base: rgba(210, 210, 215, 0.4); 
-            --column-highlight: rgba(255, 255, 255, 0.6);
-            --column-shadow: rgba(0, 0, 0, 0.15);
+            --bg-main: #395296;        /* Sfondo richiesto */
+            --titles-gold: #f8c200;    /* Titoli richiesti */
+            --accent-coral: #eb966a;   /* Dettagli/Bottoni richiesti */
+            --text-light: #d6dcea;     /* Testi richiesti */
+            
+            --dark-overlay: rgba(0, 0, 0, 0.2);
+            --column-base: rgba(214, 220, 234, 0.1); 
+            --white: #ffffff;
         }
 
         body { 
-            background-color: #ffffff; 
-            color: var(--cic-blue); 
+            background-color: var(--bg-main); 
+            color: var(--text-light); 
             font-family: 'Inter', sans-serif; 
             line-height: 1.8;
             overflow-x: hidden;
         }
 
+        h1, h2, h3, h4, h5, .widget-title {
+            font-family: 'Outfit', sans-serif;
+            color: var(--titles-gold);
+            font-weight: 700;
+        }
+
+        /* === COLONNE GRECHE (ADATTATE) === */
         .greek-column {
-            position: fixed; 
-            top: 0; 
-            width: 60px; 
-            height: 100vh; 
-            z-index: -1;
+            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
             background: linear-gradient(90deg, 
-                var(--column-shadow) 0%, 
+                rgba(0,0,0,0.1) 0%, 
                 var(--column-base) 20%, 
-                var(--column-highlight) 35%, 
+                rgba(255,255,255,0.05) 35%, 
                 var(--column-base) 50%, 
-                var(--column-shadow) 65%, 
+                rgba(0,0,0,0.1) 65%, 
                 var(--column-base) 80%, 
-                var(--column-shadow) 100%);
+                rgba(0,0,0,0.1) 100%);
             background-size: 30px 100%; 
-            border-left: 1px solid rgba(0,0,0,0.05); 
-            border-right: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 5px 0 15px rgba(0,0,0,0.03), -5px 0 15px rgba(0,0,0,0.03);
+            border-left: 1px solid rgba(255,255,255,0.05); 
+            border-right: 1px solid rgba(255,255,255,0.05);
         }
         .col-left { left: 15px; } 
         .col-right { right: 15px; }
 
-        .navbar { background: white; border-bottom: 4px solid var(--cic-teal); padding: 1rem 0; position: relative; z-index: 1000; }
-        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue)!important; font-size: 1.4rem; }
-        .brand-accent { color: var(--cic-teal); }
-        .nav-link { color: var(--cic-blue)!important; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; }
+        /* === NAVBAR (ADATTATA) === */
+        .navbar { 
+            background: rgba(42, 61, 114, 0.95); 
+            border-bottom: 4px solid var(--accent-coral); 
+            padding: 1rem 0; 
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--white)!important; }
+        .brand-accent { color: var(--titles-gold); }
+        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-uppercase: true; }
+        .nav-link:hover { color: var(--titles-gold)!important; }
         
-        .navbar-toggler { border: none; color: var(--cic-blue); }
-        .navbar-toggler:focus { box-shadow: none; }
+        .navbar-toggler { color: var(--white); border: none; }
 
-        .btn-medical { background-color: var(--cic-blue); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; }
-        .btn-medical:hover { background-color: var(--cic-teal); color: white; transform: translateY(-2px); }
+        .btn-medical { 
+            background-color: var(--accent-coral); 
+            color: var(--white); 
+            border-radius: 50px; 
+            padding: 8px 20px; 
+            font-weight: 700; 
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-medical:hover { 
+            background-color: var(--titles-gold); 
+            color: var(--bg-main); 
+            transform: translateY(-2px); 
+        }
 
-        /* --- LOGICA DI VISIBILITÀ TASTO LOGIN --- */
-        #user-info { display: none; align-items: center; gap: 15px; background: var(--soft-gray); padding: 5px 15px; border-radius: 50px; border: 1px solid rgba(0,0,0,0.05); }
-        #user-name { font-size: 0.75rem; font-weight: 700; color: var(--cic-blue); text-transform: uppercase; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .btn-logout { background: none; border: none; color: #dc3545; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding: 0; transition: 0.2s; }
-        .btn-logout:hover { color: #a71d2a; text-decoration: underline; }
+        /* === LOGIN UI (ADATTATA) === */
+        #user-info { display: none; align-items: center; gap: 15px; background: var(--dark-overlay); padding: 5px 15px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
+        #user-name { font-size: 0.75rem; font-weight: 700; color: var(--titles-gold); }
+        .btn-logout { background: none; border: 1px solid var(--accent-coral); color: var(--accent-coral); font-size: 0.7rem; padding: 2px 10px; border-radius: 4px; }
 
-        .profile-header { padding: 80px 0 40px; background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.8) 100%); border-bottom: 1px solid #eee; }
-        .teal-divider { width: 60px; height: 5px; background: var(--cic-teal); margin: 25px 0; border-radius: 10px; }
+        /* === HEADER (ADATTATA) === */
+        .profile-header { padding: 80px 0 40px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .teal-divider { width: 60px; height: 5px; background: var(--accent-coral); margin: 25px 0; border-radius: 10px; }
+
+        /* === MAIN CONTENT (ADATTATA) === */
+        .searchable-unit { 
+            background: rgba(255,255,255,0.03); 
+            padding: 30px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 40px; 
+        }
+        .news-tag { color: var(--accent-coral); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
+        .highlight-box { 
+            border-left: 6px solid var(--accent-coral); 
+            background: var(--dark-overlay); 
+            padding: 30px; 
+            margin: 40px 0; 
+            font-style: italic; 
+            color: var(--white);
+            border-radius: 0 20px 20px 0; 
+        }
+
+        /* === SIDEBAR (ADATTATA) === */
+        .sidebar-widget { background: rgba(0,0,0,0.1); padding: 25px; border-radius: 20px; }
+        .assoc-list li { background: var(--dark-overlay)!important; color: var(--text-light)!important; }
+
+        /* === FOOTER (ADATTATA) === */
+        .main-footer { 
+            background-color: rgba(0,0,0,0.2); 
+            color: var(--text-light); 
+            padding: 60px 0 30px; 
+            border-top: 6px solid var(--titles-gold); 
+        }
+
+        /* === COOKIE BANNER (ADATTATA) === */
+        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--bg-main); color: var(--accent-coral); border: 2px solid var(--accent-coral); z-index: 9998; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .cookie-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
+        .cookie-card { background: #2a3d72; color: var(--text-light); padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid var(--accent-coral); }
+        .btn-accept { background: var(--accent-coral); color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; }
+        .btn-reject { background: transparent; color: var(--text-light); border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 5px; }
+        .cookie-card h3 { color: var(--titles-gold); }
+        .cookie-card a { color: var(--accent-coral); }
 
         @media (min-width: 992px) {
             .main-wrapper { height: calc(100vh - 200px); overflow: hidden; }
-            .scroll-column { height: 100%; overflow-y: auto; padding-bottom: 50px; scrollbar-width: thin; scrollbar-color: var(--cic-teal) transparent; }
-            .scroll-column::-webkit-scrollbar { width: 6px; }
-            .scroll-column::-webkit-scrollbar-thumb { background-color: var(--cic-teal); border-radius: 10px; }
-            .content-section { padding-right: 30px; border-right: 1px solid #eee; }
-            .sidebar { padding-left: 20px; }
-        }
-
-        .searchable-unit { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; }
-        .searchable-unit:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
-        .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--cic-blue); margin-bottom: 15px; }
-        .news-tag { color: var(--cic-teal); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
-        .highlight-box { border-left: 6px solid var(--cic-teal); background: var(--soft-gray); padding: 30px; margin: 40px 0; font-style: italic; font-size: 1.15rem; border-radius: 0 20px 20px 0; }
-        
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 50px; border-top: 6px solid var(--cic-teal); }
-        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; }
-
-        @media (max-width: 991px) { 
-            .sidebar { margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; } 
-            .greek-column { width: 30px; } 
-            #user-info { margin-top: 15px; width: 100%; justify-content: center; }
+            .scroll-column { height: 100%; overflow-y: auto; scrollbar-color: var(--accent-coral) transparent; }
+            .content-section { border-right: 1px solid rgba(255,255,255,0.05); }
         }
     </style>
 </head>
@@ -267,7 +163,23 @@ function toggleCookieBanner() {
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
-    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
+    </button>
+
+    <div id="cookie-overlay" class="cookie-overlay">
+        <div class="cookie-card text-center">
+            <h3>Consenso ai Cookie</h3>
+            <p>Ottimizza la tua rotta navigazionale abilitando i cookie di analisi.</p>
+            <div class="cookie-actions d-flex gap-2 justify-content-center">
+                <button onclick="updateConsent('granted')" class="btn-accept">ACCETTA TUTTI</button>
+                <button onclick="updateConsent('denied')" class="btn-reject">SOLO NECESSARI</button>
+            </div>
+            <p class="small mt-3"><a href="/privacy">Leggi la Privacy Policy</a></p>
+        </div>
+    </div>
+
+     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com/index.html">
                 <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
@@ -313,16 +225,16 @@ function toggleCookieBanner() {
     </nav>
 
     <header class="profile-header">
-        <div class="container">
-            <h6 class="text-uppercase fw-bold opacity-50 small mb-2" style="letter-spacing: 2px;">Change in Cardiology</h6>
-            <h1 class="display-4 fw-bold" style="font-family: 'Outfit';">Innovazione & Strategia</h1>
-            <div class="teal-divider"></div>
+        <div class="container text-center text-lg-start">
+            <h6 class="text-uppercase fw-bold opacity-75 small mb-2" style="color: var(--accent-coral); letter-spacing: 2px;">Change in Cardiology</h6>
+            <h1 class="display-4 fw-bold">Innovazione & Strategia</h1>
+            <div class="teal-divider mx-auto mx-lg-0"></div>
         </div>
     </header>
 
     <main class="main-wrapper">
         <div class="container h-100">
-            <div class="row h-100 g-0 g-lg-5">
+            <div class="row h-100 g-lg-5">
                 <div class="col-lg-8 scroll-column content-section pt-4">
                     <div class="searchable-unit">
                         <span class="news-tag">The Visionary Hub</span>
@@ -330,7 +242,7 @@ function toggleCookieBanner() {
                         <p class="lead">Sotto la guida del <strong>Prof. Giuseppe Musumeci</strong>, CiC si è evoluto in un Think Tank dell'innovazione cardiovascolare.</p>
                     </div>
 
-                    <div class="highlight-box">
+                    <div class="highlight-box shadow">
                         "Il vero 'Change' non è sostituire un uomo con una macchina, ma potenziare l'intelligenza del clinico."
                     </div>
                 </div>
@@ -339,7 +251,7 @@ function toggleCookieBanner() {
                     <div class="sidebar-widget">
                         <h5 class="widget-title">Parametri di Missione</h5>
                         <ul class="assoc-list" style="list-style: none; padding: 0;">
-                            <li style="padding: 15px; background: var(--soft-gray); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600;">
+                            <li style="padding: 15px; border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600; border-left: 4px solid var(--accent-coral);">
                                 <i class="bi bi-activity text-info me-2"></i> Hub Mauriziano: <strong>FULL OPS</strong>
                             </li>
                         </ul>
@@ -352,48 +264,44 @@ function toggleCookieBanner() {
     <footer class="main-footer">
         <div class="container text-center text-lg-start">
             <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-            <p class="opacity-75 small">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+            <p class="opacity-50 small">&copy; 2026 MD Giuseppe Musumeci. Sistemi ottimizzati da Aviation Eagle.</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Estrazione dati dal data-link
-            const userData = localStorage.getItem("user");
-            const loginBtn = document.getElementById("btn-login-nav");
-            const userInfo = document.getElementById("user-info");
-            const userNameDisplay = document.getElementById("user-name");
+        // Logica Consenso
+        const currentConsent = localStorage.getItem('ae_cookie_consent');
+        if (!currentConsent) document.getElementById('cookie-overlay').style.display = 'flex';
 
+        function updateConsent(status) {
+            localStorage.setItem('ae_cookie_consent', status);
+            gtag('consent', 'update', { 'analytics_storage': status });
+            document.getElementById('cookie-overlay').style.display = 'none';
+        }
+
+        function toggleCookieBanner() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // Logica Login
+        document.addEventListener("DOMContentLoaded", function() {
+            const userData = localStorage.getItem("user");
             if (userData) {
-                try {
-                    const user = JSON.parse(userData);
-                    
-                    // Verifica se l'utente è autenticato
-                    if (user && (user.isLoggedIn || user.authenticated)) {
-                        // Protocollo di occultamento con priorità
-                        if(loginBtn) loginBtn.style.setProperty("display", "none", "important");
-                        
-                        // Attivazione interfaccia utente
-                        if(userInfo) userInfo.style.setProperty("display", "flex", "important");
-                        
-                        // Visualizzazione Nome o Email (fallback)
-                        if(userNameDisplay) {
-                            userNameDisplay.textContent = user.name || user.email || "Utente Hub";
-                        }
-                    }
-                } catch (e) {
-                    console.error("Errore decrittazione dati sessione.");
+                const user = JSON.parse(userData);
+                if (user && (user.isLoggedIn || user.authenticated)) {
+                    document.getElementById("btn-login-nav").style.display = "none";
+                    document.getElementById("user-info").style.display = "flex";
+                    document.getElementById("user-name").textContent = user.name || user.email || "Utente Hub";
                 }
             }
         });
 
         function logout() {
             localStorage.removeItem("user");
-            // Ritorno alla rotta base
             window.location.reload();
         }
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
