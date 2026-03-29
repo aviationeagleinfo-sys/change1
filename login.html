@@ -7,33 +7,100 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --cic-blue: #002D57; --cic-teal: #00A99D; }
-        body { background: var(--cic-blue); height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; }
-        .login-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); width: 100%; max-width: 420px; }
-        
-        .btn-teal { background: var(--cic-teal); color: white; border-radius: 50px; font-weight: bold; width: 100%; padding: 12px; border: none; transition: 0.3s; }
-        .btn-teal:hover { background: #008f85; transform: translateY(-2px); }
-        .btn-teal:disabled { background: #a5d6d2; cursor: not-allowed; }
+        /* === DEFINIZIONE PALETTE CROMATICA RICHIESTA === */
+        :root { 
+            --bg-main: #395296;        /* Sfondo */
+            --titles-gold: #f8c200;    /* Titolo */
+            --accent-coral: #eb966a;   /* Bottoni/Dettagli */
+            --text-light: #d6dcea;     /* Testi */
+            --white: #ffffff;
+            --dark-box: #2a3d72;       /* Box login leggermente più chiaro dello sfondo */
+        }
 
+        body { 
+            background: var(--bg-main); 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-light);
+        }
+
+        .login-box { 
+            background: var(--dark-box); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 45px rgba(0,0,0,0.4); 
+            width: 100%; 
+            max-width: 420px; 
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        /* Titolo Login */
+        .login-box h3 { color: var(--titles-gold)!important; }
+        .text-muted { color: var(--text-light)!important; opacity: 0.7; }
+
+        /* Bottoni Social (adattati per visibilità su scuro) */
         .btn-social { border-radius: 50px; padding: 10px; font-weight: 600; font-size: 0.9rem; width: 100%; margin-bottom: 10px; transition: 0.3s; }
-        .btn-google { border: 1px solid #dadce0; background: white; color: #3c4043; }
+        .btn-google { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--white); }
         .btn-facebook { background: #1877F2; color: white; border: none; }
-        .btn-social:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-social:hover { opacity: 0.8; transform: translateY(-1px); background: rgba(255,255,255,0.1); color: var(--titles-gold); }
 
-        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #ccc; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
-        .divider span { padding: 0 10px; font-size: 0.8rem; text-transform: uppercase; color: #aaa; font-weight: bold;}
+        /* Divisore */
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: rgba(214, 220, 234, 0.2); }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(214, 220, 234, 0.1); }
+        .divider span { padding: 0 10px; font-size: 0.7rem; text-transform: uppercase; color: var(--text-light); opacity: 0.5; font-weight: bold;}
+
+        /* Form */
+        .form-label { font-size: 0.75rem; font-weight: 700; color: var(--titles-gold); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: var(--white); 
+            border-radius: 8px; 
+        }
+        .form-control:focus { 
+            background: rgba(0,0,0,0.3); 
+            border-color: var(--accent-coral); 
+            color: var(--white); 
+            box-shadow: none; 
+        }
+        .form-control::placeholder { color: rgba(255,255,255,0.3); }
+
+        /* Bottone Primario */
+        .btn-teal { 
+            background: var(--accent-coral); 
+            color: white; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            width: 100%; 
+            padding: 12px; 
+            border: none; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-teal:hover { background: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
+        .btn-teal:disabled { background: #555; cursor: not-allowed; opacity: 0.5; }
+
+        /* Link */
+        .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--text-light); opacity: 0.6; transition: 0.2s; cursor: pointer;}
+        .forgot-link:hover { color: var(--accent-coral); opacity: 1; }
         
-        .form-label { font-size: 0.75rem; font-weight: 700; color: var(--cic-blue); text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-control { border-radius: 8px; }
-        .forgot-link { font-size: 0.75rem; text-decoration: none; color: #666; transition: 0.2s; cursor: pointer;}
-        .forgot-link:hover { color: var(--cic-teal); }
+        .register-link { color: var(--accent-coral); text-decoration: none; font-weight: bold; }
+        .register-link:hover { color: var(--titles-gold); }
+        
+        .back-home { color: var(--text-light); opacity: 0.5; text-decoration: none; font-size: 0.8rem; }
+        .back-home:hover { opacity: 1; color: var(--white); }
+        
+        .border-top { border-top: 1px solid rgba(255,255,255,0.1)!important; }
     </style>
 </head>
 <body>
 
     <div class="login-box text-center">
-        <h3 class="fw-bold mb-2" style="color: var(--cic-blue);">ACCESSO HUB</h3>
+        <h3 class="fw-bold mb-2">ACCESSO HUB</h3>
         <p class="text-muted small mb-4">Credenziali operative sottodominio CHANGE</p>
         
         <button onclick="loginSocial('google')" class="btn btn-social btn-google">
@@ -55,19 +122,19 @@
                 <input type="password" id="pass-field" class="form-control" required>
             </div>
             <div class="text-end mb-3">
-                <a id="forgot-password-trigger" class="forgot-link italic">Password dimenticata?</a>
+                <a id="forgot-password-trigger" class="forgot-link">Password dimenticata?</a>
             </div>
             
             <button type="submit" id="loginBtn" class="btn btn-teal mb-3">ENTRA NEL SISTEMA</button>
         </form>
         
-        <div id="error-msg" class="text-danger mb-3 small" style="display:none;"></div>
+        <div id="error-msg" class="text-danger mb-3 small" style="display:none; font-weight: bold;"></div>
         
         <div class="mt-2 border-top pt-3">
-            <p class="small text-muted">Non hai un account? 
-                <a href="register.html" class="text-decoration-none fw-bold" style="color: var(--cic-teal);">Registrati qui</a>
+            <p class="small">Non hai un account? 
+                <a href="register.html" class="register-link">Registrati qui</a>
             </p>
-            <a href="index.html" class="text-decoration-none small text-secondary"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
+            <a href="index.html" class="back-home"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
         </div>
     </div>
 
@@ -87,38 +154,30 @@
     if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const auth = firebase.auth();
 
-    // --- PROTOCOLLO DI SALVATAGGIO DATI E NAVIGAZIONE ---
     function saveAndRedirect(user) {
-        // Estraiamo il nome o usiamo l'email come fallback
         const userData = {
             isLoggedIn: true,
             name: user.displayName || user.email.split('@')[0].toUpperCase(),
             email: user.email,
             uid: user.uid
         };
-        
-        // Salvataggio nel localStorage affinché la Home possa leggerlo
         localStorage.setItem("user", JSON.stringify(userData));
-
-        // Gestione redirect
         const params = new URLSearchParams(window.location.search);
         const destination = params.get('redirect');
         window.location.href = destination ? decodeURIComponent(destination) : "index.html";
     }
 
-    // --- LOGICA PASSWORD DIMENTICATA ---
     document.getElementById('forgot-password-trigger').onclick = () => {
         const email = document.getElementById('email-field').value;
         if (!email) {
-            alert("Inserisci la tua email nel campo sopra per ricevere il link di ripristino.");
+            alert("Inserisci la tua email per ricevere il link di ripristino.");
             return;
         }
         auth.sendPasswordResetEmail(email)
-            .then(() => alert("Protocollo di ripristino inviato! Controlla la tua casella email."))
+            .then(() => alert("Protocollo inviato! Controlla la tua email."))
             .catch((error) => alert("Errore: " + error.message));
     };
 
-    // Login Email/Password
     document.getElementById('loginForm').onsubmit = (e) => {
         e.preventDefault();
         const email = document.getElementById('email-field').value;
@@ -131,42 +190,23 @@
         errorDiv.style.display = 'none';
 
         auth.signInWithEmailAndPassword(email, pass)
-            .then((result) => { 
-                saveAndRedirect(result.user); 
-            })
+            .then((result) => { saveAndRedirect(result.user); })
             .catch(err => {
                 btn.disabled = false;
                 btn.innerText = "ENTRA NEL SISTEMA";
-                errorDiv.innerText = "Errore di accesso: credenziali non valide.";
+                errorDiv.innerText = "Credenziali non valide.";
                 errorDiv.style.display = 'block';
             });
     };
 
-    // Login Social (Corretto nome funzione)
     function loginSocial(providerName) {
         let provider = (providerName === 'google') ? 
             new firebase.auth.GoogleAuthProvider() : 
             new firebase.auth.FacebookAuthProvider();
-
         auth.signInWithPopup(provider)
-            .then((result) => { 
-                saveAndRedirect(result.user); 
-            })
+            .then((result) => { saveAndRedirect(result.user); })
             .catch(err => alert("Errore Social: " + err.message));
     }
-
-    // Check se l'utente è già loggato all'apertura della pagina
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            // Se Firebase ha già una sessione attiva, sincronizza localStorage e vai alla home
-            const userData = {
-                isLoggedIn: true,
-                name: user.displayName || user.email.split('@')[0].toUpperCase(),
-                email: user.email
-            };
-            localStorage.setItem("user", JSON.stringify(userData));
-        }
-    });
 </script>
 </body>
 </html>
