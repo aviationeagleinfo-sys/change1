@@ -7,33 +7,74 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --cic-blue: #002D57; --cic-teal: #00A99D; }
-        body { background: var(--cic-blue); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; padding: 20px; }
-        .register-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); width: 100%; max-width: 500px; }
-        .btn-teal { background: var(--cic-teal); color: white; border-radius: 50px; font-weight: bold; width: 100%; padding: 12px; border: none; transition: 0.3s; }
-        .btn-teal:disabled { background: #a5d6d2; cursor: not-allowed; }
+        /* === PALETTE CROMATICA AERONAUTICA === */
+        :root { 
+            --bg-main: #395296;        /* Deep Sea Blue */
+            --titles-gold: #f8c200;    /* Gold Aviation */
+            --accent-coral: #eb966a;   /* Coral Accent */
+            --text-light: #d6dcea;     /* Soft Cloud */
+            --dark-box: #2a3d72;       /* Pannello operativo */
+            --white: #ffffff;
+        }
+
+        body { background: var(--bg-main); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; padding: 20px; color: var(--text-light); }
+        
+        .register-box { 
+            background: var(--dark-box); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            width: 100%; 
+            max-width: 500px; 
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .register-box h3 { color: var(--titles-gold)!important; }
+        .text-muted { color: var(--text-light)!important; opacity: 0.7; }
+
+        .btn-teal { 
+            background: var(--accent-coral); 
+            color: white; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            width: 100%; 
+            padding: 12px; 
+            border: none; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+        }
+        .btn-teal:hover { background: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
+        .btn-teal:disabled { background: #555; cursor: not-allowed; opacity: 0.5; }
         
         /* Social Buttons */
         .btn-social { border-radius: 50px; padding: 10px; font-weight: 600; font-size: 0.9rem; width: 100%; margin-bottom: 10px; transition: 0.3s; }
-        .btn-google { border: 1px solid #dadce0; background: white; color: #3c4043; }
+        .btn-google { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--white); }
         .btn-facebook { background: #1877F2; color: white; border: none; }
-        .btn-social:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-social:hover { opacity: 0.8; transform: translateY(-1px); color: var(--titles-gold); }
 
-        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #ccc; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
-        .divider span { padding: 0 10px; font-size: 0.75rem; text-transform: uppercase; color: #999; font-weight: bold; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: rgba(214, 220, 234, 0.2); }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(214, 220, 234, 0.1); }
+        .divider span { padding: 0 10px; font-size: 0.75rem; text-transform: uppercase; color: var(--text-light); opacity: 0.5; font-weight: bold; }
 
-        .form-label { font-size: 0.75rem; font-weight: 700; color: var(--cic-blue); text-transform: uppercase; letter-spacing: 0.5px; }
-        .pass-hint { font-size: 0.7rem; color: #666; margin-top: 5px; }
-        .is-invalid { border-color: #dc3545!important; }
-        .is-valid { border-color: #198754!important; }
+        .form-label { font-size: 0.75rem; font-weight: 700; color: var(--titles-gold); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: var(--white); border-radius: 8px; }
+        .form-control:focus { background: rgba(0,0,0,0.3); border-color: var(--accent-coral); color: var(--white); box-shadow: none; }
+        
+        .pass-hint { font-size: 0.7rem; color: var(--text-light); opacity: 0.6; margin-top: 5px; }
+        .is-invalid { border-color: #ff4d4d!important; }
+        .is-valid { border-color: #2ecc71!important; }
+
+        .register-footer-link { color: var(--accent-coral); text-decoration: none; font-weight: bold; }
+        .register-footer-link:hover { color: var(--titles-gold); }
+        .back-home { color: var(--text-light); opacity: 0.5; text-decoration: none; font-size: 0.8rem; }
+        .back-home:hover { opacity: 1; color: var(--white); }
     </style>
 </head>
 <body>
 
     <div class="register-box">
         <div class="text-center mb-4">
-            <h3 class="fw-bold" style="color: var(--cic-blue);">REGISTRATI</h3>
+            <h3 class="fw-bold">REGISTRATI</h3>
             <p class="text-muted small">Registrazione sicura per il sito dedicato al CHANGE</p>
         </div>
 
@@ -72,13 +113,13 @@
             </div>
         </div>
         
-        <div id="error-msg" class="text-danger mt-3 small text-center" style="display:none;"></div>
+        <div id="error-msg" class="text-danger mt-3 small text-center" style="display:none; font-weight:bold;"></div>
         
         <button onclick="handleRegister()" id="regBtn" class="btn btn-teal mt-4 mb-3" disabled>CREA ACCOUNT</button>
         
         <div class="text-center">
-            <p class="small text-muted">Hai già un account? <a href="login.html" class="text-decoration-none fw-bold" style="color: var(--cic-teal);">Accedi</a></p>
-            <a href="index.html" class="text-decoration-none small text-secondary">Torna alla Home</a>
+            <p class="small text-muted">Hai già un account? <a href="login.html" class="register-footer-link">Accedi</a></p>
+            <a href="index.html" class="back-home">Torna alla Home</a>
         </div>
     </div>
 
@@ -98,7 +139,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // VALIDAZIONE REAL-TIME
         function validatePassword() {
             const pass = document.getElementById('reg-password').value;
             const confirm = document.getElementById('reg-confirm').value;
@@ -109,14 +149,13 @@
             const isValidSchema = schema.test(pass);
             const isMatching = pass === confirm && pass !== "";
 
-            hint.style.color = isValidSchema ? "#198754" : "#dc3545";
+            hint.style.color = isValidSchema ? "#2ecc71" : "#ff4d4d";
             document.getElementById('reg-confirm').classList.toggle('is-valid', isMatching);
             document.getElementById('reg-confirm').classList.toggle('is-invalid', !isMatching && confirm !== "");
 
             btn.disabled = !(isValidSchema && isMatching);
         }
 
-        // REGISTRAZIONE EMAIL
         function handleRegister() {
             const name = document.getElementById('reg-name').value;
             const surname = document.getElementById('reg-surname').value;
@@ -143,20 +182,11 @@
                 });
         }
 
-        // REGISTRAZIONE / LOGIN SOCIAL
         function loginSocial(providerName) {
-            let provider;
-            if (providerName === 'google') {
-                provider = new firebase.auth.GoogleAuthProvider();
-            } else {
-                provider = new firebase.auth.FacebookAuthProvider();
-            }
-
+            let provider = (providerName === 'google') ? new firebase.auth.GoogleAuthProvider() : new firebase.auth.FacebookAuthProvider();
             auth.signInWithPopup(provider)
                 .then(() => window.location.href = 'index.html')
-                .catch((error) => {
-                    alert("Errore Social: " + error.message);
-                });
+                .catch((error) => alert("Errore Social: " + error.message));
         }
     </script>
 </body>
