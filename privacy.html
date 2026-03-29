@@ -6,183 +6,83 @@
     <title>Privacy Policy | Musumeci Digital Hub</title>
      <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script>
-  // Definisce la funzione gtag se non esiste
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-
-  // Imposta lo stato iniziale su "DENIED" (Nega tutto)
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied'
-  });
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYME8VH6Y5');
-</script>
-<script>
-window.cookieconsent.initialise({
-  "palette": {
-    "popup": { "background": "#1a1a1a", "text": "#ffffff" },
-    "button": { "background": "#e63946", "text": "#ffffff" }
-  },
-  "content": {
-    "message": "Il sistema di bordo richiede l'uso dei cookie per ottimizzare la rotta.",
-    "dismiss": "Accetta Consenso",
-    "link": "Manuale di Volo (Privacy)",
-    "href": "https://aviationeagle.co.uk/privacy"
-  },
-  // Questa funzione scatta quando l'utente preme il tasto
-  onStatusChange: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  },
-  onInitialise: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  }
-});
-
-function activateTracking() {
-    console.log("Autorizzazione ricevuta. Avvio motori tracciamento...");
-    gtag('consent', 'update', {
-      'ad_storage': 'granted',
-      'analytics_storage': 'granted',
-      'ad_user_data': 'granted',
-      'ad_personalization': 'granted'
-    });
-}
-</script>
-<button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
-    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
-</button>
-
-<div id="cookie-overlay" class="cookie-overlay">
-    <div class="cookie-card">
-        <h3>Consenso ai Cookie</h3>
-        <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito. Scegli la tua configurazione:</p>
-        <div class="cookie-actions">
-            <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
-            <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
-        </div>
-        <p class="privacy.html"><a href="/privacy">Leggi la Privacy Policy</a></p>
-    </div>
-</div>
-<script>
-    // 1. Inizializzazione GA4 (Default Denied)
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
-// Controllo se esiste già una scelta salvata
-const currentConsent = localStorage.getItem('ae_cookie_consent');
-
-if (!currentConsent) {
-    // Prima volta: blocca tutto e mostra banner
-    gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied'
-    });
-    document.getElementById('cookie-overlay').style.display = 'flex';
-} else {
-    // Ritorno: applica la scelta salvata
-    gtag('consent', 'default', {
-        'analytics_storage': currentConsent,
-        'ad_storage': currentConsent
-    });
-}
-
-// 2. Funzione per aggiornare il consenso
-function updateConsent(status) {
-    // Salva nel "Black Box" del browser
-    localStorage.setItem('ae_cookie_consent', status);
     
-    // Comunica a Google l'aggiornamento
-    gtag('consent', 'update', {
-        'analytics_storage': status,
-        'ad_storage': status
-    });
-    
-    // Chiudi il banner
-    document.getElementById('cookie-overlay').style.display = 'none';
-    console.log("Stato sistemi: Consenso impostato su " + status);
-}
-
-// 3. Funzione per riaprire il banner (dal tasto impostazioni)
-function toggleCookieBanner() {
-    const overlay = document.getElementById('cookie-overlay');
-    overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-}
-</script>
-<style>
-    /* Tasto fluttuante */
-#cookie-settings-trigger {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #1a1a1a;
-    color: #e63946; /* Rosso Eagle */
-    border: 2px solid #e63946;
-    cursor: pointer;
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s;
-}
-#cookie-settings-trigger:hover { transform: rotate(45deg); }
-
-/* Overlay e Card */
-.cookie-overlay {
-    position: fixed;
-    bottom: 0; left: 0; right: 0; top: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    display: none; /* Nascosto di default */
-    align-items: flex-end;
-    padding: 20px;
-}
-.cookie-card {
-    background: #1a1a1a;
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    max-width: 500px;
-    margin: 0 auto;
-    border-top: 4px solid #e63946;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-}
-.cookie-actions { display: flex; gap: 10px; margin-top: 20px; }
-.btn-accept, .btn-reject {
-    flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
-}
-.btn-accept { background: #e63946; color: white; }
-.btn-reject { background: #333; color: #ccc; }
-.cookie-link { font-size: 12px; margin-top: 15px; text-align: center; }
-.cookie-link a { color: #e63946; text-decoration: none; }
-</style>
     <style>
-        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
+        :root { 
+            --bg-main: #395296;        /* Deep Sea Blue */
+            --titles-gold: #f8c200;    /* Gold Aviation */
+            --accent-coral: #eb966a;   /* Coral Accent */
+            --tech-black: #2b2d42; 
+            --soft-gray: #f0f4f8; 
+        }
+        
         body { background-color: white; font-family: 'Inter', sans-serif; color: var(--tech-black); }
-        .privacy-header { background: var(--soft-gray); border-bottom: 3px solid var(--med-red); padding: 60px 0; }
+        
+        /* Header con colori flotta */
+        .privacy-header { background: var(--bg-main); border-bottom: 4px solid var(--accent-coral); padding: 60px 0; color: white; }
+        .privacy-header h1 { color: var(--titles-gold); }
+        .privacy-header .text-muted { color: #d6dcea!important; opacity: 0.8; }
+
         .content-section { padding: 40px 0; line-height: 1.8; }
-        h3 { color: var(--med-red); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; margin-top: 30px; }
-        .legal-box { border-left: 4px solid var(--tech-black); padding-left: 20px; margin: 20px 0; font-style: italic; }
+        h3 { color: var(--bg-main); border-left: 4px solid var(--accent-coral); padding-left: 15px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; margin-top: 30px; }
+        .legal-box { border-left: 4px solid var(--titles-gold); background: var(--soft-gray); padding: 20px; margin: 20px 0; font-style: italic; border-radius: 0 8px 8px 0; }
+
+        /* Tasto fluttuante Cookie */
+        #cookie-settings-trigger {
+            position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%;
+            background: var(--bg-main); color: var(--titles-gold); border: 2px solid var(--accent-coral);
+            cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;
+        }
+        #cookie-settings-trigger:hover { transform: rotate(45deg); background: var(--accent-coral); color: white; }
+
+        /* Banner Cookie Ricolorato */
+        .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
+        .cookie-card { background: var(--bg-main); color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid var(--accent-coral); box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
+        .btn-accept { background: var(--accent-coral); color: white; flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-reject { background: rgba(255,255,255,0.1); color: #d6dcea; flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .cookie-card h3 { color: var(--titles-gold); border: none; padding: 0; margin-bottom: 15px; }
+        .cookie-link a { color: var(--titles-gold); text-decoration: none; font-weight: bold; }
+        
+        .btn-back-home { background: var(--bg-main); color: var(--titles-gold); border: 2px solid var(--accent-coral); font-weight: bold; border-radius: 50px; transition: 0.3s; }
+        .btn-back-home:hover { background: var(--accent-coral); color: white; }
     </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HYME8VH6Y5');
+
+        function updateConsent(status) {
+            localStorage.setItem('ae_cookie_consent', status);
+            gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
+            document.getElementById('cookie-overlay').style.display = 'none';
+        }
+
+        function toggleCookieBanner() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
 </head>
 <body>
+
+    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
+    </button>
+
+    <div id="cookie-overlay" class="cookie-overlay">
+        <div class="cookie-card">
+            <h3>Consenso ai Cookie</h3>
+            <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito. Scegli la tua configurazione:</p>
+            <div class="cookie-actions d-flex gap-2 mt-3">
+                <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
+                <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
+            </div>
+            <p class="cookie-link mt-3 text-center"><a href="/privacy">Leggi la Privacy Policy</a></p>
+        </div>
+    </div>
 
     <header class="privacy-header text-center">
         <div class="container">
@@ -195,31 +95,24 @@ function toggleCookieBanner() {
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <h3>1. Titolare del Trattamento</h3>
-                <p>Il titolare del trattamento è il <strong>Prof. Giuseppe Musumeci</strong>. I dati raccolti tramite il Musumeci Digital Hub sono gestiti per finalità di comunicazione professionale, marketing informativo e promozione dei servizi digitali.</p>
+                <p>Il titolare del trattamento è il <strong>Prof. Giuseppe Musumeci</strong>. I dati raccolti tramite il Musumeci Digital Hub sono gestiti per finalità di comunicazione professionale e promozione dei servizi digitali.</p>
 
                 <h3>2. Tipologia di Dati Raccolti</h3>
-                <p>Attraverso l'interazione con la piattaforma e i sistemi di autenticazione, il sistema acquisisce:</p>
                 <ul>
-                    <li>Dati identificativi comuni (Nome, Cognome, indirizzo Email).</li>
-                    <li>Dati di navigazione e log di sistema (Indirizzi IP, tipologia di browser).</li>
-                    <li>Dati di autenticazione forniti da Identity Provider esterni (Google/Meta).</li>
+                    <li>Dati identificativi comuni (Nome, Cognome, Email).</li>
+                    <li>Dati di navigazione e log di sistema.</li>
+                    <li>Dati di autenticazione forniti da Identity Provider esterni.</li>
                 </ul>
 
                 <div class="legal-box">
-                    Nota: Il sistema utilizza protocolli di autenticazione sicuri. Musumeci Digital Hub non ha accesso né archivia le password personali degli utenti nei propri database, ma è capace di resettarla.
+                    Nota: Musumeci Digital Hub non archivia le password personali degli utenti nei propri database, ma utilizza sistemi sicuri di terze parti.
                 </div>
 
                 <h3>3. Finalità e Base Giuridica</h3>
-                <p>Il trattamento dei dati ha come finalità l'invio di comunicazioni promozionali, la gestione delle richieste di contatto e l'analisi del traffico per l'ottimizzazione pubblicitaria. La base giuridica è il legittimo interesse del titolare e il consenso esplicito fornito dall'interessato.</p>
+                <p>La gestione delle richieste di contatto e l'analisi del traffico avvengono sulla base del legittimo interesse del titolare e del consenso esplicito.</p>
 
-                <h3>4. Sicurezza e Conservazione</h3>
-                <p>I dati sono ospitati su infrastrutture cloud ad alto standard di sicurezza (Firebase/Google Cloud). Adottiamo misure tecniche per la protezione contro accessi non autorizzati, inclusa la crittografia SSL/TLS per tutto il traffico in entrata e in uscita.</p>
-
-                <h3>5. Diritti dell'Interessato</h3>
-                <p>Ai sensi del GDPR, l'utente ha il diritto di richiedere l'accesso ai propri dati, la rettifica, la portabilità o la cancellazione definitiva ("Diritto all'oblio"). Tali richieste possono essere inoltrate tramite i canali di contatto ufficiali presenti nel sito.</p>
-                
                 <div class="text-center mt-5">
-                    <a href="index.html" class="btn btn-dark rounded-0 px-4">TORNA ALLA HOME</a>
+                    <a href="index.html" class="btn btn-back-home px-5 py-2">TORNA ALLA HOME</a>
                 </div>
             </div>
         </div>
