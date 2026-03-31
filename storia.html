@@ -3,291 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change History | Hub Operativo</title>
-      <link rel="icon" type="image/x-icon" href="media/favicon.ico">
+    <title>Storia Change | Hub Operativo</title>
+    <link rel="icon" type="image/x-icon" href="media/favicon.ico">
+    
+    <!-- Bootstrap & Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
+        /* === PALETTE CROMATICA === */
         :root {
-            --bg-main: #395296;
-            --titles-gold: #f8c200;
-            --accent-coral: #eb966a;
-            --text-light: #d6dcea;
+            --bg-main: #395296;        
+            --titles-gold: #f8c200;    
+            --accent-coral: #eb966a;   
+            --text-light: #d6dcea;     
+            
+            --dark-overlay: rgba(0, 0, 0, 0.2);
+            --column-base: rgba(214, 220, 234, 0.1); 
+            --white: #ffffff;
         }
 
         body { 
             background-color: var(--bg-main); 
             color: var(--text-light); 
             font-family: 'Inter', sans-serif; 
-            transition: background 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3 { font-family: 'Outfit', sans-serif; color: var(--titles-gold); text-transform: uppercase; }
+        h1, h2, h3, h4, h5, .widget-title {
+            font-family: 'Outfit', sans-serif;
+            color: var(--titles-gold);
+            font-weight: 700;
+        }
 
-        /* === NAVBAR E FOOTER === */
-        .navbar { background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); border-bottom: 2px solid var(--accent-coral); }
-        .footer { background: rgba(0,0,0,0.6); border-top: 3px solid var(--titles-gold); padding: 30px 0; margin-top: auto; }
+        /* === COLONNE GRECHE === */
+        .greek-column {
+            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, 
+                rgba(0,0,0,0.1) 0%, 
+                var(--column-base) 20%, 
+                rgba(255,255,255,0.05) 35%, 
+                var(--column-base) 50%, 
+                rgba(0,0,0,0.1) 65%, 
+                var(--column-base) 80%, 
+                rgba(0,0,0,0.1) 100%);
+            background-size: 30px 100%; 
+            border-left: 1px solid rgba(255,255,255,0.05); 
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .col-left { left: 15px; } 
+        .col-right { right: 15px; }
+
+        /* === NAVBAR === */
+        .navbar { 
+            background: rgba(42, 61, 114, 0.95); 
+            border-bottom: 4px solid var(--accent-coral); 
+            padding: 1rem 0; 
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--white)!important; }
+        .brand-accent { color: var(--titles-gold); }
+        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
+        .nav-link:hover { color: var(--titles-gold)!important; }
+        .navbar-toggler { color: var(--white); border: none; }
+
+        .btn-medical { 
+            background-color: var(--accent-coral); 
+            color: var(--white); 
+            border-radius: 50px; 
+            padding: 8px 20px; 
+            font-weight: 700; 
+            border: none;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn-medical:hover { 
+            background-color: var(--titles-gold); 
+            color: var(--bg-main); 
+            transform: translateY(-2px); 
+        }
+
+        /* === PASSWORD MODAL === */
+        #password-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .login-box {
+            background: var(--bg-main); padding: 40px; border-radius: 20px;
+            border: 2px solid var(--accent-coral); max-width: 400px; width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
         /* === EDITOR UI === */
-        #cms-toolbar {
-            display: none; position: sticky; top: 0; width: 100%;
-            background: #111; color: white; padding: 15px; z-index: 9999;
-            border-bottom: 3px solid var(--titles-gold); box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        #admin-toolbar {
+            position: fixed; top: 76px; left: 0; right: 0; background: rgba(20, 30, 60, 0.95);
+            padding: 10px 20px; z-index: 900; border-bottom: 2px solid var(--titles-gold);
+            display: none; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: center;
         }
-
-        .epoch-card {
-            background: rgba(255, 255, 255, 0.05); border-left: 5px solid var(--accent-coral);
-            padding: 40px; margin-bottom: 30px; border-radius: 0 20px 20px 0; position: relative; transition: 0.3s;
+        .toolbar-btn {
+            background: var(--dark-overlay); color: var(--white); border: 1px solid rgba(255,255,255,0.2);
+            padding: 5px 15px; border-radius: 5px; cursor: pointer; transition: 0.2s; font-size: 0.9rem;
         }
-
-        .editing-mode .epoch-card { outline: 1px dashed rgba(255,255,255,0.2); }
-        .editing-mode .epoch-card:hover { outline: 2px dashed var(--titles-gold); }
-
-        .card-controls { display: none; position: absolute; top: 10px; right: 10px; gap: 5px; }
-        .editing-mode .card-controls { display: flex; }
-
-        .btn-cms { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px 10px; border-radius: 4px; }
-        .btn-cms:hover { background: var(--titles-gold); color: black; }
-
-        .editable-active { outline: 1px dashed var(--titles-gold); padding: 5px; background: rgba(0,0,0,0.2); border-radius: 5px;}
+        .toolbar-btn:hover { background: var(--accent-coral); }
         
-        .btn-custom-link {
-            display: inline-block; padding: 10px 25px; background: var(--accent-coral);
-            color: white; text-decoration: none; border-radius: 50px; margin-top: 15px; font-weight: bold;
+        /* === CARDS (RIQUADRI) === */
+        .epoch-card { 
+            background: rgba(255,255,255,0.03); 
+            padding: 30px; 
+            border-radius: 24px; 
+            border-left: 6px solid var(--accent-coral);
+            margin-bottom: 30px; 
+            transition: all 0.3s;
+        }
+        .epoch-card[contenteditable="true"]:focus {
+            outline: 2px dashed var(--titles-gold); background: rgba(255,255,255,0.08);
         }
 
-        /* === MODALS === */
-        .auth-modal { background: var(--bg-main); border: 2px solid var(--titles-gold); color: white; }
+        /* BOTTONE CUSTOM EDITOR */
+        .btn-medical-custom { 
+            background-color: var(--accent-coral); color: var(--white); 
+            border-radius: 50px; padding: 12px 35px; font-weight: 700; 
+            font-family: 'Outfit', sans-serif; text-transform: uppercase;
+            letter-spacing: 1.5px; border: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer; margin-top: 15px;
+        }
+
+        /* === FOOTER === */
+        .main-footer { 
+            background-color: rgba(0,0,0,0.2); color: var(--text-light); 
+            padding: 60px 0 30px; border-top: 6px solid var(--titles-gold); 
+        }
+
+        @media (min-width: 992px) {
+            .content-section { border-right: 1px solid rgba(255,255,255,0.05); }
+        }
     </style>
 </head>
 <body>
 
-    <div id="cms-toolbar">
-        <div class="container d-flex align-items-center justify-content-between">
-            <div class="d-flex gap-3 align-items-center">
-                <span class="badge bg-danger text-white fs-6"><i class="bi bi-shield-lock-fill"></i> PLANCIA COMANDO</span>
-                <button class="btn btn-sm btn-outline-light" onclick="addNewSection()"><i class="bi bi-plus-square"></i> Nuovo Riquadro</button>
-                <div class="d-flex align-items-center gap-2 border-start ps-3">
-                    <small>Sfondo:</small>
-                    <input type="color" onchange="document.body.style.backgroundColor = this.value" value="#395296">
-                </div>
-            </div>
-            <button class="btn btn-warning btn-sm fw-bold" onclick="deployToCloud()">
-                <i class="bi bi-cloud-arrow-up-fill"></i> SALVA E PUBBLICA
-            </button>
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <!-- Password Overlay (Solo per Admin già loggati via Auth) -->
+    <div id="password-overlay">
+        <div class="login-box text-center">
+            <img src="media/changelogoclear.png" alt="Logo" width="80" class="mb-3">
+            <h4 class="mb-2 text-warning">Verifica Sicurezza Admin</h4>
+            <p class="small text-light mb-4" id="admin-welcome-text">Inserisci la password di sistema.</p>
+            
+            <input type="password" id="system-password" class="form-control mb-3" placeholder="Password di Sistema...">
+            
+            <button onclick="unlockEditor()" class="btn btn-medical w-100">SBLOCCA EDITOR</button>
+            <button onclick="closePasswordPrompt()" class="btn btn-outline-light w-100 mt-2 btn-sm border-0">Annulla (Sola Lettura)</button>
         </div>
     </div>
 
-    <nav class="navbar navbar-dark">
+    <!-- Toolbar Editor (Solo per Admin sbloccati) -->
+    <div id="admin-toolbar">
+        <strong class="text-warning me-3">MODALITÀ EDITOR ATTIVA</strong>
+        <button class="toolbar-btn" onclick="formatText('bold')"><i class="bi bi-type-bold"></i></button>
+        <button class="toolbar-btn" onclick="formatText('italic')"><i class="bi bi-type-italic"></i></button>
+        <button class="toolbar-btn" onclick="formatText('underline')"><i class="bi bi-type-underline"></i></button>
+        
+        <div class="d-flex align-items-center gap-2">
+            <label class="small mb-0">Sfondo:</label>
+            <input type="color" id="bg-color-picker" onchange="updateCardStyle('background', this.value)" title="Colore Sfondo Riquadro">
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <label class="small mb-0">Bordo:</label>
+            <input type="color" id="border-color-picker" onchange="updateCardStyle('borderColor', this.value)" title="Colore Barra Laterale">
+        </div>
+        
+        <button class="toolbar-btn" onclick="insertLink()"><i class="bi bi-link"></i> Link/Bottone</button>
+        <button class="toolbar-btn bg-success border-success" onclick="addNewCard()"><i class="bi bi-plus-circle"></i> Nuovo Riquadro</button>
+        <button class="toolbar-btn bg-primary border-primary" onclick="saveToFirebase()"><i class="bi bi-cloud-arrow-up"></i> SALVA SU RTDB</button>
+    </div>
+
+    <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">GIUSEPPE<span style="color:var(--titles-gold)">MUSUMECI</span></a>
-            <div>
-                <span id="user-status" class="me-3 small fw-bold text-uppercase opacity-75">Ospite</span>
-                <button class="btn btn-sm btn-outline-light" onclick="openAuthFlow()"><i class="bi bi-person-bounding-box"></i> Login Staff</button>
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2" onerror="this.src=''">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i> 
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold" href="#">Dashboard</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info" style="display:none; align-items:center; gap:10px;">
+                            <span id="user-name" class="small fw-bold text-warning"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm">Logout</button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <header class="text-center py-5">
-        <h1 class="display-3 fw-bold editable" id="main-title">La Storia del Change</h1>
-        <p class="lead opacity-75 editable" id="main-subtitle">L'evoluzione clinica e strategica della cardiologia moderna.</p>
+    <header class="profile-header">
+        <div class="container text-center text-lg-start">
+            <h6 class="text-uppercase fw-bold opacity-75 small mb-2" style="color: var(--accent-coral); letter-spacing: 2px;">Change in Cardiology</h6>
+            <h1 class="display-4 fw-bold">Hub Operativo: La Storia</h1>
+            <div class="teal-divider mx-auto mx-lg-0"></div>
+        </div>
     </header>
 
-    <main class="container py-4" id="content-engine">
-        </main>
-
-    <footer class="footer text-center mt-5">
+    <main class="main-wrapper py-5">
         <div class="container">
-            <div class="mb-2 fw-bold fs-5">GIUSEPPE<span style="color:var(--titles-gold)">MUSUMECI</span></div>
-            <p class="opacity-50 small mb-0">&copy; 2026 MD Giuseppe Musumeci. Sistemi ottimizzati da Aviation Eagle.</p>
+            <div class="row g-lg-5">
+                <!-- Area Dinamica RTDB -->
+                <div class="col-lg-8 content-section" id="dynamic-content-area">
+                    <div class="text-center py-5" id="loading-spinner">
+                        <div class="spinner-border text-warning" role="status"></div>
+                        <p class="mt-2">Sincronizzazione DB in corso...</p>
+                    </div>
+                </div>
+
+                <!-- Sidebar Fissa -->
+                <div class="col-lg-4 sidebar">
+                    <div class="sidebar-widget bg-dark bg-opacity-25 p-4 rounded-4 border border-light border-opacity-10">
+                        <h5 class="widget-title mb-4">Parametri di Missione</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="bg-dark bg-opacity-50 p-3 rounded-3 mb-3 border-start border-4 border-info">
+                                <i class="bi bi-activity text-info me-2"></i> Hub Mauriziano: <strong>FULL OPS</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center">
+            <div class="mb-3 fw-bold fs-4">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+            <p class="opacity-50 small">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
-    <div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content auth-modal p-4 text-center">
-                <h4 class="mb-3 text-warning">Identificazione Operatore</h4>
-                <input type="email" id="auth-email" class="form-control mb-3 bg-dark text-white border-secondary text-center" placeholder="Inserire Email Autorizzata">
-                <button onclick="verifyEmail()" class="btn btn-light w-100 fw-bold">VERIFICA</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="passwordModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content auth-modal p-4 text-center">
-                <h4 class="mb-3 text-warning">Protocollo di Sicurezza</h4>
-                <p class="small opacity-75">Credenziali di Livello 1 richieste.</p>
-                <input type="password" id="auth-password" class="form-control mb-3 bg-dark text-white border-secondary text-center" placeholder="Password">
-                <button onclick="verifyPassword()" class="btn btn-danger w-100 fw-bold">SBLOCCA SISTEMA</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase SDK (Compat Version come richiesto) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <script>
-        // --- 1. CONFIGURAZIONE DATABASE FIRESTORE ---
-        // Sostituisci questi valori con i dati del tuo progetto Firebase
+        // Inizializzazione Firebase
         const firebaseConfig = {
-  apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-  authDomain: "giuseppe-4c318.firebaseapp.com",
-  databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "giuseppe-4c318",
-  storageBucket: "giuseppe-4c318.firebasestorage.app",
-  messagingSenderId: "658885311131",
-  appId: "1:658885311131:web:9bb26a19cec41dd331e43e",
-  measurementId: "G-T740SVWJ06"
-};
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
         
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const docRef = db.collection("system_pages").doc("storia_change");
+        const auth = firebase.auth();
+        const db = firebase.database();
 
-        // --- 2. LOGICA E CREDENZIALI ---
-        const VALID_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
-        const VALID_PASS = 'Mascali1971!';
+        // Security e Costanti
+        const ADMIN_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
+        const OBFUSCATED_PASS = "TWFzY2FsaTE5NzEh"; // Equivale a btoa("Mascali1971!")
         
-        let emailModalInst, passModalInst;
-        let currentEmail = "";
+        let isAdminActive = false;
+        let activeCard = null;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            emailModalInst = new bootstrap.Modal(document.getElementById('emailModal'));
-            passModalInst = new bootstrap.Modal(document.getElementById('passwordModal'));
-            
-            // Carica i dati dal cloud per gli utenti normali
-            loadFromCloud();
-            
-            // Mantieni la sessione se è stato fatto il login in precedenza
-            if(sessionStorage.getItem("cms_logged_in") === "true") {
-                document.getElementById("user-status").textContent = sessionStorage.getItem("cms_user");
-                activateEditorMode();
+        // 1. Ascolto Stato di Autenticazione Globale
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                const email = user.email.toLowerCase();
+                
+                // Nascondi pulsante "Accesso Hub", mostra info utente
+                document.getElementById('btn-login-nav').style.display = 'none';
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('user-name').innerText = email;
+
+                if (ADMIN_EMAILS.includes(email)) {
+                    // È un ADMIN: Richiedi Password di Sistema
+                    document.getElementById('admin-welcome-text').innerText = `Bentornato, ${email}. Inserisci la password di sistema per sbloccare l'Editor.`;
+                    document.getElementById('password-overlay').style.display = 'flex';
+                }
+            } else {
+                // Non connesso: Lascia il bottone "Accesso Hub" che punta a login.html
+                document.getElementById('btn-login-nav').style.display = 'inline-block';
+                document.getElementById('user-info').style.display = 'none';
             }
+            
+            // Carica comunque i dati (tutti possono leggere)
+            loadDataFromRTDB();
         });
 
-        // --- 3. FLUSSO DI SICUREZZA ---
-        function openAuthFlow() {
-            if(sessionStorage.getItem("cms_logged_in") === "true") {
-                alert("Sei già loggato in plancia.");
-                return;
-            }
-            emailModalInst.show();
-        }
-
-        function verifyEmail() {
-            const inputEmail = document.getElementById("auth-email").value.trim().toLowerCase();
-            if (VALID_EMAILS.includes(inputEmail)) {
-                currentEmail = inputEmail;
-                emailModalInst.hide();
-                // Attendi che il primo modal si chiuda per aprire il secondo
-                setTimeout(() => passModalInst.show(), 400); 
-            } else {
-                alert("Accesso negato. Email non riconosciuta.");
-            }
-        }
-
-        function verifyPassword() {
-            const inputPass = document.getElementById("auth-password").value;
-            if (inputPass === VALID_PASS) {
-                passModalInst.hide();
-                // Salva sessione temporanea nel browser
-                sessionStorage.setItem("cms_logged_in", "true");
-                sessionStorage.setItem("cms_user", currentEmail);
-                document.getElementById("user-status").textContent = currentEmail;
-                activateEditorMode();
-            } else {
-                alert("Password errata. Riprovare.");
-            }
-        }
-
-        // --- 4. MOTORE NO-CODE ---
-        function activateEditorMode() {
-            document.body.classList.add("editing-mode");
-            document.getElementById("cms-toolbar").style.display = "block";
+        // 2. Verifica Password di Sistema
+        window.unlockEditor = function() {
+            const passInput = document.getElementById("system-password").value;
             
-            document.querySelectorAll(".editable").forEach(el => {
-                el.contentEditable = "true";
-                el.classList.add("editable-active");
-            });
-        }
-
-        function addNewSection() {
-            const engine = document.getElementById("content-engine");
-            const newId = "section_" + Date.now();
-            const template = `
-                <article class="epoch-card shadow-lg" id="${newId}">
-                    <div class="card-controls">
-                        <button class="btn-cms" onclick="changeSectionColor('${newId}')" title="Cambia Colore"><i class="bi bi-palette"></i></button>
-                        <button class="btn-cms" onclick="addLink('${newId}')" title="Aggiungi Pulsante"><i class="bi bi-link"></i></button>
-                        <button class="btn-cms text-danger border-danger" onclick="document.getElementById('${newId}').remove()" title="Elimina Riquadro"><i class="bi bi-trash"></i></button>
-                    </div>
-                    <span class="badge bg-warning text-dark mb-2 editable">NUOVA FASE</span>
-                    <h2 class="editable">Titolo del Riquadro</h2>
-                    <p class="editable">Scrivi qui il tuo contenuto. Usa i bottoni in alto a destra per colorare il lato o inserire link.</p>
-                    <div class="action-area"></div>
-                </article>
-            `;
-            engine.insertAdjacentHTML('beforeend', template);
-            activateEditorMode(); // Riattiva le funzioni di edit sul nuovo nodo
-        }
-
-        function changeSectionColor(id) {
-            const color = prompt("Inserisci il colore (es: #f8c200, rgba(255,255,255,0.8), red):");
-            if(color) document.getElementById(id).style.borderLeftColor = color;
-        }
-
-        function addLink(id) {
-            const label = prompt("Testo del pulsante (es: Leggi l'articolo):");
-            const url = prompt("Link completo (es: https://aviationeagle.co.uk):");
-            if(label && url) {
-                const area = document.getElementById(id).querySelector(".action-area");
-                area.innerHTML = `<a href="${url}" class="btn-custom-link" target="_blank">${label}</a>`;
+            if (btoa(passInput) === OBFUSCATED_PASS) {
+                document.getElementById('password-overlay').style.display = 'none';
+                document.getElementById('admin-toolbar').style.display = 'flex';
+                document.getElementById('user-name').innerHTML = `<span class="badge bg-danger">EDITOR ATTIVO</span>`;
+                isAdminActive = true;
+                
+                // Rendi modificabili le card già caricate
+                document.querySelectorAll('.epoch-card').forEach(card => {
+                    card.setAttribute('contenteditable', 'true');
+                    card.addEventListener('focus', () => activeCard = card);
+                });
+            } else {
+                alert("Accesso Negato: Password errata.");
             }
+        };
+
+        window.closePasswordPrompt = function() {
+            document.getElementById('password-overlay').style.display = 'none';
+        };
+
+        window.logout = function() {
+            auth.signOut().then(() => window.location.reload());
+        };
+
+        // 3. Logica Lettura Dati da RTDB
+        function loadDataFromRTDB() {
+            db.ref('system_pages/storia_change').once('value', (snapshot) => {
+                const data = snapshot.val();
+                const container = document.getElementById('dynamic-content-area');
+                container.innerHTML = ''; 
+
+                if (data && data.length > 0) {
+                    data.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'epoch-card';
+                        card.style.backgroundColor = item.bgColor || 'rgba(255,255,255,0.03)';
+                        card.style.borderLeftColor = item.borderColor || '#eb966a';
+                        card.innerHTML = item.html;
+                        
+                        if (isAdminActive) {
+                            card.setAttribute('contenteditable', 'true');
+                            card.addEventListener('focus', () => activeCard = card);
+                        }
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = `
+                        <div class="epoch-card">
+                            <h2 style="color: #f8c200;">Il Manifesto: Change in Cardiology</h2>
+                            <p class="lead">Sotto la guida del <strong>Dr. Giuseppe Musumeci</strong>...</p>
+                        </div>`;
+                }
+            });
         }
 
-        // --- 5. COMUNICAZIONE SATELLITARE (FIRESTORE) ---
-        async function deployToCloud() {
-            // Puliamo la grafica da "editor" prima di fotografare il codice
-            document.querySelectorAll(".editable").forEach(el => {
-                el.contentEditable = "false";
-                el.classList.remove("editable-active");
+        // 4. Logica Editor e Scrittura RTDB (Solo Admin Sbloccati)
+        window.formatText = function(command) { document.execCommand(command, false, null); };
+
+        window.updateCardStyle = function(property, value) {
+            if (!activeCard) return alert("Clicca su un riquadro prima di cambiarne i colori.");
+            if (property === 'background') activeCard.style.backgroundColor = value;
+            if (property === 'borderColor') activeCard.style.borderLeftColor = value;
+        };
+
+        window.insertLink = function() {
+            const url = prompt("Inserisci l'URL di destinazione:");
+            const text = prompt("Inserisci il testo del bottone:");
+            if (url && text) {
+                const btnHtml = `<a href="${url}" class="btn-medical-custom" contenteditable="false">${text}</a><br><br>`;
+                document.execCommand("insertHTML", false, btnHtml);
+            }
+        };
+
+        window.addNewCard = function() {
+            const container = document.getElementById('dynamic-content-area');
+            const newCard = document.createElement('div');
+            newCard.className = 'epoch-card';
+            newCard.style.backgroundColor = 'rgba(255,255,255,0.03)';
+            newCard.style.borderLeftColor = '#eb966a';
+            newCard.setAttribute('contenteditable', 'true');
+            newCard.innerHTML = `<h2 style="color: #f8c200;">Nuovo Modulo</h2><p>Scrivi qui...</p>`;
+            
+            newCard.addEventListener('focus', () => activeCard = newCard);
+            container.appendChild(newCard);
+            newCard.focus();
+        };
+
+        window.saveToFirebase = function() {
+            const btn = event.currentTarget;
+            btn.innerHTML = '<i class="bi bi-hourglass"></i> Salvataggio...';
+            
+            const cards = document.querySelectorAll('.epoch-card');
+            const dataToSave = [];
+            
+            cards.forEach((card, index) => {
+                dataToSave.push({
+                    id: index,
+                    html: card.innerHTML,
+                    bgColor: card.style.backgroundColor,
+                    borderColor: card.style.borderLeftColor
+                });
             });
 
-            const payload = {
-                bgColor: document.body.style.backgroundColor,
-                title: document.getElementById("main-title").innerText,
-                subtitle: document.getElementById("main-subtitle").innerText,
-                htmlStructure: document.getElementById("content-engine").innerHTML
-            };
-
-            try {
-                await docRef.set(payload);
-                alert("Trasmissione completata. I dati sono ora operativi su rete globale.");
-                activateEditorMode(); // Riaccende l'interfaccia per continuare a lavorare
-            } catch (err) { alert("Errore di trasmissione al database: " + err.message); }
-        }
-
-        async function loadFromCloud() {
-            try {
-                const doc = await docRef.get();
-                if (doc.exists) {
-                    const data = doc.data();
-                    document.body.style.backgroundColor = data.bgColor || "#395296";
-                    document.getElementById("main-title").innerText = data.title;
-                    document.getElementById("main-subtitle").innerText = data.subtitle;
-                    document.getElementById("content-engine").innerHTML = data.htmlStructure;
-                } else {
-                    addNewSection(); // Crea un blocco iniziale se il database è vuoto
-                }
-            } catch (err) { console.warn("Attesa configurazione Firebase."); }
-        }
+            db.ref('system_pages/storia_change').set(dataToSave)
+                .then(() => {
+                    btn.innerHTML = '<i class="bi bi-check-circle"></i> SALVATO';
+                    setTimeout(() => btn.innerHTML = '<i class="bi bi-cloud-arrow-up"></i> SALVA SU RTDB', 2000);
+                })
+                .catch((error) => {
+                    alert("Errore (Controlla le regole RTDB): " + error.message);
+                    btn.innerHTML = '<i class="bi bi-cloud-arrow-up"></i> SALVA SU RTDB';
+                });
+        };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
