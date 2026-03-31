@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storia del Change | Hub Operativo</title>
+    <title>Storia Change | Hub Operativo</title>
     <link rel="icon" type="image/x-icon" href="media/favicon.ico">
     
     <!-- Bootstrap & Fonts -->
@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
-        /* === TEMA ORIGINALE === */
         :root {
             --bg-main: #395296;        
             --titles-gold: #f8c200;    
@@ -56,7 +55,6 @@
         }
         .toolbar-btn:hover { background: var(--accent-coral); }
 
-        /* === COLONNE GRECHE === */
         .greek-column {
             position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
             background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, var(--column-base) 20%, rgba(255,255,255,0.05) 35%, var(--column-base) 50%, rgba(0,0,0,0.1) 65%, var(--column-base) 80%, rgba(0,0,0,0.1) 100%);
@@ -83,16 +81,9 @@
         .teal-divider { width: 60px; height: 5px; background: var(--accent-coral); margin: 25px 0; border-radius: 10px; }
         .main-footer { background-color: rgba(0,0,0,0.2); color: var(--text-light); padding: 60px 0 30px; border-top: 6px solid var(--titles-gold); }
         
-        .btn-medical { 
-            background-color: var(--accent-coral); 
-            color: var(--white); 
-            border-radius: 50px; 
-            padding: 8px 20px; 
-            font-weight: 700; 
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-medical:hover { background-color: var(--titles-gold); color: var(--bg-main); }
+        /* Stile pulsante hub */
+        .btn-medical { background: var(--accent-coral); color: white; font-weight: bold; border-radius: 50px; padding: 8px 20px; transition: 0.3s; border: none; }
+        .btn-medical:hover { background: var(--titles-gold); color: var(--bg-main); }
     </style>
 </head>
 <body>
@@ -137,11 +128,10 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase text-white" href="https://www.drgiuseppemusumeci.com/index.html">Home</a></li>
                     <li class="nav-item">
-                        <!-- PULSANTE ACCESSO HUB RIPRISTINATO -->
                         <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info" style="display:none; align-items:center; gap:15px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 50px;">
+                        <div id="user-info" style="display:none; align-items:center; gap:10px;">
                             <span id="user-name" class="small fw-bold text-warning text-uppercase"></span>
-                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-pill" style="font-size: 0.7rem;">LOGOUT</button>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -183,58 +173,47 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <script>
-        // CONFIGURAZIONE 1: AUTH (Progetto Vecchio)
-        const authConfig = {
+        // Configurazione che funziona per l'accesso
+        const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
             databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "giuseppe-4c318",
             storageBucket: "giuseppe-4c318.firebasestorage.app",
             messagingSenderId: "658885311131",
-            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e",
+            measurementId: "G-T740SVWJ06"
         };
 
-        // CONFIGURAZIONE 2: DATABASE (Progetto Nuovo)
-        const dbConfig = {
-            apiKey: "AIzaSyDB858lvuIi93dYBUmviH87jrb8dHZxm1s",
-            authDomain: "giuseppe-rtdb.firebaseapp.com",
-            projectId: "giuseppe-rtdb",
-            storageBucket: "giuseppe-rtdb.firebasestorage.app",
-            messagingSenderId: "409034640682",
-            appId: "1:409034640682:web:b183a9b69b4b51e5e8e253",
-            databaseURL: "https://giuseppe-rtdb-default-rtdb.firebaseio.com"
-        };
-
-        // Inizializzazione Doppia App
-        const authApp = firebase.initializeApp(authConfig, "authApp");
-        const dbApp = firebase.initializeApp(dbConfig, "dbApp");
-
-        const auth = authApp.auth();
-        const db = dbApp.database();
+        // Inizializzazione
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database(); // Questo userà automaticamente il databaseURL sopra
 
         const ADMIN_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
         const OBFUSCATED_PASS = "TWFzY2FsaTE5NzEh"; 
         let isAdminActive = false;
         let activeCard = null;
 
-        // Gestione Accesso (Usa il vecchio progetto)
+        // Gestione Stato Accesso
         auth.onAuthStateChanged(user => {
             if (user) {
                 const email = user.email.toLowerCase();
                 document.getElementById('btn-login-nav').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('user-name').innerText = email;
+                
                 if (ADMIN_EMAILS.includes(email)) {
                     document.getElementById('password-overlay').style.display = 'flex';
                 }
             } else {
-                document.getElementById('btn-login-nav').style.display = 'inline-block';
+                document.getElementById('btn-login-nav').style.display = 'block';
                 document.getElementById('user-info').style.display = 'none';
             }
             loadRealtimeData();
         });
 
-        // Caricamento Dati (Usa il nuovo progetto)
+        // Caricamento Dati
         function loadRealtimeData() {
             db.ref('system_pages/storia_change').on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -242,22 +221,28 @@
                 container.innerHTML = '';
                 
                 if (data) {
-                    data.forEach(item => {
+                    // Se i dati sono salvati come array, li iteriamo
+                    const items = Array.isArray(data) ? data : Object.values(data);
+                    items.forEach(item => {
                         const card = document.createElement('div');
                         card.className = 'epoch-card';
                         card.style.backgroundColor = item.bgColor || '';
                         card.style.borderLeftColor = item.borderColor || '';
-                        card.innerHTML = item.html;
+                        card.innerHTML = item.html || '';
+                        
                         if (isAdminActive) {
                             card.setAttribute('contenteditable', 'true');
-                            card.onclick = (e) => { e.stopPropagation(); activeCard = card; };
+                            card.onclick = () => activeCard = card;
                         }
                         container.appendChild(card);
                     });
+                } else {
+                    container.innerHTML = '<p class="text-center opacity-50">Nessun contenuto presente.</p>';
                 }
             });
         }
 
+        // Funzioni Editor
         window.unlockEditor = () => {
             const pass = document.getElementById("system-password").value;
             if (btoa(pass) === OBFUSCATED_PASS) {
@@ -265,23 +250,32 @@
                 document.getElementById('admin-toolbar').style.display = 'flex';
                 document.body.classList.add('editor-on');
                 isAdminActive = true;
-                loadRealtimeData();
+                loadRealtimeData(); // Ricarica per abilitare contenteditable
             } else { alert("Password Errata"); }
         };
 
         window.saveToFirebase = () => {
             const btn = document.getElementById('btn-save');
             btn.innerText = "Salvataggio...";
+            
             const data = Array.from(document.querySelectorAll('.epoch-card')).map((card, idx) => ({
                 id: idx,
                 html: card.innerHTML,
                 bgColor: card.style.backgroundColor,
                 borderColor: card.style.borderLeftColor
             }));
-            db.ref('system_pages/storia_change').set(data).then(() => {
-                btn.innerText = "SALVATO!";
-                setTimeout(() => btn.innerText = "SALVA RTDB", 2000);
-            });
+
+            // Salvataggio sul percorso corretto
+            db.ref('system_pages/storia_change').set(data)
+                .then(() => {
+                    btn.innerText = "SALVATO!";
+                    setTimeout(() => btn.innerText = "SALVA RTDB", 2000);
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Errore nel salvataggio: " + err.message);
+                    btn.innerText = "ERRORE";
+                });
         };
 
         window.addNewCard = () => {
@@ -289,12 +283,15 @@
             const card = document.createElement('div');
             card.className = 'epoch-card';
             card.setAttribute('contenteditable', 'true');
-            card.innerHTML = "<h2>Nuova Epoca</h2><p>Descrizione qui...</p>";
-            card.onclick = (e) => { e.stopPropagation(); activeCard = card; };
+            card.innerHTML = "<h2>Nuova Epoca</h2><p>Inserisci qui la storia...</p>";
+            card.onclick = () => activeCard = card;
             container.prepend(card);
         };
 
-        window.deleteSelectedCard = () => { if(activeCard) activeCard.remove(); };
+        window.deleteSelectedCard = () => { 
+            if(activeCard && confirm("Eliminare questa card?")) activeCard.remove(); 
+        };
+
         window.formatText = (cmd) => document.execCommand(cmd, false, null);
         window.updateCardStyle = (prop, val) => { if(activeCard) activeCard.style[prop] = val; };
         window.closePasswordPrompt = () => document.getElementById('password-overlay').style.display = 'none';
