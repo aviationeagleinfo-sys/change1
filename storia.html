@@ -153,21 +153,70 @@
     </div>
 
     <!-- NAVBAR CON HAMBURGER -->
-    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+    <style>
+.navbar { 
+            background: rgba(42, 61, 114, 0.95); 
+            border-bottom: 4px solid var(--accent-coral); 
+            padding: 1rem 0; 
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--white)!important; }
+        .brand-accent { color: var(--titles-gold); }
+        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-uppercase: true; }
+        .nav-link:hover { color: var(--titles-gold)!important; }
+        
+        .navbar-toggler { color: var(--white); border: none; }
+
+        .btn-medical { 
+            background-color: var(--accent-coral); 
+            color: var(--white); 
+            border-radius: 50px; 
+            padding: 8px 20px; 
+            font-weight: 700; 
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-medical:hover { 
+            background-color: var(--titles-gold); 
+            color: var(--bg-main); 
+            transform: translateY(-2px); 
+        }
+        </style>
+       <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="media/changelogoclear.png" alt="Logo" width="45" class="me-2">
-                <span class="fs-6 fw-bold">GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com/index.html">
+                <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <i class="bi bi-list"></i>
+                <i class="bi bi-list fs-1"></i> 
             </button>
 
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto pt-3 pt-lg-0 align-items-lg-center">
-                    <li class="nav-item mb-3 mb-lg-0">
-                        <a href="login.html" id="btn-login-nav" class="btn btn-medical">ACCESSO HUB</a>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/patologie.html">Patologie Cardiovascolari</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/incarichi.html">Incarichi Istituzionali</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
+                    
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
                         <div id="user-info" style="display:none; justify-content: space-between; align-items:center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;">
                             <span id="user-name" class="small fw-bold text-warning me-3"></span>
                             <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
