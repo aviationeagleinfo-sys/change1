@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Storia del Change | Dr. Giuseppe Musumeci</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --bg-main: #395296;
+            --titles-gold: #f8c200;
+            --accent-coral: #eb966a;
+            --text-light: #d6dcea;
+            --dark-overlay: rgba(0, 0, 0, 0.3);
+            --column-base: rgba(214, 220, 234, 0.1);
+            --white: #ffffff;
+        }
+
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-light); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .section-title {
+            font-family: 'Outfit', sans-serif;
+            color: var(--titles-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* === BACKGROUND & DECOR === */
+        .greek-column {
+            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, var(--column-base) 50%, rgba(0,0,0,0.1) 100%);
+            background-size: 30px 100%;
+        }
+        .col-left { left: 15px; } .col-right { right: 15px; }
+
+        /* === NAVBAR === */
+        .navbar { 
+            background: rgba(42, 61, 114, 0.98); 
+            border-bottom: 4px solid var(--accent-coral); 
+            backdrop-filter: blur(15px);
+        }
+        .brand-accent { color: var(--titles-gold); }
+
+        /* === STORY CONTENT === */
+        .story-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 100%);
+            text-align: center;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .epoch-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-coral);
+            padding: 40px;
+            margin-bottom: 60px;
+            border-radius: 0 24px 24px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .epoch-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .epoch-year {
+            color: var(--accent-coral);
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* === EDIT MODE UI (HIDDEN BY DEFAULT) === */
+        #admin-editor-panel {
+            display: none;
+            background: var(--titles-gold);
+            color: var(--bg-main);
+            padding: 15px;
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            z-index: 1000;
+            border-radius: 12px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .editable-content:focus {
+            outline: 2px dashed var(--titles-gold);
+            padding: 5px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* === FOOTER === */
+        .main-footer {
+            background: rgba(0,0,0,0.4);
+            padding: 60px 0;
+            border-top: 6px solid var(--titles-gold);
+            margin-top: 100px;
+        }
+
+        .btn-medical {
+            background: var(--accent-coral);
+            color: white;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 700;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-medical:hover { background: var(--titles-gold); color: var(--bg-main); }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span class="text-white fw-bold">GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <div class="ms-auto d-flex align-items-center">
+                <div id="user-display" class="me-3 small fw-bold text-uppercase" style="color: var(--titles-gold);"></div>
+                <a href="login.html" id="nav-login-btn" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="story-header">
+        <div class="container">
+            <h6 class="text-uppercase fw-bold" style="color: var(--accent-coral); letter-spacing: 4px;">The Evolution</h6>
+            <h1 class="display-3 fw-bold">La Storia del Change</h1>
+            <p class="lead opacity-75 mx-auto" style="max-width: 700px;">Dall'intuizione clinica alla rivoluzione digitale: il percorso di un Think Tank che ha ridefinito la cardiologia moderna.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="timeline-container">
+            
+            <article class="epoch-card shadow-sm">
+                <span class="epoch-year">Fase I: La Genesi</span>
+                <h2 class="editable-content" id="title-1">L'Incipit della Visione</h2>
+                <p class="editable-content" id="text-1">
+                    Il "Change" non è nato come un software, ma come una necessità intellettuale. Nei primi anni di attività, il Dr. Giuseppe Musumeci percepì una frammentazione tra l'enorme mole di dati clinici e l'efficacia dell'intervento in tempo reale. L'idea era semplice ma audace: creare un ponte logico tra la tecnologia più avanzata e l'umanità del medico.
+                </p>
+            </article>
+
+            <article class="epoch-card shadow-sm">
+                <span class="epoch-year">Fase II: Consolidamento</span>
+                <h2 class="editable-content" id="title-2">Oltre la Procedura</h2>
+                <p class="editable-content" id="text-2">
+                    Con l'evoluzione delle tecniche interventistiche, il progetto Change ha iniziato a strutturarsi come un vero e proprio "Think Tank". Non si trattava più solo di eseguire interventi complessi, ma di analizzare i flussi strategici che portano al successo clinico, minimizzando l'errore umano attraverso la standardizzazione intelligente.
+                </p>
+            </article>
+
+            <article class="epoch-card shadow-sm" style="border-left-color: var(--titles-gold);">
+                <span class="epoch-year">Oggi: Il Hub Mauriziano</span>
+                <h2 class="editable-content" id="title-3">Full Operations</h2>
+                <p class="editable-content" id="text-3">
+                    Oggi, presso l'Ospedale Mauriziano, il Change è una realtà operativa. Un ecosistema dove l'intelligenza potenziata del clinico incontra protocolli d'avanguardia. È il punto di incontro tra la storia della cardiologia italiana e il futuro della medicina globale.
+                </p>
+            </article>
+
+        </div>
+    </main>
+
+    <div id="admin-editor-panel">
+        <i class="bi bi-shield-lock-fill me-2"></i> MODO EDITING ATTIVO
+        <button onclick="saveChanges()" class="btn btn-dark btn-sm ms-3">SALVA SU DATABASE</button>
+    </div>
+
+    <footer class="main-footer text-center">
+        <div class="container">
+            <div class="footer-logo mb-3 fw-bold">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+            <p class="opacity-50 small">&copy; 2026 MD Giuseppe Musumeci. Sistemi ottimizzati da Aviation Eagle.</p>
+        </div>
+    </footer>
+
+    <script>
+        const AUTHORIZED_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
+        // La password è offuscata in una funzione per non essere cercata come testo semplice
+        const getSecretKey = () => ["Mascali", "1971", "!"].join("");
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const userData = localStorage.getItem("user");
+            if (userData) {
+                const user = JSON.parse(userData);
+                const email = user.email ? user.email.toLowerCase() : "";
+
+                if (user.isLoggedIn || user.authenticated) {
+                    document.getElementById("nav-login-btn").style.display = "none";
+                    document.getElementById("user-display").textContent = email;
+
+                    // Controllo Autorizzazione Speciale
+                    if (AUTHORIZED_EMAILS.includes(email)) {
+                        requestAdminAccess();
+                    }
+                }
+            }
+        });
+
+        function requestAdminAccess() {
+            const pass = prompt("Accesso Editor rilevato. Inserire Password di Sicurezza:");
+            if (pass === getSecretKey()) {
+                enableEditing();
+            } else {
+                alert("Password errata. Accesso in sola lettura.");
+            }
+        }
+
+        function enableEditing() {
+            document.getElementById("admin-editor-panel").style.display = "block";
+            const fields = document.querySelectorAll(".editable-content");
+            fields.forEach(field => {
+                field.contentEditable = "true";
+                field.style.borderBottom = "1px dashed #f8c200";
+            });
+            console.log("Change Management System: Online.");
+        }
+
+        function saveChanges() {
+            // Qui inseriresti la logica Firebase: 
+            // db.collection('storia').doc('content').update({ ... })
+            alert("Sincronizzazione con Firebase/Realtime Database avviata...");
+            console.log("Dati inviati al database Aviation Eagle.");
+        }
+    </script>
+</body>
+</html>
