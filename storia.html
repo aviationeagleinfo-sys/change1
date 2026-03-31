@@ -38,7 +38,7 @@
             font-weight: 700;
         }
 
-        /* === TOOLBAR ADMIN (Solo se loggato) === */
+        /* === TOOLBAR ADMIN === */
         #admin-toolbar {
             position: fixed; top: 0; left: 0; right: 0; 
             background: rgba(15, 25, 50, 0.98);
@@ -64,7 +64,6 @@
         }
         .col-left { left: 15px; } .col-right { right: 15px; }
 
-        /* === ESTETICA CARDS === */
         .epoch-card { 
             background: rgba(255,255,255,0.03); padding: 30px; border-radius: 24px; 
             border-left: 6px solid var(--accent-coral); margin-bottom: 30px; transition: all 0.3s;
@@ -73,18 +72,27 @@
             outline: 3px solid var(--titles-gold); background: rgba(255,255,255,0.08);
         }
 
-        /* === OVERLAY PASSWORD === */
         #password-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 20000;
             display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);
         }
 
-        /* === NAV & HEADER ORIGINALE === */
         .navbar { background: rgba(42, 61, 114, 0.95); border-bottom: 4px solid var(--accent-coral); backdrop-filter: blur(10px); }
         .brand-accent { color: var(--titles-gold); }
         .profile-header { padding: 80px 0 40px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .teal-divider { width: 60px; height: 5px; background: var(--accent-coral); margin: 25px 0; border-radius: 10px; }
         .main-footer { background-color: rgba(0,0,0,0.2); color: var(--text-light); padding: 60px 0 30px; border-top: 6px solid var(--titles-gold); }
+        
+        .btn-medical { 
+            background-color: var(--accent-coral); 
+            color: var(--white); 
+            border-radius: 50px; 
+            padding: 8px 20px; 
+            font-weight: 700; 
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-medical:hover { background-color: var(--titles-gold); color: var(--bg-main); }
     </style>
 </head>
 <body>
@@ -115,7 +123,7 @@
         <button class="toolbar-btn bg-primary border-0" id="btn-save" onclick="saveToFirebase()">SALVA RTDB</button>
     </div>
 
-    <!-- NAVBAR COPIATA -->
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com/index.html">
@@ -129,10 +137,11 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase text-white" href="https://www.drgiuseppemusumeci.com/index.html">Home</a></li>
                     <li class="nav-item">
+                        <!-- PULSANTE ACCESSO HUB RIPRISTINATO -->
                         <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info" style="display:none; align-items:center; gap:10px;">
+                        <div id="user-info" style="display:none; align-items:center; gap:15px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 50px;">
                             <span id="user-name" class="small fw-bold text-warning text-uppercase"></span>
-                            <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-pill" style="font-size: 0.7rem;">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -140,7 +149,7 @@
         </div>
     </nav>
 
-    <!-- HEADER COPIATO -->
+    <!-- HEADER -->
     <header class="profile-header">
         <div class="container text-center text-lg-start">
             <h6 class="text-uppercase fw-bold opacity-75 small mb-2" style="color: var(--accent-coral); letter-spacing: 2px;">Change in Cardiology</h6>
@@ -152,20 +161,15 @@
     <main class="py-5">
         <div class="container">
             <div class="row g-lg-5">
-                <!-- Area Contenuti Dinamici -->
                 <div class="col-lg-8" id="dynamic-content-area">
                     <div class="text-center py-5" id="loading-spinner">
                         <div class="spinner-border text-warning"></div>
                     </div>
                 </div>
-
-                
-                
             </div>
         </div>
     </main>
 
-    <!-- FOOTER COPIATO -->
     <footer class="main-footer">
         <div class="container text-center text-lg-start">
             <div class="footer-logo mb-3 fw-bold fs-4">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
@@ -179,8 +183,19 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <script>
-        // NUOVA CONFIGURAZIONE RTDB
-        const firebaseConfig = {
+        // CONFIGURAZIONE 1: AUTH (Progetto Vecchio)
+        const authConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+
+        // CONFIGURAZIONE 2: DATABASE (Progetto Nuovo)
+        const dbConfig = {
             apiKey: "AIzaSyDB858lvuIi93dYBUmviH87jrb8dHZxm1s",
             authDomain: "giuseppe-rtdb.firebaseapp.com",
             projectId: "giuseppe-rtdb",
@@ -189,17 +204,20 @@
             appId: "1:409034640682:web:b183a9b69b4b51e5e8e253",
             databaseURL: "https://giuseppe-rtdb-default-rtdb.firebaseio.com"
         };
-        
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
+
+        // Inizializzazione Doppia App
+        const authApp = firebase.initializeApp(authConfig, "authApp");
+        const dbApp = firebase.initializeApp(dbConfig, "dbApp");
+
+        const auth = authApp.auth();
+        const db = dbApp.database();
 
         const ADMIN_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
         const OBFUSCATED_PASS = "TWFzY2FsaTE5NzEh"; 
         let isAdminActive = false;
         let activeCard = null;
 
-        // Gestione Accesso
+        // Gestione Accesso (Usa il vecchio progetto)
         auth.onAuthStateChanged(user => {
             if (user) {
                 const email = user.email.toLowerCase();
@@ -209,11 +227,14 @@
                 if (ADMIN_EMAILS.includes(email)) {
                     document.getElementById('password-overlay').style.display = 'flex';
                 }
+            } else {
+                document.getElementById('btn-login-nav').style.display = 'inline-block';
+                document.getElementById('user-info').style.display = 'none';
             }
             loadRealtimeData();
         });
 
-        // Caricamento in tempo reale
+        // Caricamento Dati (Usa il nuovo progetto)
         function loadRealtimeData() {
             db.ref('system_pages/storia_change').on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -224,12 +245,12 @@
                     data.forEach(item => {
                         const card = document.createElement('div');
                         card.className = 'epoch-card';
-                        card.style.backgroundColor = item.bgColor;
-                        card.style.borderLeftColor = item.borderColor;
+                        card.style.backgroundColor = item.bgColor || '';
+                        card.style.borderLeftColor = item.borderColor || '';
                         card.innerHTML = item.html;
                         if (isAdminActive) {
                             card.setAttribute('contenteditable', 'true');
-                            card.onclick = () => activeCard = card;
+                            card.onclick = (e) => { e.stopPropagation(); activeCard = card; };
                         }
                         container.appendChild(card);
                     });
@@ -268,8 +289,8 @@
             const card = document.createElement('div');
             card.className = 'epoch-card';
             card.setAttribute('contenteditable', 'true');
-            card.innerHTML = "<h2>Titolo</h2><p>Contenuto</p>";
-            card.onclick = () => activeCard = card;
+            card.innerHTML = "<h2>Nuova Epoca</h2><p>Descrizione qui...</p>";
+            card.onclick = (e) => { e.stopPropagation(); activeCard = card; };
             container.prepend(card);
         };
 
