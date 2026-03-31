@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storia Change | Hub Operativo</title>
+    <title>Storia del Change | Hub Operativo Pro</title>
     <link rel="icon" type="image/x-icon" href="media/favicon.ico">
     
     <!-- Bootstrap & Fonts -->
@@ -26,111 +26,150 @@
             background-color: var(--bg-main); 
             color: var(--text-light); 
             font-family: 'Inter', sans-serif; 
-            line-height: 1.8;
+            line-height: 1.6;
             overflow-x: hidden;
             transition: padding-top 0.3s;
         }
 
-        h1, h2, h3, h4, h5, .widget-title {
+        h1, h2, h3, h4, h5 {
             font-family: 'Outfit', sans-serif;
             color: var(--titles-gold);
             font-weight: 700;
         }
 
-        /* === TOOLBAR ADMIN === */
+        /* === TOOLBAR ADMIN MOBILE OPTIMIZED === */
         #admin-toolbar {
             position: fixed; top: 0; left: 0; right: 0; 
             background: rgba(15, 25, 50, 0.98);
-            padding: 15px 20px; z-index: 10000; 
-            border-bottom: 4px solid var(--titles-gold);
-            display: none; align-items: center; gap: 12px; 
-            flex-wrap: wrap; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 8px 10px; z-index: 10000; 
+            border-bottom: 3px solid var(--titles-gold);
+            display: none; 
+            gap: 8px; 
+            overflow-x: auto; /* Scorrimento orizzontale su mobile */
+            white-space: nowrap;
+            justify-content: flex-start;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        body.editor-on { padding-top: 130px !important; }
+        
+        /* Nasconde scrollbar per pulizia estetica */
+        #admin-toolbar::-webkit-scrollbar { display: none; }
+
+        body.editor-on { padding-top: 140px !important; }
+        @media (max-width: 768px) {
+            body.editor-on { padding-top: 180px !important; }
+        }
+
+        .toolbar-group {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 8px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
         .toolbar-btn {
             background: var(--dark-overlay); color: var(--white); border: 1px solid rgba(255,255,255,0.2);
-            padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.9rem;
+            padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
         }
-        .toolbar-btn:hover { background: var(--accent-coral); }
 
-        .greek-column {
-            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
-            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, var(--column-base) 20%, rgba(255,255,255,0.05) 35%, var(--column-base) 50%, rgba(0,0,0,0.1) 65%, var(--column-base) 80%, rgba(0,0,0,0.1) 100%);
-            background-size: 30px 100%; 
+        /* === NAVBAR & HAMBURGER === */
+        .navbar { 
+            background: rgba(42, 61, 114, 0.95); 
+            border-bottom: 3px solid var(--accent-coral); 
+            backdrop-filter: blur(10px); 
         }
-        .col-left { left: 15px; } .col-right { right: 15px; }
+        .navbar-toggler { border: none; padding: 0; }
+        .navbar-toggler:focus { box-shadow: none; }
+        .bi-list { font-size: 2rem; color: var(--titles-gold); }
 
+        /* === CARDS === */
         .epoch-card { 
-            background: rgba(255,255,255,0.03); padding: 30px; border-radius: 24px; 
-            border-left: 6px solid var(--accent-coral); margin-bottom: 30px; transition: all 0.3s;
-        }
-        .epoch-card[contenteditable="true"]:focus {
-            outline: 3px solid var(--titles-gold); background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03); 
+            padding: 20px; 
+            border-radius: 18px; 
+            border-left: 5px solid var(--accent-coral); 
+            margin-bottom: 20px; 
+            transition: 0.3s;
+            word-wrap: break-word;
         }
 
         #password-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 20000;
-            display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 20000;
+            display: none; align-items: center; justify-content: center; padding: 20px;
         }
 
-        .navbar { background: rgba(42, 61, 114, 0.95); border-bottom: 4px solid var(--accent-coral); backdrop-filter: blur(10px); }
-        .brand-accent { color: var(--titles-gold); }
-        .profile-header { padding: 80px 0 40px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .teal-divider { width: 60px; height: 5px; background: var(--accent-coral); margin: 25px 0; border-radius: 10px; }
-        .main-footer { background-color: rgba(0,0,0,0.2); color: var(--text-light); padding: 60px 0 30px; border-top: 6px solid var(--titles-gold); }
+        .teal-divider { width: 50px; height: 4px; background: var(--accent-coral); margin: 20px 0; border-radius: 10px; }
         
-        /* Stile pulsante hub */
-        .btn-medical { background: var(--accent-coral); color: white; font-weight: bold; border-radius: 50px; padding: 8px 20px; transition: 0.3s; border: none; }
-        .btn-medical:hover { background: var(--titles-gold); color: var(--bg-main); }
+        .btn-medical { 
+            background: var(--accent-coral); color: white; font-weight: bold; 
+            border-radius: 50px; padding: 10px 25px; border: none; width: 100%;
+        }
+        
+        @media (min-width: 992px) {
+            .btn-medical { width: auto; }
+            .epoch-card { padding: 35px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="greek-column col-left"></div>
-    <div class="greek-column col-right"></div>
+    <!-- Colonne Decorative (Nascoste su Mobile estremo per pulizia) -->
+    <div class="greek-column d-none d-md-block" style="position: fixed; top: 0; left: 10px; width: 40px; height: 100vh; z-index: -1; background: var(--column-base); opacity: 0.3;"></div>
+    <div class="greek-column d-none d-md-block" style="position: fixed; top: 0; right: 10px; width: 40px; height: 100vh; z-index: -1; background: var(--column-base); opacity: 0.3;"></div>
 
     <!-- Password Overlay -->
     <div id="password-overlay">
-        <div class="login-box text-center bg-dark p-5 rounded-4 border border-warning shadow-lg">
-            <h4 class="mb-4 text-warning">Verifica Sicurezza Admin</h4>
+        <div class="login-box text-center bg-dark p-4 p-md-5 rounded-4 border border-warning shadow-lg w-100" style="max-width: 400px;">
+            <h4 class="mb-4 text-warning">Admin Access</h4>
             <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password...">
-            <button onclick="unlockEditor()" class="btn btn-warning w-100 fw-bold">SBLOCCA EDITOR</button>
-            <button onclick="closePasswordPrompt()" class="btn btn-link text-white btn-sm mt-2">Sola Lettura</button>
+            <button onclick="unlockEditor()" class="btn btn-warning w-100 fw-bold mb-2">SBLOCCA EDITOR</button>
+            <button onclick="closePasswordPrompt()" class="btn btn-link text-white btn-sm">Sola Lettura</button>
         </div>
     </div>
 
-    <!-- Toolbar Editor -->
+    <!-- TOOLBAR EDITOR (Scrollabile su Mobile) -->
     <div id="admin-toolbar">
-        <button class="toolbar-btn" onclick="formatText('bold')"><b>B</b></button>
-        <button class="toolbar-btn" onclick="formatText('italic')"><i>I</i></button>
-        <div class="d-flex align-items-center gap-2 mx-3">
-            <label class="small">Sfondo:</label>
-            <input type="color" onchange="updateCardStyle('background', this.value)">
+        <div class="toolbar-group">
+            <button class="toolbar-btn" onclick="formatText('bold')"><i class="bi bi-type-bold"></i></button>
+            <button class="toolbar-btn" onclick="formatText('italic')"><i class="bi bi-type-italic"></i></button>
+            <button class="toolbar-btn" onclick="addLink()"><i class="bi bi-link-45deg"></i></button>
+            <input type="color" onchange="formatText('foreColor', this.value)" style="width:30px; height:30px; border:none; background:none;">
         </div>
-        <button class="toolbar-btn bg-success border-0" onclick="addNewCard()"><i class="bi bi-plus-circle"></i> AGGIUNGI</button>
-        <button class="toolbar-btn bg-danger border-0" onclick="deleteSelectedCard()"><i class="bi bi-trash"></i></button>
-        <button class="toolbar-btn bg-primary border-0" id="btn-save" onclick="saveToFirebase()">SALVA RTDB</button>
+
+        <div class="toolbar-group">
+            <select class="toolbar-select" onchange="formatText('formatBlock', this.value); this.selectedIndex=0;">
+                <option value="">Tag...</option>
+                <option value="H2">H2</option>
+                <option value="H4">H4</option>
+                <option value="P">P</option>
+            </select>
+        </div>
+
+        <div class="toolbar-group">
+            <button class="toolbar-btn bg-success border-0" onclick="addNewCard()"><i class="bi bi-plus-lg"></i></button>
+            <button class="toolbar-btn bg-danger border-0" onclick="deleteSelectedCard()"><i class="bi bi-trash"></i></button>
+            <button class="toolbar-btn bg-primary border-0" id="btn-save" onclick="saveToFirebase()"><i class="bi bi-cloud-arrow-up"></i> SALVA</button>
+        </div>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR CON HAMBURGER -->
     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com/index.html">
-                <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2">
-                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="media/changelogoclear.png" alt="Logo" width="45" class="me-2">
+                <span class="fs-6 fw-bold">GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <i class="bi bi-list fs-1 text-white"></i> 
+                <i class="bi bi-list"></i>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase text-white" href="https://www.drgiuseppemusumeci.com/index.html">Home</a></li>
-                    <li class="nav-item">
-                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info" style="display:none; align-items:center; gap:10px;">
-                            <span id="user-name" class="small fw-bold text-warning text-uppercase"></span>
+                <ul class="navbar-nav ms-auto pt-3 pt-lg-0 align-items-lg-center">
+                    <li class="nav-item mb-3 mb-lg-0">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical">ACCESSO HUB</a>
+                        <div id="user-info" style="display:none; justify-content: space-between; align-items:center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;">
+                            <span id="user-name" class="small fw-bold text-warning me-3"></span>
                             <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
                         </div>
                     </li>
@@ -140,18 +179,20 @@
     </nav>
 
     <!-- HEADER -->
-    <header class="profile-header">
-        <div class="container text-center text-lg-start">
+    <header class="profile-header text-center text-lg-start">
+        <div class="container">
             <h6 class="text-uppercase fw-bold opacity-75 small mb-2" style="color: var(--accent-coral); letter-spacing: 2px;">Change in Cardiology</h6>
-            <h1 class="display-4 fw-bold">Hub Operativo: La Storia</h1>
+            <h1 class="display-5 fw-bold">Hub Operativo: La Storia</h1>
             <div class="teal-divider mx-auto mx-lg-0"></div>
         </div>
     </header>
 
-    <main class="py-5">
+    <!-- CONTENT -->
+    <main class="py-4">
         <div class="container">
-            <div class="row g-lg-5">
-                <div class="col-lg-8" id="dynamic-content-area">
+            <div class="row">
+                <div class="col-lg-10 mx-auto" id="dynamic-content-area">
+                    <!-- Spinner iniziale -->
                     <div class="text-center py-5" id="loading-spinner">
                         <div class="spinner-border text-warning"></div>
                     </div>
@@ -160,20 +201,14 @@
         </div>
     </main>
 
-    <footer class="main-footer">
-        <div class="container text-center text-lg-start">
-            <div class="footer-logo mb-3 fw-bold fs-4">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-            <p class="opacity-50 small">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
-        </div>
-    </footer>
-
-    <!-- Firebase SDK -->
+    <!-- JS: Bootstrap & Firebase -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <script>
-        // Configurazione che funziona per l'accesso
+        // Configurazione Firebase (Invariata)
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -181,47 +216,35 @@
             projectId: "giuseppe-4c318",
             storageBucket: "giuseppe-4c318.firebasestorage.app",
             messagingSenderId: "658885311131",
-            appId: "1:658885311131:web:9bb26a19cec41dd331e43e",
-            measurementId: "G-T740SVWJ06"
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
         };
 
-        // Inizializzazione
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const db = firebase.database(); // Questo userà automaticamente il databaseURL sopra
+        const db = firebase.database();
 
         const ADMIN_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
         const OBFUSCATED_PASS = "TWFzY2FsaTE5NzEh"; 
         let isAdminActive = false;
         let activeCard = null;
 
-        // Gestione Stato Accesso
         auth.onAuthStateChanged(user => {
             if (user) {
                 const email = user.email.toLowerCase();
                 document.getElementById('btn-login-nav').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
-                document.getElementById('user-name').innerText = email;
-                
-                if (ADMIN_EMAILS.includes(email)) {
-                    document.getElementById('password-overlay').style.display = 'flex';
-                }
-            } else {
-                document.getElementById('btn-login-nav').style.display = 'block';
-                document.getElementById('user-info').style.display = 'none';
+                document.getElementById('user-name').innerText = email.split('@')[0];
+                if (ADMIN_EMAILS.includes(email)) document.getElementById('password-overlay').style.display = 'flex';
             }
             loadRealtimeData();
         });
 
-        // Caricamento Dati
         function loadRealtimeData() {
             db.ref('system_pages/storia_change').on('value', (snapshot) => {
                 const data = snapshot.val();
                 const container = document.getElementById('dynamic-content-area');
                 container.innerHTML = '';
-                
                 if (data) {
-                    // Se i dati sono salvati come array, li iteriamo
                     const items = Array.isArray(data) ? data : Object.values(data);
                     items.forEach(item => {
                         const card = document.createElement('div');
@@ -229,20 +252,17 @@
                         card.style.backgroundColor = item.bgColor || '';
                         card.style.borderLeftColor = item.borderColor || '';
                         card.innerHTML = item.html || '';
-                        
                         if (isAdminActive) {
                             card.setAttribute('contenteditable', 'true');
                             card.onclick = () => activeCard = card;
                         }
                         container.appendChild(card);
                     });
-                } else {
-                    container.innerHTML = '<p class="text-center opacity-50">Nessun contenuto presente.</p>';
                 }
+                document.getElementById('loading-spinner')?.remove();
             });
         }
 
-        // Funzioni Editor
         window.unlockEditor = () => {
             const pass = document.getElementById("system-password").value;
             if (btoa(pass) === OBFUSCATED_PASS) {
@@ -250,32 +270,15 @@
                 document.getElementById('admin-toolbar').style.display = 'flex';
                 document.body.classList.add('editor-on');
                 isAdminActive = true;
-                loadRealtimeData(); // Ricarica per abilitare contenteditable
+                loadRealtimeData();
             } else { alert("Password Errata"); }
         };
 
-        window.saveToFirebase = () => {
-            const btn = document.getElementById('btn-save');
-            btn.innerText = "Salvataggio...";
-            
-            const data = Array.from(document.querySelectorAll('.epoch-card')).map((card, idx) => ({
-                id: idx,
-                html: card.innerHTML,
-                bgColor: card.style.backgroundColor,
-                borderColor: card.style.borderLeftColor
-            }));
-
-            // Salvataggio sul percorso corretto
-            db.ref('system_pages/storia_change').set(data)
-                .then(() => {
-                    btn.innerText = "SALVATO!";
-                    setTimeout(() => btn.innerText = "SALVA RTDB", 2000);
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Errore nel salvataggio: " + err.message);
-                    btn.innerText = "ERRORE";
-                });
+        window.formatText = (cmd, val = null) => document.execCommand(cmd, false, val);
+        
+        window.addLink = () => {
+            const url = prompt("Inserisci URL:");
+            if(url) formatText('createLink', url);
         };
 
         window.addNewCard = () => {
@@ -283,20 +286,31 @@
             const card = document.createElement('div');
             card.className = 'epoch-card';
             card.setAttribute('contenteditable', 'true');
-            card.innerHTML = "<h2>Nuova Epoca</h2><p>Inserisci qui la storia...</p>";
+            card.innerHTML = "<h2>Nuovo Titolo</h2><p>Testo qui...</p>";
             card.onclick = () => activeCard = card;
             container.prepend(card);
         };
 
-        window.deleteSelectedCard = () => { 
-            if(activeCard && confirm("Eliminare questa card?")) activeCard.remove(); 
+        window.deleteSelectedCard = () => {
+            if(activeCard && confirm("Eliminare questa card?")) activeCard.remove();
         };
 
-        window.formatText = (cmd) => document.execCommand(cmd, false, null);
-        window.updateCardStyle = (prop, val) => { if(activeCard) activeCard.style[prop] = val; };
+        window.saveToFirebase = () => {
+            const btn = document.getElementById('btn-save');
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            const data = Array.from(document.querySelectorAll('.epoch-card')).map((card, idx) => ({
+                id: idx,
+                html: card.innerHTML,
+                bgColor: card.style.backgroundColor,
+                borderColor: card.style.borderLeftColor
+            }));
+            db.ref('system_pages/storia_change').set(data)
+                .then(() => { btn.innerText = "OK!"; setTimeout(() => btn.innerHTML = '<i class="bi bi-cloud-arrow-up"></i> SALVA', 2000); })
+                .catch(err => alert("Errore: " + err.message));
+        };
+
         window.closePasswordPrompt = () => document.getElementById('password-overlay').style.display = 'none';
         window.logout = () => auth.signOut().then(() => window.location.reload());
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
