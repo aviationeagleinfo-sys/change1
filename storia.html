@@ -6,7 +6,6 @@
     <title>Storia del Change | Hub Operativo Pro</title>
     <link rel="icon" type="image/x-icon" href="media/favicon.ico">
     
-    <!-- Bootstrap & Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -37,50 +36,40 @@
             font-weight: 700;
         }
 
-        /* === TOOLBAR ADMIN MOBILE OPTIMIZED === */
+        /* === TOOLBAR ADMIN OPTIMIZED === */
         #admin-toolbar {
             position: fixed; top: 0; left: 0; right: 0; 
             background: rgba(15, 25, 50, 0.98);
-            padding: 8px 10px; z-index: 10000; 
+            padding: 10px; z-index: 10000; 
             border-bottom: 3px solid var(--titles-gold);
             display: none; 
-            gap: 8px; 
-            overflow-x: auto; /* Scorrimento orizzontale su mobile */
+            gap: 10px; 
+            overflow-x: auto;
             white-space: nowrap;
             justify-content: flex-start;
-            -webkit-overflow-scrolling: touch;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
-        /* Nasconde scrollbar per pulizia estetica */
-        #admin-toolbar::-webkit-scrollbar { display: none; }
+        #admin-toolbar::-webkit-scrollbar { height: 4px; }
+        #admin-toolbar::-webkit-scrollbar-thumb { background: var(--titles-gold); }
 
         body.editor-on { padding-top: 140px !important; }
-        @media (max-width: 768px) {
-            body.editor-on { padding-top: 180px !important; }
-        }
 
         .toolbar-group {
             display: inline-flex; align-items: center; gap: 5px;
             background: rgba(255,255,255,0.05);
-            padding: 5px 8px; border-radius: 8px;
+            padding: 5px 10px; border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.1);
         }
+
+        .toolbar-label { font-size: 0.65rem; text-transform: uppercase; color: var(--titles-gold); margin-right: 5px; font-weight: bold; }
 
         .toolbar-btn {
             background: var(--dark-overlay); color: var(--white); border: 1px solid rgba(255,255,255,0.2);
             padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+            transition: 0.2s;
         }
-
-        /* === NAVBAR & HAMBURGER === */
-        .navbar { 
-            background: rgba(42, 61, 114, 0.95); 
-            border-bottom: 3px solid var(--accent-coral); 
-            backdrop-filter: blur(10px); 
-        }
-        .navbar-toggler { border: none; padding: 0; }
-        .navbar-toggler:focus { box-shadow: none; }
-        .bi-list { font-size: 2rem; color: var(--titles-gold); }
+        .toolbar-btn:hover { background: rgba(255,255,255,0.1); }
 
         /* === CARDS === */
         .epoch-card { 
@@ -91,7 +80,10 @@
             margin-bottom: 20px; 
             transition: 0.3s;
             word-wrap: break-word;
+            position: relative;
         }
+        .epoch-card.borderless { background: transparent!important; border-left: none!important; padding-left: 0; }
+        .epoch-card[contenteditable="true"]:focus { outline: 2px dashed var(--titles-gold); background: rgba(255,255,255,0.07); }
 
         #password-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 20000;
@@ -100,49 +92,70 @@
 
         .teal-divider { width: 50px; height: 4px; background: var(--accent-coral); margin: 20px 0; border-radius: 10px; }
         
-        .btn-medical { 
-            background: var(--accent-coral); color: white; font-weight: bold; 
-            border-radius: 50px; padding: 10px 25px; border: none; width: 100%;
+        .navbar { 
+            background: rgba(42, 61, 114, 0.95); 
+            border-bottom: 4px solid var(--accent-coral); 
+            padding: 1rem 0; 
+            backdrop-filter: blur(10px);
         }
-        
-        @media (min-width: 992px) {
-            .btn-medical { width: auto; }
-            .epoch-card { padding: 35px; }
+        .brand-accent { color: var(--titles-gold); }
+        .btn-medical { background-color: var(--accent-coral); color: white; border-radius: 50px; padding: 8px 20px; font-weight: 700; border: none; transition: 0.3s; }
+        .btn-medical:hover { background-color: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
+
+        /* Stile Citazione */
+        blockquote {
+            border-left: 3px solid var(--titles-gold);
+            padding-left: 15px;
+            font-style: italic;
+            margin: 15px 0;
+            color: #bdc3c7;
+        }
+
+        /* Stile Pulsante Custom dentro card */
+        .card-action-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: var(--accent-coral);
+            color: white!important;
+            text-decoration: none!important;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Colonne Decorative (Nascoste su Mobile estremo per pulizia) -->
-    <div class="greek-column d-none d-md-block" style="position: fixed; top: 0; left: 10px; width: 40px; height: 100vh; z-index: -1; background: var(--column-base); opacity: 0.3;"></div>
-    <div class="greek-column d-none d-md-block" style="position: fixed; top: 0; right: 10px; width: 40px; height: 100vh; z-index: -1; background: var(--column-base); opacity: 0.3;"></div>
-
-    <!-- Password Overlay -->
     <div id="password-overlay">
         <div class="login-box text-center bg-dark p-4 p-md-5 rounded-4 border border-warning shadow-lg w-100" style="max-width: 400px;">
-            <h4 class="mb-4 text-warning">Admin Access</h4>
-            <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password...">
+            <h4 class="mb-4 text-warning"><i class="bi bi-shield-lock"></i> Admin Access</h4>
+            <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password di sistema...">
             <button onclick="unlockEditor()" class="btn btn-warning w-100 fw-bold mb-2">SBLOCCA EDITOR</button>
             <button onclick="closePasswordPrompt()" class="btn btn-link text-white btn-sm">Sola Lettura</button>
         </div>
     </div>
 
-    <!-- TOOLBAR EDITOR (Scrollabile su Mobile) -->
     <div id="admin-toolbar">
         <div class="toolbar-group">
-            <button class="toolbar-btn" onclick="formatText('bold')"><i class="bi bi-type-bold"></i></button>
-            <button class="toolbar-btn" onclick="formatText('italic')"><i class="bi bi-type-italic"></i></button>
-            <button class="toolbar-btn" onclick="addLink()"><i class="bi bi-link-45deg"></i></button>
-            <input type="color" onchange="formatText('foreColor', this.value)" style="width:30px; height:30px; border:none; background:none;">
+            <span class="toolbar-label">Testo</span>
+            <button class="toolbar-btn" onclick="formatText('bold')" title="Grassetto"><i class="bi bi-type-bold"></i></button>
+            <button class="toolbar-btn" onclick="formatText('italic')" title="Corsivo"><i class="bi bi-type-italic"></i></button>
+            <button class="toolbar-btn" onclick="formatText('underline')" title="Sottolineato"><i class="bi bi-type-underline"></i></button>
+            <button class="toolbar-btn" onclick="formatText('formatBlock', 'blockquote')" title="Citazione"><i class="bi bi-quote"></i></button>
         </div>
 
         <div class="toolbar-group">
-            <select class="toolbar-select" onchange="formatText('formatBlock', this.value); this.selectedIndex=0;">
-                <option value="">Tag...</option>
-                <option value="H2">H2</option>
-                <option value="H4">H4</option>
-                <option value="P">P</option>
-            </select>
+            <span class="toolbar-label">Link & Bottoni</span>
+            <button class="toolbar-btn" onclick="addLink()" title="Inserisci Link"><i class="bi bi-link-45deg"></i></button>
+            <button class="toolbar-btn" onclick="addCustomButton()" title="Inserisci Pulsante"><i class="bi bi-rectangle-fill"></i></button>
+            <input type="color" title="Colore Testo/Link" onchange="formatText('foreColor', this.value)" style="width:30px; height:30px; cursor:pointer;">
+        </div>
+
+        <div class="toolbar-group">
+            <span class="toolbar-label">Card Style</span>
+            <input type="color" title="Colore Sfondo Card" onchange="setCardStyle('bg', this.value)" style="width:30px; height:30px; cursor:pointer;">
+            <input type="color" title="Colore Barra Laterale" onchange="setCardStyle('border', this.value)" style="width:30px; height:30px; cursor:pointer;">
+            <button class="toolbar-btn" onclick="toggleBorderless()" title="Senza Riquadro"><i class="bi bi-border-style"></i></button>
         </div>
 
         <div class="toolbar-group">
@@ -152,72 +165,21 @@
         </div>
     </div>
 
-    <!-- NAVBAR CON HAMBURGER -->
-    <style>
-.navbar { 
-            background: rgba(42, 61, 114, 0.95); 
-            border-bottom: 4px solid var(--accent-coral); 
-            padding: 1rem 0; 
-            backdrop-filter: blur(10px);
-        }
-        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--white)!important; }
-        .brand-accent { color: var(--titles-gold); }
-        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-uppercase: true; }
-        .nav-link:hover { color: var(--titles-gold)!important; }
-        
-        .navbar-toggler { color: var(--white); border: none; }
-
-        .btn-medical { 
-            background-color: var(--accent-coral); 
-            color: var(--white); 
-            border-radius: 50px; 
-            padding: 8px 20px; 
-            font-weight: 700; 
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-medical:hover { 
-            background-color: var(--titles-gold); 
-            color: var(--bg-main); 
-            transform: translateY(-2px); 
-        }
-        </style>
-       <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com/index.html">
                 <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2">
-                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+                <span class="text-white">GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <i class="bi bi-list fs-1"></i> 
             </button>
-
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/formazione.html">Formazione</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/direttore.html">Direttore</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/interventistica.html">Interventistica Strutturale</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cardiologia.html">Cardiologia Clinica</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/patologie.html">Patologie Cardiovascolari</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/incarichi.html">Incarichi Istituzionali</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
-                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
-                    
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-white" href="https://www.drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
                     <li class="nav-item">
                         <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info" style="display:none; justify-content: space-between; align-items:center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;">
+                        <div id="user-info" style="display:none; align-items:center;">
                             <span id="user-name" class="small fw-bold text-warning me-3"></span>
                             <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
                         </div>
@@ -227,21 +189,18 @@
         </div>
     </nav>
 
-    <!-- HEADER -->
-    <header class="profile-header text-center text-lg-start">
+    <header class="py-5 text-center">
         <div class="container">
             <h6 class="text-uppercase fw-bold opacity-75 small mb-2" style="color: var(--accent-coral); letter-spacing: 2px;">Change in Cardiology</h6>
             <h1 class="display-5 fw-bold">Hub Operativo: La Storia</h1>
-            <div class="teal-divider mx-auto mx-lg-0"></div>
+            <div class="teal-divider mx-auto"></div>
         </div>
     </header>
 
-    <!-- CONTENT -->
     <main class="py-4">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 mx-auto" id="dynamic-content-area">
-                    <!-- Spinner iniziale -->
                     <div class="text-center py-5" id="loading-spinner">
                         <div class="spinner-border text-warning"></div>
                     </div>
@@ -250,14 +209,12 @@
         </div>
     </main>
 
-    <!-- JS: Bootstrap & Firebase -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <script>
-        // Configurazione Firebase (Invariata)
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -283,7 +240,11 @@
                 document.getElementById('btn-login-nav').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('user-name').innerText = email.split('@')[0];
-                if (ADMIN_EMAILS.includes(email)) document.getElementById('password-overlay').style.display = 'flex';
+                
+                // Se l'utente è admin, mostra il prompt password
+                if (ADMIN_EMAILS.includes(email) && !isAdminActive) {
+                    document.getElementById('password-overlay').style.display = 'flex';
+                }
             }
             loadRealtimeData();
         });
@@ -297,13 +258,13 @@
                     const items = Array.isArray(data) ? data : Object.values(data);
                     items.forEach(item => {
                         const card = document.createElement('div');
-                        card.className = 'epoch-card';
+                        card.className = 'epoch-card ' + (item.isBorderless ? 'borderless' : '');
                         card.style.backgroundColor = item.bgColor || '';
                         card.style.borderLeftColor = item.borderColor || '';
                         card.innerHTML = item.html || '';
                         if (isAdminActive) {
                             card.setAttribute('contenteditable', 'true');
-                            card.onclick = () => activeCard = card;
+                            card.onclick = (e) => { activeCard = card; e.stopPropagation(); };
                         }
                         container.appendChild(card);
                     });
@@ -323,11 +284,35 @@
             } else { alert("Password Errata"); }
         };
 
-        window.formatText = (cmd, val = null) => document.execCommand(cmd, false, val);
-        
+        // Funzioni Formattazione
+        window.formatText = (cmd, val = null) => {
+            document.execCommand(cmd, false, val);
+        };
+
         window.addLink = () => {
             const url = prompt("Inserisci URL:");
             if(url) formatText('createLink', url);
+        };
+
+        window.addCustomButton = () => {
+            const url = prompt("Inserisci URL del pulsante:");
+            const text = prompt("Testo del pulsante:", "SCOPRI DI PIÙ");
+            if(url && text) {
+                const btnHtml = `<a href="${url}" class="card-action-btn" contenteditable="false">${text}</a>&nbsp;`;
+                document.execCommand('insertHTML', false, btnHtml);
+            }
+        };
+
+        // Funzioni Stile Card
+        window.setCardStyle = (type, val) => {
+            if(!activeCard) return alert("Seleziona prima una card cliccandoci sopra!");
+            if(type === 'bg') activeCard.style.backgroundColor = val;
+            if(type === 'border') activeCard.style.borderLeftColor = val;
+        };
+
+        window.toggleBorderless = () => {
+            if(!activeCard) return alert("Seleziona una card!");
+            activeCard.classList.toggle('borderless');
         };
 
         window.addNewCard = () => {
@@ -335,13 +320,17 @@
             const card = document.createElement('div');
             card.className = 'epoch-card';
             card.setAttribute('contenteditable', 'true');
-            card.innerHTML = "<h2>Nuovo Titolo</h2><p>Testo qui...</p>";
-            card.onclick = () => activeCard = card;
+            card.innerHTML = "<h2>Nuovo Evento</h2><p>Inserisci qui la descrizione...</p>";
+            card.onclick = (e) => { activeCard = card; e.stopPropagation(); };
             container.prepend(card);
+            activeCard = card;
         };
 
         window.deleteSelectedCard = () => {
-            if(activeCard && confirm("Eliminare questa card?")) activeCard.remove();
+            if(activeCard && confirm("Eliminare questa card definitivamente?")) {
+                activeCard.remove();
+                activeCard = null;
+            }
         };
 
         window.saveToFirebase = () => {
@@ -351,15 +340,23 @@
                 id: idx,
                 html: card.innerHTML,
                 bgColor: card.style.backgroundColor,
-                borderColor: card.style.borderLeftColor
+                borderColor: card.style.borderLeftColor,
+                isBorderless: card.classList.contains('borderless')
             }));
             db.ref('system_pages/storia_change').set(data)
-                .then(() => { btn.innerText = "OK!"; setTimeout(() => btn.innerHTML = '<i class="bi bi-cloud-arrow-up"></i> SALVA', 2000); })
+                .then(() => { btn.innerText = "SALVATO!"; setTimeout(() => btn.innerHTML = '<i class="bi bi-cloud-arrow-up"></i> SALVA', 2000); })
                 .catch(err => alert("Errore: " + err.message));
         };
 
         window.closePasswordPrompt = () => document.getElementById('password-overlay').style.display = 'none';
         window.logout = () => auth.signOut().then(() => window.location.reload());
+        
+        // Deseleziona card se clicchi fuori
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('.epoch-card') && !e.target.closest('#admin-toolbar')) {
+                activeCard = null;
+            }
+        });
     </script>
 </body>
 </html>
