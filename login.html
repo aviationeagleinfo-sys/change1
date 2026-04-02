@@ -7,14 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        /* === DEFINIZIONE PALETTE CROMATICA RICHIESTA === */
         :root { 
-            --bg-main: #395296;        /* Sfondo */
-            --titles-gold: #f8c200;    /* Titolo */
-            --accent-coral: #eb966a;   /* Bottoni/Dettagli */
-            --text-light: #d6dcea;     /* Testi */
+            --bg-main: #395296; 
+            --titles-gold: #f8c200; 
+            --accent-coral: #eb966a; 
+            --text-light: #d6dcea; 
             --white: #ffffff;
-            --dark-box: #2a3d72;       /* Box login leggermente più chiaro dello sfondo */
+            --dark-box: #2a3d72; 
         }
 
         body { 
@@ -37,22 +36,18 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
         
-        /* Titolo Login */
         .login-box h3 { color: var(--titles-gold)!important; }
         .text-muted { color: var(--text-light)!important; opacity: 0.7; }
 
-        /* Bottoni Social (adattati per visibilità su scuro) */
         .btn-social { border-radius: 50px; padding: 10px; font-weight: 600; font-size: 0.9rem; width: 100%; margin-bottom: 10px; transition: 0.3s; }
         .btn-google { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--white); }
         .btn-facebook { background: #1877F2; color: white; border: none; }
         .btn-social:hover { opacity: 0.8; transform: translateY(-1px); background: rgba(255,255,255,0.1); color: var(--titles-gold); }
 
-        /* Divisore */
         .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: rgba(214, 220, 234, 0.2); }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(214, 220, 234, 0.1); }
         .divider span { padding: 0 10px; font-size: 0.7rem; text-transform: uppercase; color: var(--text-light); opacity: 0.5; font-weight: bold;}
 
-        /* Form */
         .form-label { font-size: 0.75rem; font-weight: 700; color: var(--titles-gold); text-transform: uppercase; letter-spacing: 0.5px; }
         .form-control { 
             background: rgba(0,0,0,0.2); 
@@ -66,9 +61,7 @@
             color: var(--white); 
             box-shadow: none; 
         }
-        .form-control::placeholder { color: rgba(255,255,255,0.3); }
 
-        /* Bottone Primario */
         .btn-teal { 
             background: var(--accent-coral); 
             color: white; 
@@ -84,7 +77,6 @@
         .btn-teal:hover { background: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
         .btn-teal:disabled { background: #555; cursor: not-allowed; opacity: 0.5; }
 
-        /* Link */
         .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--text-light); opacity: 0.6; transition: 0.2s; cursor: pointer;}
         .forgot-link:hover { color: var(--accent-coral); opacity: 1; }
         
@@ -134,7 +126,7 @@
             <p class="small">Non hai un account? 
                 <a href="register.html" class="register-link">Registrati qui</a>
             </p>
-            <a href="index.html" class="back-home"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
+            <a href="javascript:history.back()" class="back-home"><i class="bi bi-arrow-left"></i> Torna indietro</a>
         </div>
     </div>
 
@@ -154,6 +146,7 @@
     if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const auth = firebase.auth();
 
+    // MODIFICA: Funzione di reindirizzamento basata sulla cronologia
     function saveAndRedirect(user) {
         const userData = {
             isLoggedIn: true,
@@ -161,10 +154,15 @@
             email: user.email,
             uid: user.uid
         };
+        // Salviamo per compatibilità con il vecchio sistema, anche se Firebase Auth è ora primario
         localStorage.setItem("user", JSON.stringify(userData));
-        const params = new URLSearchParams(window.location.search);
-        const destination = params.get('redirect');
-        window.location.href = destination ? decodeURIComponent(destination) : "index.html";
+
+        // Logica Indietro: se c'è un referrer valido torna indietro, altrimenti va in Home
+        if (document.referrer && document.referrer !== window.location.href) {
+            window.history.back();
+        } else {
+            window.location.href = "index.html";
+        }
     }
 
     document.getElementById('forgot-password-trigger').onclick = () => {
