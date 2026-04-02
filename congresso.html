@@ -111,6 +111,60 @@
 
         /* Cookie Banner */
         #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--bg-main); color: var(--accent-coral); border: 2px solid var(--accent-coral); z-index: 9998; display: flex; align-items: center; justify-content: center; }
+        .faculty-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--accent-coral);
+    border-radius: 0 12px 12px 0;
+    transition: all 0.3s ease;
+}
+
+.faculty-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateX(10px);
+    border-left-color: var(--titles-gold);
+}
+
+.faculty-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--titles-gold);
+    border-radius: 50%;
+    margin-right: 15px;
+    box-shadow: 0 0 10px rgba(248, 194, 0, 0.5);
+}
+
+.faculty-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.faculty-name {
+    font-weight: 600;
+    color: var(--white);
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+
+.faculty-location {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.overlay-lock {
+    position: absolute; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: rgba(57, 82, 150, 0.6); /* Un velo blu sopra lo sfocato */
+    backdrop-filter: blur(2px); /* Extra protezione */
+    z-index: 10; 
+}
     </style>
 </head>
 <body>
@@ -182,24 +236,25 @@
             <div class="col-lg-5">
                 <div class="info-card">
                     <h3 class="mb-4"><i class="bi bi-calendar3 me-2"></i>La Data</h3>
-                    <p class="fs-5 mb-5">Sabato 24 Ottobre 2026<br><span class="opacity-75 small">Dalle ore 09:00 alle 18:30</span></p>
+                    <p class="fs-5 mb-5">9-10-11 Aprile 2026<br><span class="opacity-75 small">9 Aprile dalle ore 09:00 alle 18:30<br> 10 Aprile dalle 08:00 alle 18:30<br>11 Aprile dalle 09:00 alle 14:00</span></p>
 
                     <h3 class="mb-4"><i class="bi bi-geo-alt me-2"></i>La Sede</h3>
-                    <p class="fs-5">Centro Congressi Excellence<br>
-                    <span class="opacity-75 small">Via dell'Innovazione 42, 20121 Milano</span></p>
+                    <p class="fs-5">Centro Congressi Lingotto<br>
+                    <span class="opacity-75 small">Centro Congressi Lingotto, Via Nizza 280, 10126, Torino (TO), 🇮🇹 Italia (ITALY)</span></p>
                     
                     <hr class="my-4 opacity-25">
                     
                     <h3 class="mb-4"><i class="bi bi-person-lines-fill me-2"></i>Contatti Segreteria</h3>
-                    <p class="small">Per info logistiche e pernottamenti:<br>
-                    <a href="mailto:segreteria@change-cardiology.it" class="text-white text-decoration-none">segreteria@change-cardiology.it</a><br>
-                    Tel: +39 011 508 2515</p>
+                    <p class="small">Per info logistiche:<br>
+                    <a href="mailto:change@summet.it" class="text-white text-decoration-none">change@summet.it</a><br>
+                   </p>
                 </div>
             </div>
 
             <div class="col-lg-7">
                 <div class="map-frame h-100">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5639.424927003856!2d7.662568276340848!3d45.03076216225392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478812b88a2c92c3%3A0x2e6feeb991ae062!2sCentro%20Congressi%20Lingotto!5e0!3m2!1sit!2sit!4v1775137752570!5m2!1sit!2sit" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2819.646545367623!2d7.663183476632607!3d45.03233896220641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886d38e219717f%3A0xc3e6559092419080!2sCentro%20Congressi%20Lingotto!5e0!3m2!1sit!2sit!4v1709565000000!5m2!1sit!2sit" 
+    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
@@ -210,28 +265,164 @@
             </button>
         </div>
 
-        <section id="extra-info">
-            <div class="locked-wrapper shadow-lg">
-                <div class="blurred-content">
-                    <h2>Agenda del Lavoro</h2>
-                    <p>Sessioni mattutine: Interventistica Strutturale e Intelligenza Artificiale.</p>
-                    <p>Lunch Break: Networking con i direttori regionali ANMCO.</p>
-                    <p>Sessioni pomeridiane: Live Case dalla sala di emodinamica del Mauriziano.</p>
-                </div>
-                
-                <div class="overlay-lock">
-                    <div class="lock-box">
-                        <i class="bi bi-lock-fill display-1 text-gold mb-3"></i>
-                        <h2 class="text-white">Accesso Riservato</h2>
-                        <p class="opacity-75 mb-4">Il programma completo e i materiali scaricabili sono riservati ai membri dell'Hub.<br>Esegui l'accesso o registrati per continuare.</p>
-                        <div class="d-flex gap-3 justify-content-center">
-                            <a href="login.html" class="btn btn-medical">ACCEDI</a>
-                            <a href="partecipa.html" class="btn btn-outline-light rounded-pill px-4">REGISTRATI</a>
-                        </div>
-                    </div>
+       <section id="extra-info" style="display: none;">
+    <div class="locked-wrapper shadow-lg position-relative">
+        
+        <div class="blurred-content p-4 p-md-5">
+            <h2 class="mb-4">Ospiti Internazionali</h2>
+            
+            <ul class="ps-0"> <li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Gian Battista Chierchia</span>
+        <span class="faculty-location">Belgio 🇧🇪</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Klaus Parhofer</span>
+        <span class="faculty-location">Germania 🇩🇪</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Dror Dicker</span>
+        <span class="faculty-location">Israele 🇮🇱</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Maoto Habara</span>
+        <span class="faculty-location">Giappone 🇯🇵</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Salvatore Brugaletta</span>
+        <span class="faculty-location">Spagna 🇪🇸</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Gianluigi Savarese</span>
+        <span class="faculty-location">Svezia 🇸🇪</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Jessica Sandra Schubert</span>
+        <span class="faculty-location">Svezia 🇸🇪</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Francesco Fulvio Faletra</span>
+        <span class="faculty-location">SvizzeraSvezia 🇨🇭</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Hassan El Tamimi</span>
+        <span class="faculty-location">Emirati Arabi Uniti 🇦🇪</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Shehab Abdulla</span>
+        <span class="faculty-location">Emirati Arabi Uniti 🇦🇪</span>
+    </div>
+</li>
+
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Dominick Joseph Angiolillo</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Georges Dangas</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Howard Feldman</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Ik-Kyung Jang</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Marc Bonaca</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Marc Steve Sabatine</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+<li class="faculty-item">
+    <span class="faculty-dot"></span>
+    <div class="faculty-content">
+        <span class="faculty-name">Roxana Mehran</span>
+        <span class="faculty-location">U.S.A. 🇺🇸</span>
+    </div>
+</li>
+            </ul>
+
+            <div class="mt-5 p-4 bg-dark bg-opacity-25 rounded-4">
+                <p><i class="bi bi-clock me-2 text-gold"></i> <strong>Lunch Break:</strong> Networking con i direttori regionali ANMCO.</p>
+                <p><i class="bi bi-broadcast me-2 text-gold"></i> <strong>Sessioni pomeridiane:</strong> Live Case dalla sala di emodinamica del Mauriziano.</p>
+                <div class="text-center mt-4">
+                    <a href="programma.pdf" class="btn btn-medical px-5">SCARICA IL PROGRAMMA PDF</a>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="overlay-lock">
+            <div class="lock-box text-center">
+                <i class="bi bi-lock-fill display-1 text-gold mb-3"></i>
+                <h2 class="text-white">Accesso Riservato</h2>
+                <p class="opacity-75 mb-4">Il programma completo e i materiali scaricabili sono riservati ai membri dell'Hub.<br>Esegui l'accesso o registrati per continuare.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="login.html" class="btn btn-medical px-4">ACCEDI</a>
+                    <a href="partecipa.html" class="btn btn-outline-light rounded-pill px-4">REGISTRATI</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
     </main>
 
     <footer class="main-footer">
@@ -356,7 +547,7 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
 
         // --- COUNTDOWN LOGIC ---
         function updateCountdown() {
-            const eventDate = new Date("October 24, 2026 09:00:00").getTime();
+            const eventDate = new Date("Apr 9, 2026 07:00:00").getTime();
             const now = new Date().getTime();
             const diff = eventDate - now;
 
