@@ -141,7 +141,11 @@
             padding: 60px 0 30px; 
             border-top: 6px solid var(--titles-gold); 
         }
-
+/* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
+        
         /* === COOKIE BANNER (ADATTATA) === */
         #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--bg-main); color: var(--accent-coral); border: 2px solid var(--accent-coral); z-index: 9998; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .cookie-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
@@ -319,6 +323,48 @@
            
         </a>
     </div>
+    <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Giuseppe Musumeci MD<br>
+
+Direttore SC Cardiologia,<br>
+AO Ordine Mauriziano Torino<br>
+Largo Turati, 62, Torino, Italy<br>
+tel. +390115082515 <br>
+Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri (ANMCO)</p>
+                    <div class="mt-4">
+                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="login.html" class="footer-link">Accesso</a>
+                        <a href="https://drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
+                         <a href="storia.html" class="footer-link">Storia</a>
+                        <a href="congresso.html" class="footer-link">Dove&Quando</a>
+                        <a href="partecipa.html" class="footer-link">Partecipa anche Tu!</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
+                
+            </div>
+        </div>
+    </footer>
 </body>
                 </div>
             </div>
