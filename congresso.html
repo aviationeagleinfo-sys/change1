@@ -277,8 +277,83 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script type="module">
+        // 1. Importa i moduli necessari da Firebase tramite CDN
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+
+        // 2. Configurazione Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e",
+            measurementId: "G-T740SVWJ06"
+        };
+
+        // 3. Inizializzazione
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // --- FIREBASE AUTH LOGIC & UI UPDATE ---
+        const btnLoginNav = document.getElementById("btn-login-nav");
+        const userInfo = document.getElementById("user-info");
+        const userName = document.getElementById("user-name");
+        
+        // Elementi del blocco da sbloccare
+        const overlayLock = document.querySelector(".overlay-lock");
+        const blurredContent = document.querySelector(".blurred-content");
+
+        // Firebase controlla in tempo reale se l'utente è loggato
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // UTENTE LOGGATO: Aggiorna Navbar
+                if (btnLoginNav) btnLoginNav.style.display = "none";
+                if (userInfo) userInfo.style.display = "flex";
+                // Mostra il nome dell'utente o la sua email se il nome non è impostato
+                if (userName) userName.textContent = user.displayName || user.email || "Membro Hub";
+
+                // UTENTE LOGGATO: Sblocca i contenuti nascosti
+                if (overlayLock) overlayLock.style.display = "none";
+                if (blurredContent) {
+                    blurredContent.style.filter = "none";
+                    blurredContent.style.opacity = "1";
+                    blurredContent.style.pointerEvents = "all";
+                }
+            } else {
+                // UTENTE NON LOGGATO: Ripristina stato iniziale
+                if (btnLoginNav) btnLoginNav.style.display = "block";
+                if (userInfo) userInfo.style.display = "none";
+                
+                if (overlayLock) overlayLock.style.display = "flex";
+                if (blurredContent) {
+                    blurredContent.style.filter = "blur(8px)";
+                    blurredContent.style.opacity = "0.4";
+                    blurredContent.style.pointerEvents = "none";
+                }
+            }
+        });
+
+        // --- FUNZIONE DI LOGOUT ---
+        // Essendo in un modulo, dobbiamo esporre la funzione all'oggetto window
+        // affinché l'attributo onclick="logout()" nell'HTML possa trovarla
+        window.logout = function() {
+            signOut(auth).then(() => {
+                // Il ricaricamento o l'aggiornamento UI avverrà automaticamente grazie a onAuthStateChanged
+                console.log("Logout effettuato con successo");
+                window.location.reload(); 
+            }).catch((error) => {
+                console.error("Errore durante il logout:", error);
+            });
+        };
+
         // --- COUNTDOWN LOGIC ---
         function updateCountdown() {
             const eventDate = new Date("October 24, 2026 09:00:00").getTime();
@@ -308,22 +383,6 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
                 this.innerHTML = 'SCARICA PROGRAMMA E INFO DETTAGLIATE <i class="bi bi-chevron-down ms-2"></i>';
             }
         });
-
-        // --- LOGIN STATUS ---
-        document.addEventListener("DOMContentLoaded", function() {
-            const userData = localStorage.getItem("user");
-            if (userData) {
-                const user = JSON.parse(userData);
-                document.getElementById("btn-login-nav").style.display = "none";
-                document.getElementById("user-info").style.display = "flex";
-                document.getElementById("user-name").textContent = user.name || "Membro Hub";
-            }
-        });
-
-        function logout() {
-            localStorage.removeItem("user");
-            window.location.reload();
-        }
     </script>
 </body>
 </html>
