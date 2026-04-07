@@ -36,7 +36,7 @@
             font-weight: 700;
         }
 
-        /* === TOOLBAR ADMIN OPTIMIZED === */
+        /* === TOOLBAR ADMIN === */
         #admin-toolbar {
             position: fixed; top: 0; left: 0; right: 0; 
             background: rgba(15, 25, 50, 0.98);
@@ -50,9 +50,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
-        #admin-toolbar::-webkit-scrollbar { height: 4px; }
-        #admin-toolbar::-webkit-scrollbar-thumb { background: var(--titles-gold); }
-
         body.editor-on { padding-top: 140px !important; }
 
         .toolbar-group {
@@ -62,14 +59,13 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .toolbar-label { font-size: 0.65rem; text-transform: uppercase; color: var(--titles-gold); margin-right: 5px; font-weight: bold; }
+        .toolbar-label { font-size: 0.65rem; text-transform: uppercase; color: var(--titles-gold); font-weight: bold; }
 
         .toolbar-btn {
             background: var(--dark-overlay); color: var(--white); border: 1px solid rgba(255,255,255,0.2);
             padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
             transition: 0.2s;
         }
-        .toolbar-btn:hover { background: rgba(255,255,255,0.1); }
 
         /* === CARDS === */
         .epoch-card { 
@@ -78,15 +74,13 @@
             border-radius: 18px; 
             border-left: 5px solid var(--accent-coral); 
             margin-bottom: 20px; 
-            transition: 0.3s;
-            word-wrap: break-word;
             position: relative;
         }
-        .epoch-card.borderless { background: transparent!important; border-left: none!important; padding-left: 0; }
-        .epoch-card[contenteditable="true"]:focus { outline: 2px dashed var(--titles-gold); background: rgba(255,255,255,0.07); }
+        .epoch-card.borderless { background: transparent!important; border-left: none!important; }
 
+        /* === OVERLAY LOGIN 3 LIVELLI === */
         #password-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 20000;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000;
             display: none; align-items: center; justify-content: center; padding: 20px;
         }
 
@@ -95,175 +89,65 @@
         .navbar { 
             background: rgba(42, 61, 114, 0.95); 
             border-bottom: 4px solid var(--accent-coral); 
-            padding: 1rem 0; 
             backdrop-filter: blur(10px);
         }
-        .brand-accent { color: var(--titles-gold); }
-        .btn-medical { background-color: var(--accent-coral); color: white; border-radius: 50px; padding: 8px 20px; font-weight: 700; border: none; transition: 0.3s; }
-        .btn-medical:hover { background-color: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
-
-        /* Stile Citazione */
-        blockquote {
-            border-left: 3px solid var(--titles-gold);
-            padding-left: 15px;
-            font-style: italic;
-            margin: 15px 0;
-            color: #bdc3c7;
-        }
-
-        /* Stile Pulsante Custom dentro card */
-        .card-action-btn {
-            display: inline-block;
-            padding: 8px 15px;
-            background: var(--accent-coral);
-            color: white!important;
-            text-decoration: none!important;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+        .btn-medical { background-color: var(--accent-coral); color: white; border-radius: 50px; padding: 8px 20px; font-weight: 700; border: none; }
+        .card-action-btn { display: inline-block; padding: 8px 15px; background: var(--accent-coral); color: white!important; border-radius: 5px; font-weight: bold; margin-top: 10px; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div id="password-overlay">
         <div class="login-box text-center bg-dark p-4 p-md-5 rounded-4 border border-warning shadow-lg w-100" style="max-width: 400px;">
-            <h4 class="mb-4 text-warning"><i class="bi bi-shield-lock"></i> Admin Access</h4>
-            <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password di sistema...">
-            <button onclick="unlockEditor()" class="btn btn-warning w-100 fw-bold mb-2">SBLOCCA EDITOR</button>
-            <button onclick="closePasswordPrompt()" class="btn btn-link text-white btn-sm">Sola Lettura</button>
+            <h4 class="mb-4 text-warning"><i class="bi bi-shield-lock"></i> Security Check</h4>
+            
+            <div id="step-pass">
+                <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password di sistema...">
+            </div>
+
+            <div id="step-otp" style="display:none;">
+                <p class="text-white-50 small mb-2">Inserisci il codice temporaneo dall'App</p>
+                <input type="text" id="otp-code" class="form-control mb-3 text-center fs-4" placeholder="000 000" maxlength="6" style="letter-spacing: 5px;">
+            </div>
+
+            <button id="btn-unlock-action" onclick="handleSecurityFlow()" class="btn btn-warning w-100 fw-bold mb-2">PROSEGUI</button>
+            <button onclick="closePasswordPrompt()" class="btn btn-link text-white btn-sm">Annulla</button>
         </div>
     </div>
 
     <div id="admin-toolbar">
         <div class="toolbar-group">
             <span class="toolbar-label">Testo</span>
-            <button class="toolbar-btn" onclick="formatText('bold')" title="Grassetto"><i class="bi bi-type-bold"></i></button>
-            <button class="toolbar-btn" onclick="formatText('italic')" title="Corsivo"><i class="bi bi-type-italic"></i></button>
-            <button class="toolbar-btn" onclick="formatText('underline')" title="Sottolineato"><i class="bi bi-type-underline"></i></button>
-            <button class="toolbar-btn" onclick="formatText('formatBlock', 'blockquote')" title="Citazione"><i class="bi bi-quote"></i></button>
+            <button class="toolbar-btn" onclick="formatText('bold')"><i class="bi bi-type-bold"></i></button>
+            <button class="toolbar-btn" onclick="formatText('italic')"><i class="bi bi-type-italic"></i></button>
+            <button class="toolbar-btn" onclick="formatText('formatBlock', 'blockquote')"><i class="bi bi-quote"></i></button>
         </div>
-
         <div class="toolbar-group">
-            <span class="toolbar-label">Link & Bottoni</span>
-            <button class="toolbar-btn" onclick="addLink()" title="Inserisci Link"><i class="bi bi-link-45deg"></i></button>
-            <button class="toolbar-btn" onclick="addCustomButton()" title="Inserisci Pulsante"><i class="bi bi-rectangle-fill"></i></button>
-            <input type="color" title="Colore Testo/Link" onchange="formatText('foreColor', this.value)" style="width:30px; height:30px; cursor:pointer;">
-        </div>
-
-        <div class="toolbar-group">
-            <span class="toolbar-label">Card Style</span>
-            <input type="color" title="Colore Sfondo Card" onchange="setCardStyle('bg', this.value)" style="width:30px; height:30px; cursor:pointer;">
-            <input type="color" title="Colore Barra Laterale" onchange="setCardStyle('border', this.value)" style="width:30px; height:30px; cursor:pointer;">
-            <button class="toolbar-btn" onclick="toggleBorderless()" title="Senza Riquadro"><i class="bi bi-border-style"></i></button>
-        </div>
-
-        <div class="toolbar-group">
+            <span class="toolbar-label">Azioni</span>
             <button class="toolbar-btn bg-success border-0" onclick="addNewCard()"><i class="bi bi-plus-lg"></i></button>
             <button class="toolbar-btn bg-danger border-0" onclick="deleteSelectedCard()"><i class="bi bi-trash"></i></button>
             <button class="toolbar-btn bg-primary border-0" id="btn-save" onclick="saveToFirebase()"><i class="bi bi-cloud-arrow-up"></i> SALVA</button>
         </div>
     </div>
 
-    
-    <!-- NAVBAR CON HAMBURGER -->
-    <style>
-.navbar { 
-            background: rgba(42, 61, 114, 0.95); 
-            border-bottom: 4px solid var(--accent-coral); 
-            padding: 1rem 0; 
-            backdrop-filter: blur(10px);
-        }
-        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--white)!important; }
-        .brand-accent { color: var(--titles-gold); }
-        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-uppercase: true; }
-        .nav-link:hover { color: var(--titles-gold)!important; }
-        
-        .navbar-toggler { color: var(--white); border: none; }
-
-        .btn-medical { 
-            background-color: var(--accent-coral); 
-            color: var(--white); 
-            border-radius: 50px; 
-            padding: 8px 20px; 
-            font-weight: 700; 
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-medical:hover { 
-            background-color: var(--titles-gold); 
-            color: var(--bg-main); 
-            transform: translateY(-2px); 
-        }
-        </style>
-       <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="https://www.drgiuseppemusumeci.com/index.html">
+            <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2">
-                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+                <span class="text-white">GIUSEPPE<span style="color:var(--titles-gold)">MUSUMECI</span></span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <i class="bi bi-list fs-1"></i> 
-            </button>
-
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/formazione.html">Formazione</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/direttore.html">Direttore</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/interventistica.html">Interventistica Strutturale</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/cardiologia.html">Cardiologia Clinica</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/patologie.html">Patologie Cardiovascolari</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/incarichi.html">Incarichi Istituzionali</a></li>
-                        </ul>
-                    </li>
-                     <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Info</a>
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/contatti.html">Contatti</a></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="https://www.drgiuseppemusumeci.com/documenti.html">Documenti&Articoli</a></li>
-                           
-                        </ul>
-                    </li>
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://www.drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
-                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
-                    
-                    <li class="nav-item">
-                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                        <div id="user-info" style="display:none; justify-content: space-between; align-items:center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;">
-                            <span id="user-name" class="small fw-bold text-warning me-3"></span>
-                            <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
-                        </div>
-                    </li>
-                </ul>
+            <div id="user-info" style="display:none; align-items:center;">
+                <span id="user-name" class="small fw-bold text-warning me-3"></span>
+                <button onclick="logout()" class="btn btn-outline-light btn-sm">LOGOUT</button>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 text-center">
+    <main class="py-5">
         <div class="container">
-            <h6 class="text-uppercase fw-bold opacity-75 small mb-2" style="color: var(--accent-coral); letter-spacing: 2px;">Change in Cardiology</h6>
-            <h1 class="display-5 fw-bold">Hub Operativo: La Storia</h1>
-            <div class="teal-divider mx-auto"></div>
-        </div>
-    </header>
-
-    <main class="py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto" id="dynamic-content-area">
-                    <div class="text-center py-5" id="loading-spinner">
-                        <div class="spinner-border text-warning"></div>
-                    </div>
+            <div id="dynamic-content-area">
+                <div class="text-center py-5" id="loading-spinner">
+                    <div class="spinner-border text-warning"></div>
                 </div>
             </div>
         </div>
@@ -273,8 +157,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/otpauth/9.1.2/otpauth.umd.min.js"></script>
 
     <script>
+        // CONFIGURAZIONE
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -290,18 +176,18 @@
         const db = firebase.database();
 
         const ADMIN_EMAILS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
-        const OBFUSCATED_PASS = "TWFzY2FsaTE5NzEh"; 
-        let isAdminActive = false;
-        let activeCard = null;
+        const OBFUSCATED_PASS = "TWFzY2FsaTE5NzEh"; // Password Mascali...
+        const TOTP_SECRET = "JBSWY3DPEHPK3PXP"; // Inserisci questa chiave nell'app Authenticator
 
+        let isAdminActive = false;
+        let loginStep = 1;
+
+        // Gestione Auth
         auth.onAuthStateChanged(user => {
             if (user) {
                 const email = user.email.toLowerCase();
-                document.getElementById('btn-login-nav').style.display = 'none';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('user-name').innerText = email.split('@')[0];
-                
-                // Se l'utente è admin, mostra il prompt password
                 if (ADMIN_EMAILS.includes(email) && !isAdminActive) {
                     document.getElementById('password-overlay').style.display = 'flex';
                 }
@@ -309,6 +195,50 @@
             loadRealtimeData();
         });
 
+        // FLUSSO DI SICUREZZA (Pass -> OTP)
+        window.handleSecurityFlow = () => {
+            if (loginStep === 1) {
+                const pass = document.getElementById("system-password").value;
+                if (btoa(pass) === OBFUSCATED_PASS) {
+                    loginStep = 2;
+                    document.getElementById('step-pass').style.display = 'none';
+                    document.getElementById('step-otp').style.display = 'block';
+                    document.getElementById('btn-unlock-action').innerText = "VERIFICA CODICE";
+                } else {
+                    alert("Password Errata");
+                }
+            } else if (loginStep === 2) {
+                const code = document.getElementById("otp-code").value.trim();
+                
+                // Logica TOTP
+                let totp = new OTPAuth.TOTP({
+                    issuer: "Hub",
+                    label: "Admin",
+                    algorithm: "SHA1",
+                    digits: 6,
+                    period: 30,
+                    secret: TOTP_SECRET
+                });
+
+                let isValid = totp.validate({ token: code, window: 1 }); // finestra di tolleranza 1 (30s prima/dopo)
+
+                if (isValid !== null) {
+                    unlockEditor();
+                } else {
+                    alert("Codice errato o scaduto. Riprova.");
+                }
+            }
+        };
+
+        function unlockEditor() {
+            document.getElementById('password-overlay').style.display = 'none';
+            document.getElementById('admin-toolbar').style.display = 'flex';
+            document.body.classList.add('editor-on');
+            isAdminActive = true;
+            loadRealtimeData();
+        }
+
+        // Funzioni Database
         function loadRealtimeData() {
             db.ref('system_pages/storia_change').on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -324,7 +254,7 @@
                         card.innerHTML = item.html || '';
                         if (isAdminActive) {
                             card.setAttribute('contenteditable', 'true');
-                            card.onclick = (e) => { activeCard = card; e.stopPropagation(); };
+                            card.onclick = () => { activeCard = card; };
                         }
                         container.appendChild(card);
                     });
@@ -333,69 +263,9 @@
             });
         }
 
-        window.unlockEditor = () => {
-            const pass = document.getElementById("system-password").value;
-            if (btoa(pass) === OBFUSCATED_PASS) {
-                document.getElementById('password-overlay').style.display = 'none';
-                document.getElementById('admin-toolbar').style.display = 'flex';
-                document.body.classList.add('editor-on');
-                isAdminActive = true;
-                loadRealtimeData();
-            } else { alert("Password Errata"); }
-        };
-
-        // Funzioni Formattazione
-        window.formatText = (cmd, val = null) => {
-            document.execCommand(cmd, false, val);
-        };
-
-        window.addLink = () => {
-            const url = prompt("Inserisci URL:");
-            if(url) formatText('createLink', url);
-        };
-
-        window.addCustomButton = () => {
-            const url = prompt("Inserisci URL del pulsante:");
-            const text = prompt("Testo del pulsante:", "SCOPRI DI PIÙ");
-            if(url && text) {
-                const btnHtml = `<a href="${url}" class="card-action-btn" contenteditable="false">${text}</a>&nbsp;`;
-                document.execCommand('insertHTML', false, btnHtml);
-            }
-        };
-
-        // Funzioni Stile Card
-        window.setCardStyle = (type, val) => {
-            if(!activeCard) return alert("Seleziona prima una card cliccandoci sopra!");
-            if(type === 'bg') activeCard.style.backgroundColor = val;
-            if(type === 'border') activeCard.style.borderLeftColor = val;
-        };
-
-        window.toggleBorderless = () => {
-            if(!activeCard) return alert("Seleziona una card!");
-            activeCard.classList.toggle('borderless');
-        };
-
-        window.addNewCard = () => {
-            const container = document.getElementById('dynamic-content-area');
-            const card = document.createElement('div');
-            card.className = 'epoch-card';
-            card.setAttribute('contenteditable', 'true');
-            card.innerHTML = "<h2>Nuovo Evento</h2><p>Inserisci qui la descrizione...</p>";
-            card.onclick = (e) => { activeCard = card; e.stopPropagation(); };
-            container.prepend(card);
-            activeCard = card;
-        };
-
-        window.deleteSelectedCard = () => {
-            if(activeCard && confirm("Eliminare questa card definitivamente?")) {
-                activeCard.remove();
-                activeCard = null;
-            }
-        };
-
         window.saveToFirebase = () => {
             const btn = document.getElementById('btn-save');
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            btn.innerHTML = 'SALVATAGGIO...';
             const data = Array.from(document.querySelectorAll('.epoch-card')).map((card, idx) => ({
                 id: idx,
                 html: card.innerHTML,
@@ -408,15 +278,9 @@
                 .catch(err => alert("Errore: " + err.message));
         };
 
+        window.formatText = (cmd, val = null) => document.execCommand(cmd, false, val);
         window.closePasswordPrompt = () => document.getElementById('password-overlay').style.display = 'none';
         window.logout = () => auth.signOut().then(() => window.location.reload());
-        
-        // Deseleziona card se clicchi fuori
-        document.addEventListener('click', (e) => {
-            if(!e.target.closest('.epoch-card') && !e.target.closest('#admin-toolbar')) {
-                activeCard = null;
-            }
-        });
     </script>
 </body>
 </html>
