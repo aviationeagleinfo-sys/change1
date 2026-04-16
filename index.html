@@ -9,7 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -82,7 +83,7 @@
         }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--white)!important; }
         .brand-accent { color: var(--titles-gold); }
-        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-uppercase: true; }
+        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
         .nav-link:hover { color: var(--titles-gold)!important; }
         
         .navbar-toggler { color: var(--white); border: none; }
@@ -100,6 +101,19 @@
             background-color: var(--titles-gold); 
             color: var(--bg-main); 
             transform: translateY(-2px); 
+        }
+
+        /* Correzione Dropdown per visibilità */
+        .dropdown-menu {
+            background-color: #2a3d72;
+            border: 1px solid var(--accent-coral);
+        }
+        .dropdown-item {
+            color: var(--text-light);
+        }
+        .dropdown-item:hover {
+            background-color: var(--accent-coral);
+            color: var(--white);
         }
 
         /* === LOGIN UI (ADATTATA) === */
@@ -141,13 +155,9 @@
             padding: 60px 0 30px; 
             border-top: 6px solid var(--titles-gold); 
         }
-        .footerbox {
-            background: rgba(42, 61, 114, 0.95);
-        }
-/* --- FOOTER --- */
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footerbox { background: rgba(42, 61, 114, 0.95); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
-        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
+        .footer-link:hover { color: var(--accent-coral); padding-left: 5px; }
         
         /* === COOKIE BANNER (ADATTATA) === */
         #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--bg-main); color: var(--accent-coral); border: 2px solid var(--accent-coral); z-index: 9998; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -157,6 +167,28 @@
         .btn-reject { background: transparent; color: var(--text-light); border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 5px; }
         .cookie-card h3 { color: var(--titles-gold); }
         .cookie-card a { color: var(--accent-coral); }
+
+        /* Pulsanti Custom in Sidebar */
+        .btn-medical-custom { 
+            background-color: var(--accent-coral); 
+            color: var(--white); 
+            border-radius: 50px; 
+            padding: 12px 35px; 
+            font-weight: 700; 
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .btn-medical-custom:hover { background-color: var(--titles-gold); color: var(--bg-main); transform: translateY(-3px); }
 
         @media (min-width: 992px) {
             .main-wrapper { height: calc(100vh - 200px); overflow: hidden; }
@@ -186,60 +218,59 @@
         </div>
     </div>
 
-     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="https://drgiuseppemusumeci.com/index.html">
-            <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2">
-            <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
-        </a>
-        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <i class="bi bi-list fs-1"></i> 
-        </button>
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="https://drgiuseppemusumeci.com/index.html">
+                <img src="media/changelogoclear.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i> 
+            </button>
 
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item dropdown px-lg-2">
-                    <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
-                    <ul class="dropdown-menu shadow">
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/formazione.html">Formazione</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown px-lg-2">
-                    <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
-                    <ul class="dropdown-menu shadow">
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/direttore.html">Direttore</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/interventistica.html">Interventistica Strutturale</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/cardiologia.html">Cardiologia Clinica</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/patologie.html">Patologie Cardiovascolari</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/incarichi.html">Incarichi Istituzionali</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/media.html">Comunicazione e Media</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown px-lg-2">
-                    <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Info</a>
-                    <ul class="dropdown-menu shadow">
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/contatti.html">Contatti</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/libera-professione.html">Libera Professione</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/documenti.html">Documenti&Articoli</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
-                <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://drgiuseppemusumeci.com/media.html#video">Video</a></li>
-                <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="index.html">Change</a></li>
-                
-                <li class="nav-item">
-                    <a href="https://drgiuseppemusumeci.com/login.html" onclick="window.location.href='https://drgiuseppemusumeci.com/login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                    <div id="user-info">
-                        <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
-                        <button onclick="logout()" class="btn btn-outline-dark btn-sm rounded-0 fw-bold">LOGOUT</button>
-                    </div>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" id="dropChiSono" role="button" data-bs-toggle="dropdown" aria-expanded="false">Chi Sono</a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="dropChiSono">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" id="dropCosaFaccio" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="dropCosaFaccio">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/patologie.html">Patologie Cardiovascolari</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/incarichi.html">Incarichi Istituzionali</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/media.html">Comunicazione e Media</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" id="dropInfo" role="button" data-bs-toggle="dropdown" aria-expanded="false">Info</a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="dropInfo">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/contatti.html">Contatti</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/libera-professione.html">Libera Professione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="https://drgiuseppemusumeci.com/documenti.html">Documenti&Articoli</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://drgiuseppemusumeci.com/eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="index.html">Change</a></li>
+                    
+                    <li class="nav-item">
+                        <a href="https://drgiuseppemusumeci.com/login.html" onclick="window.location.href='https://drgiuseppemusumeci.com/login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-dark btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <header class="profile-header">
         <div class="container text-center text-lg-start">
@@ -264,195 +295,123 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 scroll-column sidebar pt-4">
-                    <div class="sidebar-widget">
+                <div class="col-lg-4 scroll-column sidebar pt-4 text-center">
+                    <div class="sidebar-widget mb-4">
                         <h5 class="widget-title">Parametri di Missione</h5>
                         <ul class="assoc-list" style="list-style: none; padding: 0;">
-                            <li style="padding: 15px; border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600; border-left: 4px solid var(--accent-coral);">
+                            <li style="padding: 15px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; border-left: 4px solid var(--accent-coral); background: var(--dark-overlay);">
                                 <i class="bi bi-activity text-info me-2"></i> Hub Mauriziano: <strong>FULL OPS</strong>
                             </li>
                         </ul>
                     </div>
-                    <style>
-    /* === VARIABILI TEMA DR. MUSUMECI === */
-    :root {
-        --bg-main: #395296;        
-        --titles-gold: #f8c200;    
-        --accent-coral: #eb966a;   
-        --white: #ffffff;
-    }
-
-    /* === LAYOUT DI CENTRAMENTO === */
-    .button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 200px; /* Altezza minima per vedere il centramento */
-        width: 100%;
-    }
-
-    /* === STILE PULSANTE MEDICAL === */
-    .btn-medical-custom { 
-        background-color: var(--accent-coral); 
-        color: var(--white); 
-        border-radius: 50px; 
-        padding: 12px 35px; 
-        font-weight: 700; 
-        font-family: 'Outfit', sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        border: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-    }
-
-    .btn-medical-custom:hover { 
-        background-color: var(--titles-gold); 
-        color: var(--bg-main); 
-        transform: translateY(-3px) scale(1.02); 
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-medical-custom:active {
-        transform: translateY(-1px);
-    }
-
-    /* Icona Bootstrap (se caricata nel progetto) */
-    .btn-medical-custom i {
-        margin-left: 10px;
-        font-size: 1.2rem;
-    }
-</style>
-
-<body>
-    <div class="button-container">
-        <a href="storia.html" class="btn-medical-custom">
-            Inizia il Cambiamento
-           
-        </a>
-    </div>
-    <div class="button-container">
-    <a href="https://whatsapp.com/channel/0029VaDcoLrFsn0aNZcDEn2M" class="btn-medical-custom">
-        <i class="bi bi-whatsapp"></i> &nbsp;
-        Iscriviti al canale Whatsapp del Change
-    </a>
-</div>
-</body>
+                    
+                    <a href="storia.html" class="btn-medical-custom">
+                        Inizia il Cambiamento
+                    </a>
+                    
+                    <a href="https://whatsapp.com/channel/0029VaDcoLrFsn0aNZcDEn2M" class="btn-medical-custom">
+                        <i class="bi bi-whatsapp"></i> &nbsp; Whatsapp Channel
+                    </a>
                 </div>
             </div>
         </div>
     </main>
 
     <div class="footerbox">
-    <footer class="main-footer">
-        <div class="container text-center text-md-start">
-            <div class="row g-5">
-                <div class="col-lg-5">
-                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75">Giuseppe Musumeci MD<br>
-
-Direttore SC Cardiologia,<br>
-AO Ordine Mauriziano Torino<br>
-Largo Turati, 62, Torino, Italy<br>
-tel. +390115082515 <br>
-Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri (ANMCO)</p>
-                    <div class="mt-4">
-                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
-                        <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+        <footer class="main-footer">
+            <div class="container text-center text-md-start">
+                <div class="row g-5">
+                    <div class="col-lg-5">
+                        <div class="footer-logo mb-3 fw-bold">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                        <p class="opacity-75">Giuseppe Musumeci MD<br>
+                        Direttore SC Cardiologia,<br>
+                        AO Ordine Mauriziano Torino<br>
+                        Largo Turati, 62, Torino, Italy<br>
+                        tel. +39 011 5082515 <br>
+                        Presidente ANMCO Piemonte</p>
+                        <div class="mt-4">
+                            <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                        <nav>
+                            <a href="index.html" class="footer-link">Home</a>
+                            <a href="login.html" class="footer-link">Accesso</a>
+                            <a href="https://drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
+                            <a href="storia.html" class="footer-link">Storia</a>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-lg-4">
+                        <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                        <nav>
+                            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                            <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                        </nav>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
-                    <nav>
-                        <a href="index.html" class="footer-link">Home</a>
-                        <a href="login.html" class="footer-link">Accesso</a>
-                        <a href="https://drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
-                         <a href="storia.html" class="footer-link">Storia</a>
-                        <a href="congresso.html" class="footer-link">Dove&Quando</a>
-                        <a href="partecipa.html" class="footer-link">Partecipa anche Tu!</a>
-                    </nav>
-                </div>
-                <div class="col-6 col-lg-4">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
-                    <nav>
-                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
-                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
-                    </nav>
+                <div class="footer-bottom mt-5 border-top pt-4">
+                    <p class="mb-0 small opacity-50">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
                 </div>
             </div>
-            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
-                
-            </div>
-        </div>
-    </footer>
+        </footer>
     </div>
-   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-<script>
-    // --- CONFIGURAZIONE CORE ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-        authDomain: "giuseppe-4c318.firebaseapp.com",
-        projectId: "giuseppe-4c318",
-        storageBucket: "giuseppe-4c318.firebasestorage.app",
-        messagingSenderId: "658885311131",
-        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
-    };
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-    const auth = firebase.auth();
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
 
-    // --- MONITORAGGIO STATO AUTENTICAZIONE ---
-    auth.onAuthStateChanged((user) => {
-        const btnLogin = document.getElementById("btn-login-nav");
-        const userInfo = document.getElementById("user-info");
-        const userName = document.getElementById("user-name");
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
 
-        if (user) {
-            // Utente Loggato: Configurazione Hub Attiva
-            btnLogin.style.display = "none";
-            userInfo.style.display = "flex";
-            // Mostra nome se disponibile (da Social), altrimenti usa la parte prima della @ dell'email
-            userName.textContent = user.displayName || user.email.split('@')[0];
-        } else {
-            // Utente Guest: Configurazione Standard
-            btnLogin.style.display = "inline-block";
-            userInfo.style.display = "none";
-        }
-    });
+        auth.onAuthStateChanged((user) => {
+            const btnLogin = document.getElementById("btn-login-nav");
+            const userInfo = document.getElementById("user-info");
+            const userName = document.getElementById("user-name");
 
-    // --- FUNZIONI OPERATIVE ---
-    function logout() {
-        auth.signOut().then(() => {
-            window.location.reload();
-        }).catch((error) => {
-            console.error("Errore durante il logout:", error);
+            if (user) {
+                btnLogin.style.display = "none";
+                userInfo.style.display = "flex";
+                userName.textContent = user.displayName || user.email.split('@')[0];
+            } else {
+                btnLogin.style.display = "inline-block";
+                userInfo.style.display = "none";
+            }
         });
-    }
 
-    // --- LOGICA CONSENSO COOKIE ---
-    const currentConsent = localStorage.getItem('ae_cookie_consent');
-    if (!currentConsent) document.getElementById('cookie-overlay').style.display = 'flex';
-
-    function updateConsent(status) {
-        localStorage.setItem('ae_cookie_consent', status);
-        if (typeof gtag === 'function') {
-            gtag('consent', 'update', { 'analytics_storage': status });
+        function logout() {
+            auth.signOut().then(() => {
+                window.location.reload();
+            });
         }
-        document.getElementById('cookie-overlay').style.display = 'none';
-    }
 
-    function toggleCookieBanner() {
-        const overlay = document.getElementById('cookie-overlay');
-        overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-    }
-</script>
+        const currentConsent = localStorage.getItem('ae_cookie_consent');
+        if (!currentConsent) document.getElementById('cookie-overlay').style.display = 'flex';
+
+        function updateConsent(status) {
+            localStorage.setItem('ae_cookie_consent', status);
+            if (typeof gtag === 'function') {
+                gtag('consent', 'update', { 'analytics_storage': status });
+            }
+            document.getElementById('cookie-overlay').style.display = 'none';
+        }
+
+        function toggleCookieBanner() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
 </body>
 </html>
