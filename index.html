@@ -10,24 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied'
-      });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HYME8VH6Y5');
-    </script>
 
     <style>
         /* === DEFINIZIONE PALETTE CROMATICA RICHIESTA === */
@@ -103,7 +85,6 @@
             transform: translateY(-2px); 
         }
 
-        /* Correzione Dropdown per visibilità */
         .dropdown-menu {
             background-color: #2a3d72;
             border: 1px solid var(--accent-coral);
@@ -119,7 +100,6 @@
         /* === LOGIN UI (ADATTATA) === */
         #user-info { display: none; align-items: center; gap: 15px; background: var(--dark-overlay); padding: 5px 15px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
         #user-name { font-size: 0.75rem; font-weight: 700; color: var(--titles-gold); }
-        .btn-logout { background: none; border: 1px solid var(--accent-coral); color: var(--accent-coral); font-size: 0.7rem; padding: 2px 10px; border-radius: 4px; }
 
         /* === HEADER (ADATTATA) === */
         .profile-header { padding: 80px 0 40px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -158,15 +138,6 @@
         .footerbox { background: rgba(42, 61, 114, 0.95); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--accent-coral); padding-left: 5px; }
-        
-        /* === COOKIE BANNER (ADATTATA) === */
-        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--bg-main); color: var(--accent-coral); border: 2px solid var(--accent-coral); z-index: 9998; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .cookie-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
-        .cookie-card { background: #2a3d72; color: var(--text-light); padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid var(--accent-coral); }
-        .btn-accept { background: var(--accent-coral); color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; }
-        .btn-reject { background: transparent; color: var(--text-light); border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 5px; }
-        .cookie-card h3 { color: var(--titles-gold); }
-        .cookie-card a { color: var(--accent-coral); }
 
         /* Pulsanti Custom in Sidebar */
         .btn-medical-custom { 
@@ -201,22 +172,6 @@
 
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
-
-    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
-        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
-    </button>
-
-    <div id="cookie-overlay" class="cookie-overlay">
-        <div class="cookie-card text-center">
-            <h3>Consenso ai Cookie</h3>
-            <p>Ottimizza la tua rotta navigazionale abilitando i cookie di analisi.</p>
-            <div class="cookie-actions d-flex gap-2 justify-content-center">
-                <button onclick="updateConsent('granted')" class="btn-accept">ACCETTA TUTTI</button>
-                <button onclick="updateConsent('denied')" class="btn-reject">SOLO NECESSARI</button>
-            </div>
-            <p class="small mt-3"><a href="/privacy">Leggi la Privacy Policy</a></p>
-        </div>
-    </div>
 
     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
@@ -338,13 +293,13 @@
                     <div class="col-6 col-lg-3">
                         <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
                         <nav>
-                        <a href="index.html" class="footer-link">Home</a>
-                        <a href="login.html" class="footer-link">Accesso</a>
-                        <a href="https://drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
-                         <a href="storia.html" class="footer-link">Storia</a>
-                        <a href="congresso.html" class="footer-link">Dove&Quando</a>
-                        <a href="partecipa.html" class="footer-link">Partecipa anche Tu!</a>
-                    </nav>
+                            <a href="index.html" class="footer-link">Home</a>
+                            <a href="login.html" class="footer-link">Accesso</a>
+                            <a href="https://drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
+                             <a href="storia.html" class="footer-link">Storia</a>
+                            <a href="congresso.html" class="footer-link">Dove&Quando</a>
+                            <a href="partecipa.html" class="footer-link">Partecipa anche Tu!</a>
+                        </nav>
                     </div>
                     <div class="col-6 col-lg-4">
                         <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
@@ -399,22 +354,158 @@
                 window.location.reload();
             });
         }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
 
-        const currentConsent = localStorage.getItem('ae_cookie_consent');
-        if (!currentConsent) document.getElementById('cookie-overlay').style.display = 'flex';
+<script>
+    // 2. INIZIALIZZAZIONE MOTORE ANALYTICS (Deve stare prima di tutto)
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    // Leggiamo subito se c'è un consenso salvato
+    const initialConsent = localStorage.getItem('cookie_consent_status') === 'granted' ? 'granted' : 'denied';
+    
+    gtag('consent', 'default', {
+        'analytics_storage': initialConsent,
+        'ad_storage': initialConsent,
+        'ad_user_data': initialConsent,
+        'ad_personalization': initialConsent
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-HYME8VH6Y5');
+</script>
 
-        function updateConsent(status) {
-            localStorage.setItem('ae_cookie_consent', status);
-            if (typeof gtag === 'function') {
-                gtag('consent', 'update', { 'analytics_storage': status });
-            }
-            document.getElementById('cookie-overlay').style.display = 'none';
-        }
+<style>
+    /* 3. STILE COORDINATO SUL SITO CHANGE */
+    :root {
+        --brand-blue: #395296;    /* Sfondo Change */
+        --brand-gold: #f8c200;    /* Titoli Change */
+        --brand-coral: #eb966a;   /* Accenti/Bottoni Change */
+        --brand-text: #d6dcea;    /* Testo chiaro Change */
+    }
 
-        function toggleCookieBanner() {
+    #cookie-settings-trigger {
+        position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px;
+        border-radius: 50%; background: var(--brand-blue); color: var(--brand-coral);
+        border: 2px solid var(--brand-coral); cursor: pointer; z-index: 9998;
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--brand-coral); color: white; }
+
+    .cookie-overlay {
+        position: fixed; inset: 0; background: rgba(26, 38, 71, 0.9); /* Versione scura del blu brand */
+        backdrop-filter: blur(8px); z-index: 9999; display: none;
+        align-items: center; justify-content: center; padding: 20px;
+    }
+
+    .cookie-card {
+        background: var(--brand-blue); color: var(--brand-text); padding: 35px;
+        max-width: 450px; width: 100%; border-top: 6px solid var(--brand-coral);
+        border-radius: 0 0 15px 15px;
+        text-align: center; font-family: 'Inter', sans-serif;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .cookie-card h3 { 
+        color: var(--brand-gold); 
+        font-family: 'Outfit', sans-serif; 
+        margin: 15px 0; 
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .cookie-actions { display: flex; gap: 12px; margin-top: 25px; }
+    .btn-cookie { flex: 1; padding: 14px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; border-radius: 4px; }
+    
+    .btn-accept { background: var(--brand-coral); color: white; }
+    .btn-accept:hover { background: var(--brand-gold); color: var(--brand-blue); }
+    
+    .btn-reject { background: rgba(255,255,255,0.1); color: var(--brand-text); border: 1px solid rgba(214, 220, 234, 0.2); }
+    .btn-reject:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    .privacy-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: var(--brand-coral);
+        font-size: 0.8rem;
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: 0.3s;
+    }
+    .privacy-link:hover { color: var(--brand-gold); }
+</style>
+
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()">
+    <i class="bi bi-gear-fill fs-5"></i>
+</button>
+
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card">
+        <i class="bi bi-shield-lock-fill" style="font-size: 3rem; color: var(--brand-coral);"></i>
+        <h3>Privacy & Cookie</h3>
+        <p style="font-size: 0.95rem; opacity: 0.9;">Ottimizza la tua rotta navigazionale abilitando i cookie di analisi per migliorare l'esperienza sul sito.</p>
+        <div class="cookie-actions">
+            <button onclick="handleConsent('granted')" class="btn-cookie btn-accept">Accetta Tutti</button>
+            <button onclick="handleConsent('denied')" class="btn-cookie btn-reject">Solo Necessari</button>
+        </div>
+        <a href="privacy.html" class="privacy-link">VISITA L'INFORMATIVA SULLA PRIVACY</a>
+    </div>
+</div>
+
+<script>
+    // 5. LOGICA OPERATIVA
+    (function() {
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Funzione per mostrare/nascondere
+        window.toggleCookieBanner = function() {
             const overlay = document.getElementById('cookie-overlay');
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-        }
-    </script>
+        };
+
+        // Funzione per salvare il consenso e parlare con Google
+        window.handleConsent = function(status) {
+            localStorage.setItem('cookie_consent_status', status);
+            sessionStorage.setItem('cookie_banner_shown_session', 'true');
+
+            // AGGIORNAMENTO REALE GA4
+            gtag('consent', 'update', {
+                'analytics_storage': status,
+                'ad_storage': status,
+                'ad_user_data': status,
+                'ad_personalization': status
+            });
+
+            document.getElementById('cookie-overlay').style.display = 'none';
+            console.log("Consenso GA4 inviato: " + status);
+        };
+
+        // Controllo Auth + Sessione
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                const alreadySet = localStorage.getItem('cookie_consent_status');
+                const seenThisSession = sessionStorage.getItem('cookie_banner_shown_session');
+
+                if (!alreadySet && !seenThisSession) {
+                    setTimeout(toggleCookieBanner, 1500);
+                }
+            }
+        });
+    })();
+</script>
 </body>
 </html>
