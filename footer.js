@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
                     <nav>
                         <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <a href="termini&condizioni" class="footer-link">Termini & Condizioni d'Uso</a>
                         <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
                     </nav>
                 </div>
