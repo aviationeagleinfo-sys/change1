@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const footerStyle = document.createElement('style');
     footerStyle.textContent = `
         .main-footer { 
-            background-color: rgba(0,0,0,0.2); 
+            background-color: rgba(34,49,92,0.2); 
             color: var(--text-light); 
             padding: 60px 0 30px; 
             border-top: 6px solid var(--titles-gold); 
