@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="index.html" class="footer-link">Home</a>
                         <a href="login.html" class="footer-link">Accesso</a>
                         <a href="https://drgiuseppemusumeci.com/news.html" class="footer-link">Aggiornamenti</a>
+                        <a href="https://drgiuseppemusumeci.com/security/operatori.html" class="footer-link">Operatori - RESERVED</a>
                         <a href="congresso" class="footer-link">dove & Quando</a>
                         <a href="storia.html" class="footer-link">Storia del Congresso</a>
                         <a href="partecipa" class="footer-link">Partecipa anche Tu!</a>
