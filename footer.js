@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <nav>
                         <a href="privacy.html" class="footer-link">Privacy Policy</a>
                         <a href="termini&condizioni" class="footer-link">Termini & Condizioni d'Uso</a>
+                        <a href="https://account.drgiuseppemusumeci.com/account/" class="footer-link">Modifiche Account</a>
                         <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
                     </nav>
                 </div>
