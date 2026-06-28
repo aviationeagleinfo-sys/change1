@@ -53,15 +53,8 @@
         }
         .col-left { left: 15px; } .col-right { right: 15px; }
 
-        /* === NAVBAR === */
-        .navbar { background: rgba(42, 61, 114, 0.95); border-bottom: 4px solid var(--accent-coral); backdrop-filter: blur(10px); }
-        .brand-accent { color: var(--titles-gold); }
-        .nav-link { color: var(--text-light)!important; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
-        .nav-link:hover { color: var(--titles-gold)!important; }
-        .btn-medical { background-color: var(--accent-coral); color: var(--white); border-radius: 50px; padding: 8px 20px; font-weight: 700; border: none; transition: 0.3s; }
-        .btn-medical:hover { background-color: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
-/* === NAVBAR (ADATTATA) === */
-       .navbar { 
+        /* === NAVBAR (ADATTATA) === */
+        .navbar { 
             background: rgba(42, 61, 114, 0.95); 
             border-bottom: 4px solid var(--accent-coral); 
             padding: 1rem 0; 
@@ -83,6 +76,10 @@
             border: none; transition: 0.3s; 
         }
         .btn-medical:hover { background-color: var(--titles-gold); color: var(--bg-main); transform: translateY(-2px); }
+
+        /* === LOGIN UI INTEGRATA === */
+        #user-info { display: none; align-items: center; gap: 15px; background: var(--dark-overlay); padding: 5px 15px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
+        #user-name { font-size: 0.75rem; font-weight: 700; color: var(--titles-gold); }
 
         /* === NUOVE SEZIONI: COUNTDOWN & EVENTO === */
         .countdown-container { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
@@ -116,6 +113,8 @@
         .overlay-lock {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(57, 82, 150, 0.6); 
+            backdrop-filter: blur(2px); 
             z-index: 10; text-align: center; padding: 20px;
         }
         .lock-box { 
@@ -130,60 +129,53 @@
 
         /* Cookie Banner */
         #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--bg-main); color: var(--accent-coral); border: 2px solid var(--accent-coral); z-index: 9998; display: flex; align-items: center; justify-content: center; }
+        
         .faculty-item {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    padding: 12px 18px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border-left: 3px solid var(--accent-coral);
-    border-radius: 0 12px 12px 0;
-    transition: all 0.3s ease;
-}
+            list-style: none;
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--accent-coral);
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
 
-.faculty-item:hover {
-    background: rgba(255, 255, 255, 0.07);
-    transform: translateX(10px);
-    border-left-color: var(--titles-gold);
-}
+        .faculty-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateX(10px);
+            border-left-color: var(--titles-gold);
+        }
 
-.faculty-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--titles-gold);
-    border-radius: 50%;
-    margin-right: 15px;
-    box-shadow: 0 0 10px rgba(248, 194, 0, 0.5);
-}
+        .faculty-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--titles-gold);
+            border-radius: 50%;
+            margin-right: 15px;
+            box-shadow: 0 0 10px rgba(248, 194, 0, 0.5);
+        }
 
-.faculty-content {
-    display: flex;
-    flex-direction: column;
-}
+        .faculty-content {
+            display: flex;
+            flex-direction: column;
+        }
 
-.faculty-name {
-    font-weight: 600;
-    color: var(--white);
-    font-size: 1.1rem;
-    line-height: 1.2;
-}
+        .faculty-name {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 1.1rem;
+            line-height: 1.2;
+        }
 
-.faculty-location {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    opacity: 0.8;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.overlay-lock {
-    position: absolute; 
-    top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    background: rgba(57, 82, 150, 0.6); /* Un velo blu sopra lo sfocato */
-    backdrop-filter: blur(2px); /* Extra protezione */
-    z-index: 10; 
-}
+        .faculty-location {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
@@ -191,12 +183,9 @@
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
-   <!-- Gancio vuoto che prenderà le classi Bootstrap e l'HTML dallo script -->
-<nav class="navbar navbar-expand-lg sticky-top shadow-lg" id="global-navbar"></nav>
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg" id="global-navbar"></nav>
 
-<!-- Richiamo al file navbar.js -->
-<script src="navbar.js?v=2012"></script>
-
+    <script src="navbar.js?v=2012"></script>
 
     <header class="py-5 mt-4">
         <div class="container text-center">
@@ -227,7 +216,7 @@
                     <h3 class="mb-4"><i class="bi bi-person-lines-fill me-2"></i>Contatti Segreteria</h3>
                     <p class="small">Per info logistiche:<br>
                     <a href="mailto:change@summet.it" class="text-white text-decoration-none">change@summet.it</a><br>
-                        <a href="mailto:change@drgiuseppemusumeci.com" class="text-white text-decoration-none">change@drgiuseppemusumeci.com</a><br>
+                    <a href="mailto:change@drgiuseppemusumeci.com" class="text-white text-decoration-none">change@drgiuseppemusumeci.com</a><br>
                    </p>
                 </div>
             </div>
@@ -235,7 +224,7 @@
             <div class="col-lg-7">
                 <div class="map-frame h-100">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2819.646545367623!2d7.663183476632607!3d45.03233896220641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886d38e219717f%3A0xc3e6559092419080!2sCentro%20Congressi%20Lingotto!5e0!3m2!1sit!2sit!4v1709565000000!5m2!1sit!2sit" 
-    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
@@ -246,173 +235,164 @@
             </button>
         </div>
 
-       <section id="extra-info" style="display: none;">
-    <div class="locked-wrapper shadow-lg position-relative">
-        
-        <div class="blurred-content p-4 p-md-5">
-            <h2 class="mb-4">Ospiti Internazionali</h2>
-            
-            <ul class="ps-0"> <li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Gian Battista Chierchia</span>
-        <span class="faculty-location">Belgio 🇧🇪</span>
-    </div>
-</li>
+        <section id="extra-info" style="display: none;">
+            <div class="locked-wrapper shadow-lg position-relative">
+                
+                <div class="blurred-content p-4 p-md-5">
+                    <h2 class="mb-4">Ospiti Internazionali</h2>
+                    
+                    <ul class="ps-0"> 
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Gian Battista Chierchia</span>
+                                <span class="faculty-location">Belgio 🇧🇪</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Klaus Parhofer</span>
+                                <span class="faculty-location">Germania 🇩🇪</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Dror Dicker</span>
+                                <span class="faculty-location">Israele 🇮🇱</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Maoto Habara</span>
+                                <span class="faculty-location">Giappone 🇯🇵</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Salvatore Brugaletta</span>
+                                <span class="faculty-location">Spagna 🇪🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Gianluigi Savarese</span>
+                                <span class="faculty-location">Svezia 🇸🇪</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Jessica Sandra Schubert</span>
+                                <span class="faculty-location">Svezia 🇸🇪</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Francesco Fulvio Faletra</span>
+                                <span class="faculty-location">Svizzera 🇨🇭</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Hassan El Tamimi</span>
+                                <span class="faculty-location">Emirati Arabi Uniti 🇦🇪</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Shehab Abdulla</span>
+                                <span class="faculty-location">Emirati Arabi Uniti 🇦🇪</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Dominick Joseph Angiolillo</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Georges Dangas</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Howard Feldman</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Ik-Kyung Jang</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Marc Bonaca</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Marc Steve Sabatine</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                        <li class="faculty-item">
+                            <span class="faculty-dot"></span>
+                            <div class="faculty-content">
+                                <span class="faculty-name">Roxana Mehran</span>
+                                <span class="faculty-location">U.S.A. 🇺🇸</span>
+                            </div>
+                        </li>
+                    </ul>
 
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Klaus Parhofer</span>
-        <span class="faculty-location">Germania 🇩🇪</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Dror Dicker</span>
-        <span class="faculty-location">Israele 🇮🇱</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Maoto Habara</span>
-        <span class="faculty-location">Giappone 🇯🇵</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Salvatore Brugaletta</span>
-        <span class="faculty-location">Spagna 🇪🇸</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Gianluigi Savarese</span>
-        <span class="faculty-location">Svezia 🇸🇪</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Jessica Sandra Schubert</span>
-        <span class="faculty-location">Svezia 🇸🇪</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Francesco Fulvio Faletra</span>
-        <span class="faculty-location">Svizzera 🇨🇭</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Hassan El Tamimi</span>
-        <span class="faculty-location">Emirati Arabi Uniti 🇦🇪</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Shehab Abdulla</span>
-        <span class="faculty-location">Emirati Arabi Uniti 🇦🇪</span>
-    </div>
-</li>
-
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Dominick Joseph Angiolillo</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Georges Dangas</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Howard Feldman</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Ik-Kyung Jang</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Marc Bonaca</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Marc Steve Sabatine</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-<li class="faculty-item">
-    <span class="faculty-dot"></span>
-    <div class="faculty-content">
-        <span class="faculty-name">Roxana Mehran</span>
-        <span class="faculty-location">U.S.A. 🇺🇸</span>
-    </div>
-</li>
-            </ul>
-
-            <div class="mt-5 p-4 bg-dark bg-opacity-25 rounded-4">
-                <p><i class="bi bi-clock me-2 text-gold"></i> <strong>Lunch Break:</strong> Networking con i direttori regionali ANMCO.</p>
-                <p><i class="bi bi-broadcast me-2 text-gold"></i> <strong>Sessioni pomeridiane:</strong> Live Case dalla sala di emodinamica del Mauriziano.</p>
-                <div class="text-center mt-4">
-                    <a href="media/programma.pdf" class="btn btn-medical px-5">SCARICA IL PROGRAMMA PDF</a>
+                    <div class="mt-5 p-4 bg-dark bg-opacity-25 rounded-4">
+                        <p><i class="bi bi-clock me-2 text-gold"></i> <strong>Lunch Break:</strong> Networking con i direttori regionali ANMCO.</p>
+                        <p><i class="bi bi-broadcast me-2 text-gold"></i> <strong>Sessioni pomeridiane:</strong> Live Case dalla sala di emodinamica del Mauriziano.</p>
+                        <div class="text-center mt-4">
+                            <a href="media/programma.pdf" class="btn btn-medical px-5">SCARICA IL PROGRAMMA PDF</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="overlay-lock">
-            <div class="lock-box text-center">
-                <i class="bi bi-lock-fill display-1 text-gold mb-3"></i>
-                <h2 class="text-white">Accesso Riservato</h2>
-                <p class="opacity-75 mb-4">Il programma completo e i materiali scaricabili sono riservati ai membri dell'Hub.<br>Esegui l'accesso o registrati per continuare.</p>
-                <div class="d-flex gap-3 justify-content-center flex-wrap">
-                    <a href="login.html" class="btn btn-medical px-4">ACCEDI</a>
-                    <a href="partecipa.html" class="btn btn-outline-light rounded-pill px-4">REGISTRATI</a>
+                <div class="overlay-lock">
+                    <div class="lock-box text-center">
+                        <i class="bi bi-lock-fill display-1 text-gold mb-3"></i>
+                        <h2 class="text-white">Accesso Riservato</h2>
+                        <p class="opacity-75 mb-4">Il programma completo e i materiali scaricabili sono riservati ai membri dell'Hub.<br>Esegui l'accesso o registrati per continuare.</p>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a href="login.html" class="btn btn-medical px-4">ACCEDI</a>
+                            <a href="partecipa.html" class="btn btn-outline-light rounded-pill px-4">REGISTRATI</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
-</section>
+            </div>
+        </section>
     </main>
 
-    <!-- Il gancio centrale che richiama la classe Bootstrap e l'ID per lo script -->
-<footer class="main-footer" id="global-footer"></footer>
+    <footer class="main-footer" id="global-footer"></footer>
 
-<!-- Richiamo al file footer.js -->
-<script src="footer.js?v=1948"></script>
+    <script src="footer.js?v=1948"></script>
 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script type="module">
         // 1. Importa i moduli necessari da Firebase tramite CDN
@@ -453,7 +433,7 @@
                 if (btnLoginNav) btnLoginNav.style.display = "none";
                 if (userInfo) userInfo.style.display = "flex";
                 // Mostra il nome dell'utente o la sua email se il nome non è impostato
-                if (userName) userName.textContent = user.displayName || user.email || "Membro Hub";
+                if (userName) userName.textContent = user.displayName || user.email.split('@')[0] || "Membro Hub";
 
                 // UTENTE LOGGATO: Sblocca i contenuti nascosti
                 if (overlayLock) overlayLock.style.display = "none";
@@ -477,11 +457,8 @@
         });
 
         // --- FUNZIONE DI LOGOUT ---
-        // Essendo in un modulo, dobbiamo esporre la funzione all'oggetto window
-        // affinché l'attributo onclick="logout()" nell'HTML possa trovarla
         window.logout = function() {
             signOut(auth).then(() => {
-                // Il ricaricamento o l'aggiornamento UI avverrà automaticamente grazie a onAuthStateChanged
                 console.log("Logout effettuato con successo");
                 window.location.reload(); 
             }).catch((error) => {
@@ -525,11 +502,10 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
 
 <script>
-    // 2. INIZIALIZZAZIONE MOTORE ANALYTICS (Deve stare prima di tutto)
+    // 2. INIZIALIZZAZIONE MOTORE ANALYTICS
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     
-    // Leggiamo subito se c'è un consenso salvato
     const initialConsent = localStorage.getItem('cookie_consent_status') === 'granted' ? 'granted' : 'denied';
     
     gtag('consent', 'default', {
@@ -545,10 +521,10 @@
 <style>
     /* 3. STILE COORDINATO SUL SITO CHANGE */
     :root {
-        --brand-blue: #395296;    /* Sfondo Change */
-        --brand-gold: #f8c200;    /* Titoli Change */
-        --brand-coral: #eb966a;   /* Accenti/Bottoni Change */
-        --brand-text: #d6dcea;    /* Testo chiaro Change */
+        --brand-blue: #395296;    
+        --brand-gold: #f8c200;    
+        --brand-coral: #eb966a;   
+        --brand-text: #d6dcea;    
     }
 
     #cookie-settings-trigger {
@@ -561,7 +537,7 @@
     #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--brand-coral); color: white; }
 
     .cookie-overlay {
-        position: fixed; inset: 0; background: rgba(26, 38, 71, 0.9); /* Versione scura del blu brand */
+        position: fixed; inset: 0; background: rgba(26, 38, 71, 0.9); 
         backdrop-filter: blur(8px); z-index: 9999; display: none;
         align-items: center; justify-content: center; padding: 20px;
     }
@@ -623,7 +599,7 @@
 </div>
 
 <script>
-    // 5. LOGICA OPERATIVA
+    // 5. LOGICA OPERATIVA COOKIE
     (function() {
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
@@ -635,18 +611,15 @@
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Funzione per mostrare/nascondere
         window.toggleCookieBanner = function() {
             const overlay = document.getElementById('cookie-overlay');
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         };
 
-        // Funzione per salvare il consenso e parlare con Google
         window.handleConsent = function(status) {
             localStorage.setItem('cookie_consent_status', status);
             sessionStorage.setItem('cookie_banner_shown_session', 'true');
 
-            // AGGIORNAMENTO REALE GA4
             gtag('consent', 'update', {
                 'analytics_storage': status,
                 'ad_storage': status,
@@ -658,7 +631,6 @@
             console.log("Consenso GA4 inviato: " + status);
         };
 
-        // Controllo Auth + Sessione
         auth.onAuthStateChanged((user) => {
             if (!user) {
                 const alreadySet = localStorage.getItem('cookie_consent_status');
